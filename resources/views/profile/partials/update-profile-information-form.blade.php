@@ -13,6 +13,17 @@
         @csrf
     </form>
 
+    <img src="{{Storage::disk('do')->url('avatar/' . Auth::user()->avatar)}}" alt="">
+
+    <form method="post" action="{{ route('profile.image.store') }}" enctype="multipart/form-data">
+        @csrf
+        <input id="ImageFile" type="file" class="form-control" name="ImageFile" required autocomplete="avatar">
+        <button type="submit" class="btn btn-primary">
+                                    {{ __('Upload Profile') }}
+        </button>
+        <x-input-error class="mt-2" :messages="$errors->get('ImageFile')" />
+    </form>
+
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
