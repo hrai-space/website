@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DoSpacesController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainController::class, 'home'])->name('home');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('profile.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('game', GameController::class);
+});
 
 
 Route::middleware('auth')->group(function () {
