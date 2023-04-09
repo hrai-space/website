@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DigitalOceanDeleteImageRequest;
 use App\Http\Requests\DigitalOceanStoreImageRequest;
+use App\Http\Requests\DigitalOceanStoreTempImageRequest;
+use App\Models\Temp_File;
 use App\Providers\CdnService as ProvidersCdnService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -34,6 +36,29 @@ class DoSpacesController extends Controller
         $user->save();
 
         return Redirect::route('profile.edit');
+    }
+
+    public function storeTempFile(DigitalOceanStoreTempImageRequest $request)
+    {
+        $files = $request->file('ImageFile');
+        $fileNames = [];
+
+        foreach($files as $file){
+            $fileName = (string) Str::uuid();
+            $folder = "images";
+            Storage::disk('do')->put(
+                "{$folder}/{$fileName}",
+                file_get_contents($file),['ACL' => 'public-read'],
+            );
+            
+            $temp_file = new Temp_File();
+            $temp_file->file = $fileName;
+            $temp_file->save();
+            array_push($fileNames, $fileName);
+        }
+
+
+        return response()->json(['success'=>$fileNames]);
     }
 
     public function delete(DigitalOceanDeleteImageRequest $request)
