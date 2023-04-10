@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DigitalOceanDeleteImageRequest;
 use App\Http\Requests\DigitalOceanStoreImageRequest;
+use App\Http\Requests\DigitalOceanStoreTempFileRequest;
 use App\Http\Requests\DigitalOceanStoreTempImageRequest;
 use App\Models\Temp_File;
 use App\Providers\CdnService as ProvidersCdnService;
@@ -61,13 +62,62 @@ class DoSpacesController extends Controller
         return response()->json(['success'=>$fileNames]);
     }
 
+    public function storeTempGameFile(DigitalOceanStoreTempFileRequest $request)
+    {
+        $files = $request->file('GameFile');
+        $fileNames = [];
+
+        foreach($files as $file){
+            $fileName = (string) Str::uuid();
+            $folder = "files";
+            Storage::disk('do')->put(
+                "{$folder}/{$fileName}",
+                file_get_contents($file),['ACL' => 'public-read'],
+            );
+            
+            $temp_file = new Temp_File();
+            $temp_file->file = $fileName;
+            $temp_file->save();
+            array_push($fileNames, $fileName);
+        }
+
+
+        return response()->json(['success'=>$fileNames]);
+    }
+
     public function delete(DigitalOceanDeleteImageRequest $request)
     {
         $fileName = $request->validated()['ImageFileName'];
         $folder = "images";
 
         Storage::disk('do')->delete("{$folder}/{$fileName}");
-        $this->cdnService->purge($fileName);
+        //$this->cdnService->purge($fileName);
+
+        return response()->json(['message' => 'File deleted'], 200);
+    }
+
+    public function deleteTempFile(DigitalOceanDeleteImageRequest $request)
+    {
+        $fileName = $request->validated()['FileName'];
+        $folder = "images";
+
+        Storage::disk('do')->delete("{$folder}/{$fileName}");
+        //$this->cdnService->purge($fileName);
+
+        Temp_File::where('file', $fileName)->delete();
+
+        return response()->json(['message' => 'File deleted'], 200);
+    }
+
+    public function deleteTempGameFile(DigitalOceanDeleteImageRequest $request)
+    {
+        $fileName = $request->validated()['FileName'];
+        $folder = "files";
+
+        Storage::disk('do')->delete("{$folder}/{$fileName}");
+        //$this->cdnService->purge($fileName);
+
+        Temp_File::where('file', $fileName)->delete();
 
         return response()->json(['message' => 'File deleted'], 200);
     }
