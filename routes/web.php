@@ -17,11 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [MainController::class, 'home'])->name('home');
+
 
 Route::get('/dashboard', function () {
     return view('profile.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/', [MainController::class, 'home'])->name('home');
+Route::get('/game/{game_id}', [MainController::class, 'game'])->name('game');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('game', GameController::class);

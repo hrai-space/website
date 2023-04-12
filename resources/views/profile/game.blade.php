@@ -1,35 +1,23 @@
 @extends('layouts.app')
 
 @section('main_content')
-<style>
-    #myProgress {
-        width: 100%;
-        background-color: grey;
-    }
-
-    #myBar {
-        width: 1%;
-        height: 30px;
-        background-color: green;
-    }
-</style>
 
 <div class="container">
     <div class="row">
         <div class="col-lg-4">
-            <form>
+            <form method="POST" action="{{route('game.store')}}">
                 @csrf
                 <div class="mb-3">
                     <label for="exampleInputEmail" class="form-label">Title</label>
-                    <input type="text" class="form-control" id="exampleInputEmail">
+                    <input type="text" class="form-control" name="title">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail" class="form-label">Short desciption</label>
-                    <input type="text" class="form-control" id="exampleInputEmail">
+                    <input type="text" class="form-control" name="short_description">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail" class="form-label">Description</label>
-                    <input type="text" class="form-control" id="exampleInputEmail">
+                    <input type="text" class="form-control" name="description">
                 </div>
                 <label for="exampleInputEmail" class="form-label">Game file</label>
                 <div class="input-group">
@@ -39,9 +27,16 @@
                 <div class="files">
                 </div>
                 <label for="exampleInputEmail" class="form-label">Genre</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option value="1" selected>Action</option>
-                    <option value="2">Acronim</option>
+                <select class="form-select" name="genre">
+                    @foreach($genres as $genre)
+                    <option value="{{$genre->id}}">{{$genre->name}}</option>
+                    @endforeach
+                </select>
+                <label for="exampleInputEmail" class="form-label">Tags</label>
+                <select class="form-select" id="tags-select" name="tags[]" multiple="multiple">
+                    @foreach($tags as $tag)
+                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                    @endforeach
                 </select>
                 <label for="exampleInputEmail" class="form-label">Screenshots</label>
                 <div class="input-group">
@@ -57,6 +52,11 @@
 </div>
 
 <script>
+
+    $(document).ready(function() {
+        $('#tags-select').select2();
+    });
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -99,7 +99,7 @@
                         $('<p>' + files[j].name + '</p>').appendTo('div#' + element);
                         $($.parseHTML('<input hidden>')).attr('name', "GameFile[]" + fileNumber).attr('value', element).appendTo('div#' + element);
                         $($.parseHTML('<input hidden>')).attr('name', "FileName[]" + fileNumber).attr('value', files[j].name).appendTo('div#' + element);
-                        $('<select name="file-type[]"><option value="0">Windows</option><option value="1">Linux</option><option value="2">MacOS</option><option value="3">Android</option></select>').appendTo('div#' + element);
+                        $('<select name="FileType[]"><option value="0">Windows</option><option value="1">Linux</option><option value="2">MacOS</option><option value="3">Android</option></select>').appendTo('div#' + element);
                         $('<button type="button" id="delete" value="' + fileNumber + '">Delete</button>').appendTo('div#' + element);
                         fileNumber++;
                         j++;
@@ -160,7 +160,7 @@
             let parent = $("input[name='screenshots[]" + input.value + "']").parent();
             let parentId = parent.attr('id');
 
-            
+
 
             //if(lastElement == input.value){
             //    changeLastElement(1);

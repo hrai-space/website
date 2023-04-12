@@ -98,6 +98,18 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-4">
+                <img src="{{Storage::disk('do')->url('images/' . Auth::user()->avatar)}}" alt="">
+
+                <form method="post" action="{{ route('profile.image.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input id="ImageFile" type="file" class="form-control" name="ImageFile" required autocomplete="avatar">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Upload Profile') }}
+                    </button>
+                    <x-input-error class="mt-2" :messages="$errors->get('ImageFile')" />
+                </form>
+            </div>
         </div>
     </div>
 
