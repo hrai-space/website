@@ -24,7 +24,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', [MainController::class, 'home'])->name('home');
-Route::get('/game/{game_id}', [MainController::class, 'game'])->name('game');
+Route::get('game/{game_id}', [MainController::class, 'game'])->where('game_id', '[0-9]+')->name('game');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('game', GameController::class);

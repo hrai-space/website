@@ -12,7 +12,7 @@
                     <input type="text" class="form-control" name="title">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail" class="form-label">Short desciption</label>
+                    <label for="exampleInputEmail" class="form-label">Short desrciption</label>
                     <input type="text" class="form-control" name="short_description">
                 </div>
                 <div class="mb-3">
