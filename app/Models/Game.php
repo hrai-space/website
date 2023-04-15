@@ -14,5 +14,14 @@ class Game extends Model
         return $this->belongsToMany(Tag::class, 'game_tags');
     }
 
+    public function gameImages(){
+        return $this->hasMany(Game_Images::class);
+    }
+
+    public function getGameIcon()
+    {
+        return $this->gameImages()->orderBy('type', 'asc')->first()->file;
+    }
+
     protected $fillable = ['user_id', 'title', 'short_desctiption', 'description', 'genre', 'kind_of_content', 'classification', 'visibility'];
 }

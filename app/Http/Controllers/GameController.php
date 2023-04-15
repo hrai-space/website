@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GameUploadRequest;
 use App\Models\Game;
 use App\Models\Game_File;
 use App\Models\Game_Images;
 use App\Models\Game_Tag;
 use App\Models\Genre;
 use App\Models\Tag;
+use App\Models\Temp_File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +36,7 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GameUploadRequest $request)
     {
         $game = new Game();
 
@@ -56,6 +58,7 @@ class GameController extends Controller
             $gameFile->name = $request->FileName[$i];
             $gameFile->type = $request->FileType[$i];
             $gameFile->save();
+            Temp_File::where('file', $request->GameFile[$i])->delete();
         }
 
         foreach ($request->tags as $tag) { 
@@ -71,6 +74,7 @@ class GameController extends Controller
             $screenshot->type = $i+1;
             $screenshot->file = $request->screenshots[$i];
             $screenshot->save();
+            Temp_File::where('file', $request->screenshots[$i])->delete();
         }
         
         return redirect()->route('home');
