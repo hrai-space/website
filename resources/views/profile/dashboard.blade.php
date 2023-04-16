@@ -14,7 +14,7 @@
                         <h5 class="card-title">{{$game->title}}</h5>
                         <p class="card-text">{{$game->short_description}}</p>
                         <a href="{{route('game', $game->id)}}" class="btn btn-primary">Game</a>
-                        <a href="#" class="btn btn-primary">Edit</a>
+                        <a href="{{route('game.edit', $game->id)}}" class="btn btn-primary">Edit</a>
                         <a href="#" class="btn btn-primary">Delete</a>
                     </div>
                 </div>

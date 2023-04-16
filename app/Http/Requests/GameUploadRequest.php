@@ -26,7 +26,7 @@ class GameUploadRequest extends FormRequest
             'short_description' => 'max:128',
             'description' => 'required',
             'genre' => 'required',
-            'tags' => 'array|max:1',
+            'tags' => 'required|array|max:1|min:1',
             'GameFile' => 'required',
             'screenshots' => 'required'
         ];

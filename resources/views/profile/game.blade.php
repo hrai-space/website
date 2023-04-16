@@ -9,40 +9,62 @@
                 @csrf
                 <div class="mb-3">
                     <label for="exampleInputEmail" class="form-label">Title</label>
-                    <input type="text" class="form-control" name="title">
+                    <input type="text" class="form-control" name="title" value="{{old('title', isset($game) ? $game->title : null)}}">
+                    @include('layouts.error', ['fieldname' => 'title'])
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail" class="form-label">Short desrciption</label>
-                    <input type="text" class="form-control" name="short_description">
+                    <input type="text" class="form-control" name="short_description" value="{{old('short_description', isset($game) ? $game->short_description : null)}}">
+                    @include('layouts.error', ['fieldname' => 'short_description'])
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail" class="form-label">Description</label>
-                    <input type="text" class="form-control" name="description">
+                    <input type="text" class="form-control" name="description" value="{{old('description', isset($game) ? $game->description : null)}}">
+                    @include('layouts.error', ['fieldname' => 'description'])
                 </div>
                 <label for="exampleInputEmail" class="form-label">Game file</label>
                 <div class="input-group">
                     <label class="btn btn-info" for="files-upload">Upload Game</label>
                     <input type="file" multiple="multiple" class="form-control" id="files-upload" hidden />
+                    @include('layouts.error', ['fieldname' => 'GameFile'])
+                    @include('layouts.error', ['fieldname' => 'GameFile[]'])
                 </div>
                 <div class="files">
                 </div>
                 <label for="exampleInputEmail" class="form-label">Genre</label>
                 <select class="form-select" name="genre">
                     @foreach($genres as $genre)
-                    <option value="{{$genre->id}}">{{$genre->name}}</option>
+                    <option value="{{$genre->id}}" @if(old('genre') == $genre->id)selected @else @isset($game)@if($game->genre == $genre->id)selected @endif @endisset @endif>{{$genre->name}}</option>
                     @endforeach
                 </select>
+                @include('layouts.error', ['fieldname' => 'genre'])
                 <label for="exampleInputEmail" class="form-label">Tags</label>
                 <select class="form-select" id="tags-select" name="tags[]" multiple="multiple">
                     @foreach($tags as $tag)
-                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                        <option value="{{$tag->id}}"
+                            @for($i = 0; $i < count($tags); $i++)
+                                @if(old('tags.' . $i) == $tag->id)
+                                    selected
+                                @else
+                                    @isset($game)
+                                        @if($gameTags[$i] == $tag->id)
+                                            selected
+                                        @endif
+                                    @endisset
+                                @endif
+                            @endfor
+                        >{{$tag->name}}</option>
                     @endforeach
                 </select>
+                @include('layouts.error', ['fieldname' => 'tags'])
+                @include('layouts.error', ['fieldname' => 'tags[]'])
                 <label for="exampleInputEmail" class="form-label">Screenshots</label>
                 <div class="input-group">
                     <label class="btn btn-info" for="upload">+</label>
                     <input name="ImageFile[]" type="file" multiple id="upload" accept="image/*" hidden />
                 </div>
+                @include('layouts.error', ['fieldname' => 'screenshots'])
+                @include('layouts.error', ['fieldname' => 'screenshots[]'])
                 <div class="screenshots">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -52,7 +74,6 @@
 </div>
 
 <script>
-
     $(document).ready(function() {
         $('#tags-select').select2();
     });
@@ -151,7 +172,12 @@
                         j++;
                     });
                 },
-                error: function(response) {}
+                error: function(response) {
+                    $.each(response.responseJSON.errors,function(field_name,error){
+                        $('<div class="alert alert-warning alert-dismissible fade show" id="ImageFile-error" role="alert" style="margin-top: 75px;">' + error + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>').appendTo('div.screenshots');
+                    })
+                    
+                }
             });
         }
 
