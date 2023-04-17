@@ -5,7 +5,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-4">
-            <form method="POST" action="{{route('game.store')}}">
+            <form method="POST" action="@isset($game){{route('game.update', $game)}}@else{{route('game.store')}}@endisset">
+                @isset($game)@method('PUT')@endisset
                 @csrf
                 <div class="mb-3">
                     <label for="exampleInputEmail" class="form-label">Title</label>
@@ -30,6 +31,39 @@
                     @include('layouts.error', ['fieldname' => 'GameFile[]'])
                 </div>
                 <div class="files">
+                    @if(old('GameFile') != null)
+                        @for($i = 0; $i < count(old('GameFile')); $i++)
+                            <div id="{{old('GameFile.' . $i)}}" style="background-color: #f2f2f2;">
+                                <a href="{{Storage::disk('do')->url('files/' . old('GameFile.' . $i))}}">{{old('FileName.' . $i)}}</a>
+                                <input hidden="" name="GameFile[]{{$i}}" value="{{old('GameFile.' . $i)}}">
+                                <input hidden="" name="FileName[]{{$i}}" value="{{old('FileName.' . $i)}}">
+                                <select name="FileType[]">
+                                    <option value="0" @if(old('FileType.' . $i) == 0) selected @endif>Windows</option>
+                                    <option value="1" @if(old('FileType.' . $i) == 1) selected @endif>Linux</option>
+                                    <option value="2" @if(old('FileType.' . $i) == 2) selected @endif>MacOS</option>
+                                    <option value="3" @if(old('FileType.' . $i) == 3) selected @endif>Android</option>
+                                </select>
+                                <button type="button" id="delete" value="{{$i}}">Delete</button>
+                            </div>
+                        @endfor
+                    
+                    @elseif(isset($game))
+                        @for($i = 0; $i < count($files); $i++)
+                            <div id="{{$files[$i]->file}}" style="background-color: #f2f2f2;">
+                                <a href="{{Storage::disk('do')->url('files/' . $files[$i]->file)}}">{{$files[$i]->name}}</a>
+                                <input hidden="" name="GameFile[]{{$i}}" value="{{$files[$i]->file}}">
+                                <input hidden="" name="FileName[]{{$i}}" value="{{$files[$i]->name}}">
+                                <select name="FileType[]">
+                                    <option value="0" @if($files[$i]->type == 0) selected @endif>Windows</option>
+                                    <option value="1" @if($files[$i]->type == 1) selected @endif>Linux</option>
+                                    <option value="2" @if($files[$i]->type == 2) selected @endif>MacOS</option>
+                                    <option value="3" @if($files[$i]->type == 3) selected @endif>Android</option>
+                                </select>
+                                <button type="button" id="delete" value="{{$i}}">Delete</button>
+                            </div>
+                        @endfor
+                    @endif
+
                 </div>
                 <label for="exampleInputEmail" class="form-label">Genre</label>
                 <select class="form-select" name="genre">
@@ -45,14 +79,16 @@
                             @for($i = 0; $i < count($tags); $i++)
                                 @if(old('tags.' . $i) == $tag->id)
                                     selected
-                                @else
-                                    @isset($game)
-                                        @if($gameTags[$i] == $tag->id)
-                                            selected
-                                        @endif
-                                    @endisset
                                 @endif
                             @endfor
+                            @isset($game)
+                                @for($i = 0; $i < count($gameTags); $i++)
+                                    @if($gameTags[$i]['id'] == $tag->id)
+                                        selected
+                                    @endif
+                                @endfor
+                            @endisset
+
                         >{{$tag->name}}</option>
                     @endforeach
                 </select>
@@ -66,6 +102,27 @@
                 @include('layouts.error', ['fieldname' => 'screenshots'])
                 @include('layouts.error', ['fieldname' => 'screenshots[]'])
                 <div class="screenshots">
+                    @if(old('screenshots') != null)
+                        @for($i = 0; $i < count(old('screenshots')); $i++)
+                            <div id="{{old('screenshots.' . $i)}}">
+                                <img src="{{Storage::disk('do')->url('images/' . old('screenshots.' . $i))}}" style="width: 300px;">
+                                <input hidden="" name="screenshots[]{{$i}}" id="screenshot-data" value="{{old('screenshots.' . $i)}}">
+                                <button type="button" id="up" value="{{$i}}">Up</button>
+                                <button type="button" id="down" value="{{$i}}">Down</button>
+                                <button type="button" id="delete" value="{{$i}}">Delete</button>
+                            </div>
+                        @endfor
+                    @elseif(isset($game))
+                        @for($i = 0; $i < count($screenshots); $i++)
+                            <div id="{{$screenshots[$i]->file}}">
+                                <img src="{{Storage::disk('do')->url('images/' . $screenshots[$i]->file)}}" style="width: 300px;">
+                                <input hidden="" name="screenshots[]{{$screenshots[$i]->type}}" id="screenshot-data" value="{{$screenshots[$i]->file}}">
+                                <button type="button" id="up" value="{{$screenshots[$i]->type}}">Up</button>
+                                <button type="button" id="down" value="{{$screenshots[$i]->type}}">Down</button>
+                                <button type="button" id="delete" value="{{$screenshots[$i]->type}}">Delete</button>
+                            </div>
+                        @endfor
+                    @endif
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -84,8 +141,8 @@
         }
     });
 
-    let i = 1;
-    let fileNumber = 0;
+    let i = parseInt("@if(old('screenshots') != null) {{count(old('screenshots'))}}@elseif (isset($game)) {{$game->getMaxImageType()}} @else 0 @endif") + 1;
+    let fileNumber = parseInt("@if(old('GameFile') != null) {{count(old('GameFile'))}}@elseif (isset($game)) {{count($files)}}@else 0 @endif") + 1;
     let lastElement = 0;
 
     $(function() {

@@ -6,6 +6,8 @@ use App\Http\Requests\DigitalOceanDeleteImageRequest;
 use App\Http\Requests\DigitalOceanStoreImageRequest;
 use App\Http\Requests\DigitalOceanStoreTempFileRequest;
 use App\Http\Requests\DigitalOceanStoreTempImageRequest;
+use App\Models\Game_File;
+use App\Models\Game_Images;
 use App\Models\Temp_File;
 use App\Providers\CdnService as ProvidersCdnService;
 use Illuminate\Http\Request;
@@ -91,7 +93,7 @@ class DoSpacesController extends Controller
         $folder = "images";
 
         Storage::disk('do')->delete("{$folder}/{$fileName}");
-        //$this->cdnService->purge($fileName);
+        //$this->cdnService->purge($fileName, $folder);
 
         return response()->json(['message' => 'File deleted'], 200);
     }
@@ -102,9 +104,10 @@ class DoSpacesController extends Controller
         $folder = "images";
 
         Storage::disk('do')->delete("{$folder}/{$fileName}");
-        //$this->cdnService->purge($fileName);
+        //$this->cdnService->purge($fileName, $folder);
 
         Temp_File::where('file', $fileName)->delete();
+        Game_Images::where('file', $fileName)->delete();
 
         return response()->json(['message' => 'File deleted'], 200);
     }
@@ -118,6 +121,7 @@ class DoSpacesController extends Controller
         //$this->cdnService->purge($fileName);
 
         Temp_File::where('file', $fileName)->delete();
+        Game_File::where('file', $fileName)->delete();
 
         return response()->json(['message' => 'File deleted'], 200);
     }

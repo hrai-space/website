@@ -7,9 +7,8 @@ use Illuminate\Support\Facades\Http;
 class DOCdnService implements CdnService
 {
 
-    public function purge($fileName)
+    public function purge($fileName, $folder)
     {
-        $folder = config('filesystems.do.folder');
         Http::asJson()->delete(
             config('filesystems.do.cdn_endpoint') . '/cache',
             [

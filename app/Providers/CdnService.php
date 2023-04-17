@@ -4,5 +4,5 @@ namespace App\Providers;
 
 interface CdnService
 {
-    public function purge($fileName);
+    public function purge($fileName, $folder);
 }
