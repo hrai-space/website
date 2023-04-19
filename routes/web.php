@@ -23,7 +23,9 @@ Route::get('/', [MainController::class, 'home'])->name('home');
 Route::get('game/{game_id}', [MainController::class, 'game'])->where('game_id', '[0-9]+')->name('game');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('game', GameController::class);
+    Route::middleware(['is_owner'])->group(function () {
+        Route::resource('game', GameController::class);
+    });
     Route::get('/dashboard', [ProfileController::class, 'dashboard'])->name('dashboard');
     Route::post('/game/temp/image/store', [DoSpacesController::class, 'storeTempFile'])->name('game.temp.image.store');
     Route::post('/game/temp/image/delete', [DoSpacesController::class, 'deleteTempFile'])->name('game.temp.image.delete');

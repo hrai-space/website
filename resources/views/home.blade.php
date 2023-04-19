@@ -5,17 +5,28 @@
 <div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3">
+            @foreach($games as $game)
+            <div class="col-lg-6">
                 <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="image">
+                    <img src="{{Storage::disk('do')->url('images/' . $game->getGameIcon())}}" class="card-img-top" alt="image">
                     <div class="card-body">
-                        <h5 class="card-title">Game name</h5>
-                        <p class="card-text">Game short description</p>
-                        <a href="#" class="btn btn-primary">Game</a>
+                        <h5 class="card-title">{{$game->title}}</h5>
+                        <p class="card-text">{{$game->short_description}}</p>
+                        <a href="{{route('game', $game->id)}}" class="btn btn-primary">Game</a>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
+    </div>
+    <div class="container">
+        @if(!$games->onFirstPage())
+            <a href="{{$games->url(1)}}" class="btn btn-primary">Previous</a>
+        @endif
+        @if($games->count()-1 == $games->currentPage())
+            <a href="{{$games->nextPageUrl()}}" class="btn btn-primary">Next</a>
+        @endif
+        
     </div>
 </div>
 

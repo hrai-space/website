@@ -12,7 +12,8 @@ class MainController extends Controller
 
     public function home()
     {
-        return view('home');
+        $games = Game::paginate(2);
+        return view('home')->with('games', $games);
     }
 
     public function game($game_id){

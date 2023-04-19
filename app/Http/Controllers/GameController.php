@@ -12,6 +12,7 @@ use App\Models\Tag;
 use App\Models\Temp_File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class GameController extends Controller
 {
@@ -110,6 +111,7 @@ class GameController extends Controller
         $game->genre = $request->genre;
 
         $game->save();
+
         for ($i=0; $i < count($request->GameFile); $i++) {
             if(!Game_File::where('file', $request->GameFile[$i])->where('game_id', $game->id)->exists()){
                 $gameFile = new Game_File();
@@ -136,6 +138,8 @@ class GameController extends Controller
 
         Game_Tag::where('game_id', $game->id)->whereNotIn('tag_id', $tagArray)->delete();
 
+
+
         for ($i=0; $i < count($request->screenshots); $i++) {
             if(!Game_Images::where('file', $request->screenshots[$i])->where('game_id', $game->id)->exists()){
                 $screenshot = new Game_Images();
@@ -144,6 +148,11 @@ class GameController extends Controller
                 $screenshot->file = $request->screenshots[$i];
                 $screenshot->save();
                 Temp_File::where('file', $request->screenshots[$i])->delete();
+            }
+            else{
+                $screenshot = Game_Images::where('file', $request->screenshots[$i])->where('game_id', $game->id)->first();
+                $screenshot->type = $i+1;
+                $screenshot->save();
             }
         }
 
@@ -155,6 +164,20 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-        //
+        $screenshots = $game->screenshots;
+
+        foreach($screenshots as $screenshot){
+            Storage::disk('do')->delete("images/{$screenshot->file}");
+        }
+
+        $files = $game->files;
+
+        foreach($files as $file){
+            Storage::disk('do')->delete("files/{$file->file}");
+        }
+
+        $game->delete();
+        
+        return redirect()->route('home');
     }
 }

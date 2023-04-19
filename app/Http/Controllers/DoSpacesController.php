@@ -93,7 +93,6 @@ class DoSpacesController extends Controller
         $folder = "images";
 
         Storage::disk('do')->delete("{$folder}/{$fileName}");
-        //$this->cdnService->purge($fileName, $folder);
 
         return response()->json(['message' => 'File deleted'], 200);
     }

@@ -88,7 +88,6 @@
                                     @endif
                                 @endfor
                             @endisset
-
                         >{{$tag->name}}</option>
                     @endforeach
                 </select>
