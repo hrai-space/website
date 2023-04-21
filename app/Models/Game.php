@@ -15,11 +15,11 @@ class Game extends Model
     }
 
     public function screenshots(){
-        return $this->hasMany(Game_Images::class);
+        return $this->hasMany(Game_Image::class);
     }
 
     public function screenshotsASC(){
-        return $this->hasMany(Game_Images::class)->orderBy('type', 'asc');
+        return $this->hasMany(Game_Image::class)->orderBy('type', 'asc');
     }
 
     public function files(){

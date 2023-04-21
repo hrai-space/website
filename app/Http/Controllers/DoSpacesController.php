@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DigitalOceanDeleteImageRequest;
-use App\Http\Requests\DigitalOceanStoreImageRequest;
-use App\Http\Requests\DigitalOceanStoreTempFileRequest;
-use App\Http\Requests\DigitalOceanStoreTempImageRequest;
+use App\Http\Requests\DigitalOceanDeleteRequest;
+use App\Http\Requests\DigitalOceanStoreRequest;
 use App\Models\Game_File;
-use App\Models\Game_Images;
+use App\Models\Game_Image;
 use App\Models\Temp_File;
 use App\Providers\CdnService as ProvidersCdnService;
 use Illuminate\Http\Request;
@@ -24,14 +22,15 @@ class DoSpacesController extends Controller
         $this->cdnService = $cdnService;
     }
 
-    public function store(DigitalOceanStoreImageRequest $request)
+    public function store(DigitalOceanStoreRequest $request)
     {
         $file = $request->ImageFile;
         $fileName = (string) Str::uuid();
         $folder = "images";
         Storage::disk('do')->put(
             "{$folder}/{$fileName}",
-            file_get_contents($file),['ACL' => 'public-read'],
+            file_get_contents($file),
+            ['ACL' => 'public-read'],
         );
 
         $user = $request->user();
@@ -41,63 +40,39 @@ class DoSpacesController extends Controller
         return Redirect::route('profile.edit');
     }
 
-    public function storeTempFile(DigitalOceanStoreTempImageRequest $request)
+    public function storeTempFile(DigitalOceanStoreRequest $request)
     {
-        $files = $request->file('ImageFile');
-        $fileNames = [];
-
-        foreach($files as $file){
-            $fileName = (string) Str::uuid();
+        if ($request->file('ImageFile') != null) {
+            $files = $request->file('ImageFile');
             $folder = "images";
-            Storage::disk('do')->put(
-                "{$folder}/{$fileName}",
-                file_get_contents($file),['ACL' => 'public-read'],
-            );
-            
-            $temp_file = new Temp_File();
-            $temp_file->file = $fileName;
-            $temp_file->save();
-            array_push($fileNames, $fileName);
+        } else {
+            $files = $request->file('GameFile');
+            $folder = "files";
         }
 
-
-        return response()->json(['success'=>$fileNames]);
-    }
-
-    public function storeTempGameFile(DigitalOceanStoreTempFileRequest $request)
-    {
-        $files = $request->file('GameFile');
         $fileNames = [];
 
-        foreach($files as $file){
+        foreach ($files as $file) {
             $fileName = (string) Str::uuid();
-            $folder = "files";
             Storage::disk('do')->put(
                 "{$folder}/{$fileName}",
-                file_get_contents($file),['ACL' => 'public-read'],
+                file_get_contents($file),
+                ['ACL' => 'public-read'],
             );
-            
-            $temp_file = new Temp_File();
-            $temp_file->file = $fileName;
-            $temp_file->save();
-            array_push($fileNames, $fileName);
+            if (Storage::disk('do')->exists("{$folder}/{$fileName}")) {
+                $temp_file = new Temp_File();
+                $temp_file->file = $fileName;
+                $temp_file->save();
+                array_push($fileNames, $fileName);
+            } else {
+                return response()->json(['errors' => 'Something went wrong, try again later']);
+            }
         }
 
-
-        return response()->json(['success'=>$fileNames]);
+        return response()->json(['success' => $fileNames]);
     }
 
-    public function delete(DigitalOceanDeleteImageRequest $request)
-    {
-        $fileName = $request->validated()['ImageFileName'];
-        $folder = "images";
-
-        Storage::disk('do')->delete("{$folder}/{$fileName}");
-
-        return response()->json(['message' => 'File deleted'], 200);
-    }
-
-    public function deleteTempFile(DigitalOceanDeleteImageRequest $request)
+    public function deleteTempFile(DigitalOceanDeleteRequest $request)
     {
         $fileName = $request->validated()['FileName'];
         $folder = "images";
@@ -106,12 +81,12 @@ class DoSpacesController extends Controller
         //$this->cdnService->purge($fileName, $folder);
 
         Temp_File::where('file', $fileName)->delete();
-        Game_Images::where('file', $fileName)->delete();
+        Game_Image::where('file', $fileName)->delete();
 
         return response()->json(['message' => 'File deleted'], 200);
     }
 
-    public function deleteTempGameFile(DigitalOceanDeleteImageRequest $request)
+    public function deleteTempGameFile(DigitalOceanDeleteRequest $request)
     {
         $fileName = $request->validated()['FileName'];
         $folder = "files";

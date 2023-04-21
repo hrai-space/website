@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GameUploadRequest;
 use App\Models\Game;
 use App\Models\Game_File;
-use App\Models\Game_Images;
+use App\Models\Game_Image;
 use App\Models\Game_Tag;
 use App\Models\Genre;
 use App\Models\Tag;
@@ -70,7 +70,7 @@ class GameController extends Controller
         }
 
         for ($i=0; $i < count($request->screenshots); $i++) { 
-            $screenshot = new Game_Images();
+            $screenshot = new Game_Image();
             $screenshot->game_id = $game->id;
             $screenshot->type = $i+1;
             $screenshot->file = $request->screenshots[$i];
@@ -141,8 +141,8 @@ class GameController extends Controller
 
 
         for ($i=0; $i < count($request->screenshots); $i++) {
-            if(!Game_Images::where('file', $request->screenshots[$i])->where('game_id', $game->id)->exists()){
-                $screenshot = new Game_Images();
+            if(!Game_Image::where('file', $request->screenshots[$i])->where('game_id', $game->id)->exists()){
+                $screenshot = new Game_Image();
                 $screenshot->game_id = $game->id;
                 $screenshot->type = $i+1;
                 $screenshot->file = $request->screenshots[$i];
@@ -150,7 +150,7 @@ class GameController extends Controller
                 Temp_File::where('file', $request->screenshots[$i])->delete();
             }
             else{
-                $screenshot = Game_Images::where('file', $request->screenshots[$i])->where('game_id', $game->id)->first();
+                $screenshot = Game_Image::where('file', $request->screenshots[$i])->where('game_id', $game->id)->first();
                 $screenshot->type = $i+1;
                 $screenshot->save();
             }

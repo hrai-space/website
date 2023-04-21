@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DigitalOceanDeleteImageRequest extends FormRequest
+class DigitalOceanStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,10 @@ class DigitalOceanDeleteImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'FileName' => 'required|string',
+            'GameFile' => 'sometimes',
+            'GameFile.*' => 'sometimes|file|mimes:zip|max:1048576', //1gb
+            'ImageFile' => 'sometimes',
+            'ImageFile.*' => 'sometimes|image|max:2048',
         ];
     }
 }

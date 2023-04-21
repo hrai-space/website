@@ -173,7 +173,7 @@
                     let j = 0;
                     response.success.forEach(element => {
                         $('<div id="' + element + '"></div>').attr('style', 'background-color: #f2f2f2;').appendTo(placeToInsertFilePreview);
-                        $('<p>' + files[j].name + '</p>').appendTo('div#' + element);
+                        $('<a href="{{Storage::disk("do")->url("files/")}}' + element + '">' + files[j].name + '</a>').appendTo('div#' + element);
                         $($.parseHTML('<input hidden>')).attr('name', "GameFile[]" + fileNumber).attr('value', element).appendTo('div#' + element);
                         $($.parseHTML('<input hidden>')).attr('name', "FileName[]" + fileNumber).attr('value', files[j].name).appendTo('div#' + element);
                         $('<select name="FileType[]"><option value="0">Windows</option><option value="1">Linux</option><option value="2">MacOS</option><option value="3">Android</option></select>').appendTo('div#' + element);
@@ -182,13 +182,17 @@
                         j++;
                     });
                 },
-                error: function(response) {}
+                error: function(response) {
+                    $.each(response.responseJSON.errors,function(field_name,error){
+                        $('<div class="alert alert-warning alert-dismissible fade show" id="ImageFile-error" role="alert" style="margin-top: 75px;">' + error + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>').appendTo('div.files');
+                    })
+                }
             });
         }
 
         function imagesPreview(input, placeToInsertImagePreview) {
 
-            let url = "{{route('game.temp.image.store')}}";
+            let url = "{{route('game.temp.file.store')}}";
 
             let files = $('#upload')[0].files;
             let form_data = new FormData();

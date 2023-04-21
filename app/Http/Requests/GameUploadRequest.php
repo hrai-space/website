@@ -22,7 +22,7 @@ class GameUploadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:128',
+            'title' => 'required|max:64',
             'short_description' => 'max:128',
             'description' => 'required',
             'genre' => 'required',
