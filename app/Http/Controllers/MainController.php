@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\Game_File;
 use App\Models\Game_Image;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -58,5 +59,11 @@ class MainController extends Controller
         $data['html'] = $html;
 
         return response()->json($data);
+    }
+
+    public function publicProfile($username){
+        $user = User::where('username', $username)->first();
+        
+        return view('profile.public-profile')->with('user', $user)->with('games', $user->game);
     }
 }
