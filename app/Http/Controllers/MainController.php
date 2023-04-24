@@ -42,6 +42,10 @@ class MainController extends Controller
 
         return view('home')->with('data', $data);
     }
+    public function articles()
+    {
+        return view('articles');
+    }
 
     public function game($game_id)
     {
