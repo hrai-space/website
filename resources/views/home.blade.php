@@ -20,6 +20,7 @@
             <input type="hidden" id="start" value="0">
             <input type="hidden" id="rowperpage" value="{{ $data['rowperpage'] }}">
             <input type="hidden" id="totalrecords" value="{{ $data['totalrecords'] }}">
+            <input type="hidden" id="search" value="{{ $data['search'] }}">
         </div>
     </div>
 </div>
@@ -40,6 +41,7 @@
         var start = Number($('#start').val());
         var allcount = Number($('#totalrecords').val());
         var rowperpage = Number($('#rowperpage').val());
+        var search = $('#search').val();
         start = start + rowperpage;
 
         if (start <= allcount) {
@@ -48,7 +50,8 @@
             $.ajax({
                 url: "{{route('getGames')}}",
                 data: {
-                    start: start
+                    start: start,
+                    search: search
                 },
                 dataType: 'json',
                 success: function(response) {
