@@ -43,15 +43,6 @@ class MainController extends Controller
         return view('home')->with('data', $data);
     }
 
-    public function game($game_id)
-    {
-        $game = Game::where('id', $game_id)->first();
-        $screenshots = Game_Image::where('game_id', $game_id)->get();
-        $game_files = Game_File::where('game_id', $game_id)->get();
-
-        return view('game')->with('game', $game)->with('screenshots', $screenshots)->with('game_files', $game_files);
-    }
-
     public function getGames(Request $request)
     {
 
@@ -69,7 +60,8 @@ class MainController extends Controller
                     <div class="card-body">
                         <h5 class="card-title">' . $game->title . '</h5>
                         <p class="card-text">' . $game->short_description . '</p>
-                        <a href="' . route("game", $game->id) . '" class="btn btn-primary">Game</a>
+                        <a href="' . route("game.show", $game->id) . '" class="btn btn-primary">Game</a>
+                        <a href="' . route('public.profile', $game->getDeveloper()) . '" class="btn btn-outline-info">Developer</a>
                     </div>
                 </div>
             </div>';

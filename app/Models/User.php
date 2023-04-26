@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'username',
         'avatar',
+        'is_admin',
     ];
 
     /**
@@ -49,4 +50,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin(){
+        return $this->is_admin === 1;
+    }
 }

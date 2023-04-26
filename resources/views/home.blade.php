@@ -5,6 +5,7 @@
 <div>
     <div class="container">
         <div class="row">
+            
             @foreach($data['games'] as $game)
             <div class="col-lg-6">
                 <div class="card" style="width: 18rem;">
@@ -12,7 +13,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$game->title}}</h5>
                         <p class="card-text">{{$game->short_description}}</p>
-                        <a href="{{route('game', $game->id)}}" class="btn btn-primary">Game</a>
+                        <a href="{{route('game.show', $game->id)}}" class="btn btn-primary">Game</a>
+                        <a href="{{route('public.profile', $game->getDeveloper())}}" class="btn btn-outline-info">Developer</a>
                     </div>
                 </div>
             </div>

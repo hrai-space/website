@@ -74,22 +74,11 @@
                 @include('layouts.error', ['fieldname' => 'genre'])
                 <label for="exampleInputEmail" class="form-label">Tags</label>
                 <select class="form-select" id="tags-select" name="tags[]" multiple="multiple">
-                    @foreach($tags as $tag)
-                        <option value="{{$tag->id}}"
-                            @for($i = 0; $i < count($tags); $i++)
-                                @if(old('tags.' . $i) == $tag->id)
-                                    selected
-                                @endif
-                            @endfor
-                            @isset($game)
-                                @for($i = 0; $i < count($gameTags); $i++)
-                                    @if($gameTags[$i]['id'] == $tag->id)
-                                        selected
-                                    @endif
-                                @endfor
-                            @endisset
-                        >{{$tag->name}}</option>
-                    @endforeach
+                    @isset($game)
+                        @foreach($tags as $tag)
+                            <option value="{{$tag->id}}" selected>{{$tag->name}}</option>
+                        @endforeach
+                    @endisset
                 </select>
                 @include('layouts.error', ['fieldname' => 'tags'])
                 @include('layouts.error', ['fieldname' => 'tags[]'])
@@ -131,7 +120,13 @@
 
 <script>
     $(document).ready(function() {
-        $('#tags-select').select2();
+        $('#tags-select').select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: '{{ route("api.get.tags") }}',
+                dataType: 'json',
+            },
+        });
     });
 
     $.ajaxSetup({

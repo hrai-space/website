@@ -29,9 +29,8 @@ class GameController extends Controller
      */
     public function create()
     {
-        $tags = Tag::all();
         $genres = Genre::all();
-        return view('profile.game')->with('tags', $tags)->with('genres', $genres);
+        return view('profile.game')->with('genres', $genres);
     }
 
     /**
@@ -86,7 +85,10 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        //
+        $screenshots = Game_Image::where('game_id', $game->id)->get();
+        $game_files = Game_File::where('game_id', $game->id)->get();
+
+        return view('game')->with('game', $game)->with('screenshots', $screenshots)->with('game_files', $game_files);
     }
 
     /**
@@ -94,9 +96,18 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        $tags = Tag::all();
         $genres = Genre::all();
-        return view('profile.game')->with('tags', $tags)->with('genres', $genres)->with('game', $game)->with('gameTags', $game->tag)
+        $tags = old('tags');
+        if($tags != null){
+            for($i = 0; $i < count($tags); $i++){
+                $tags[$i] = Tag::where('id', $tags[$i])->first();
+            }
+        }
+        else{
+            $tags = $game->tag;
+        }
+        
+        return view('profile.game')->with('genres', $genres)->with('game', $game)->with('tags', $tags)
         ->with('screenshots', $game->screenshotsASC)->with('files', $game->files);
     }
 

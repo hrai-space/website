@@ -48,5 +48,13 @@ class Game extends Model
         }, count($tags));
     }
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function getDeveloper(){
+        return $this->user()->first()->username;
+    }
+
     protected $fillable = ['user_id', 'title', 'short_desctiption', 'description', 'genre', 'kind_of_content', 'classification', 'visibility'];
 }
