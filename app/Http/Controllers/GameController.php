@@ -39,6 +39,7 @@ class GameController extends Controller
      */
     public function store(GameUploadRequest $request)
     {
+        dd($request->all());
         $game = new Game();
 
         $game->user_id = $request->user()->id;

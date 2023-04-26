@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Game;
 use App\Models\Game_File;
 use App\Models\Game_Image;
@@ -30,6 +31,17 @@ class MainController extends Controller
         return view('home')->with('data', $data);
     }
 
+    public function articles()
+    {
+        $data['rowperpage'] = $this->rowperpage;
+
+        $data['articles'] = Article::select('*')->take($this->rowperpage)->get();
+
+        $data['totalrecords'] = $data['articles']->count();
+        $data['search'] = null;
+        return view('articles')->with('data', $data);
+    }
+
     public function search(Request $request)
     {
         $data['rowperpage'] = $this->rowperpage;
@@ -41,10 +53,6 @@ class MainController extends Controller
         $data['search'] = $request->search;
 
         return view('home')->with('data', $data);
-    }
-    public function articles()
-    {
-        return view('articles');
     }
 
     public function game($game_id)
@@ -74,6 +82,32 @@ class MainController extends Controller
                         <h5 class="card-title">' . $game->title . '</h5>
                         <p class="card-text">' . $game->short_description . '</p>
                         <a href="' . route("game", $game->id) . '" class="btn btn-primary">Game</a>
+                    </div>
+                </div>
+            </div>';
+        }
+
+        $data['html'] = $html;
+
+        return response()->json($data);
+    }
+
+    public function getArticles(Request $request)
+    {
+
+        $start = $request->get("start");
+
+        // Fetch records
+        $articles = new Article();
+        $articles = $articles->search($request)->skip($start)->take($this->rowperpage)->get();
+
+        $html = "";
+        foreach ($articles as $article) {
+            $html .= '<div class="col-lg-6">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">' . $article->title . '</h5>
+                        <a href="' . route("article.show", $article->id) . '" class="btn btn-primary">Article</a>
                     </div>
                 </div>
             </div>';

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DoSpacesController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'home'])->name('home');
 Route::get('/articles', [MainController::class, 'articles'])->name('articles');
+Route::get('/getArticles', [MainController::class, 'getArticles'])->name('getArticles');
 Route::get('/search', [MainController::class, 'search'])->name('search');
 Route::get('/getGames', [MainController::class, 'getGames'])->name('getGames');
 Route::get('/game/{game_id}', [MainController::class, 'game'])->where('game_id', '[0-9]+')->name('game');
@@ -29,6 +31,7 @@ Route::get('/profile/{username}', [MainController::class, 'publicProfile'])->whe
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['is_owner'])->group(function () {
         Route::resource('game', GameController::class);
+        Route::resource('article', ArticleController::class);
     });
     Route::get('/dashboard', [ProfileController::class, 'dashboard'])->name('dashboard');
     Route::post('/game/temp/image/store', [DoSpacesController::class, 'storeTempFile'])->name('game.temp.file.store');

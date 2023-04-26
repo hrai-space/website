@@ -44,6 +44,7 @@
                             <li><a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a></li>
                             <li><a class="dropdown-item" href="{{route('profile.edit')}}">Profile</a></li>
                             <li><a class="dropdown-item" href="{{route('game.create')}}">New game</a></li>
+                            <li><a class="dropdown-item" href="{{route('article.create')}}">New article</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
