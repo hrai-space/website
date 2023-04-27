@@ -16,6 +16,10 @@ class ProfileController extends Controller
     {
         return view('profile.dashboard');
     }
+    public function dashboardArticles()
+    {
+        return view('profile.dashboard-articles');
+    }
     /**
      * Display the user's profile form.
      */

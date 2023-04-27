@@ -41,6 +41,7 @@
                             {{ Auth::user()->username }}
                         </a>
                         <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{route('dashboardArticles')}}">Dashboard Articles</a></li>
                             <li><a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a></li>
                             <li><a class="dropdown-item" href="{{route('profile.edit')}}">Profile</a></li>
                             <li><a class="dropdown-item" href="{{route('game.create')}}">New game</a></li>

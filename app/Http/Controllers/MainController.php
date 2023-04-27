@@ -17,7 +17,7 @@ use function JmesPath\search;
 class MainController extends Controller
 {
 
-    public $rowperpage = 4;
+    public $rowperpage = 5;
 
     public function home()
     {
@@ -32,6 +32,16 @@ class MainController extends Controller
     }
 
     public function articles()
+    {
+        $data['rowperpage'] = $this->rowperpage;
+
+        $data['articles'] = Article::select('*')->take($this->rowperpage)->get();
+
+        $data['totalrecords'] = $data['articles']->count();
+        $data['search'] = null;
+        return view('articles')->with('data', $data);
+    }
+    public function articles_dashboard()
     {
         $data['rowperpage'] = $this->rowperpage;
 

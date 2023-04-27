@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleUploadRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ArticleUploadRequest $request)
     {
         $article = new Article();
         $article->user_id = $request->user()->id;
@@ -51,15 +52,18 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('profile.article')->with('article', $article);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(ArticleUploadRequest $request, Article $article)
     {
-        //
+        $article->title = $request->title;
+        $article->content = $request->content;
+        $article->save();
+        return redirect()->route('dashboardArticles');
     }
 
     /**
@@ -68,6 +72,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-        return redirect()->route('home');
+        return redirect()->route('dashboardArticles');
     }
 }

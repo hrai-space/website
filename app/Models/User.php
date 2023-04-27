@@ -18,6 +18,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Game::class);
     }
 
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

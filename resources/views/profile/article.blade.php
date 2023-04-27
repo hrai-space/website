@@ -4,13 +4,26 @@
 
 <div class="container">
     <div class="row">
-        <form method="POST" id ="ContentForm" action="{{route('article.store')}}" >
+        <form method="POST" id ="ContentForm" action="@isset($article){{route('article.update', $article)}}@else{{route('article.store')}}@endisset" >
+            @isset($article)@method('PUT')@endisset
             @csrf
-            <label for="title" class="form-label">Title:</label>
-            <input type="text" class="form-control" name="title" >
-            <label for="content" class="form-label">Content:</label>
-            <div id="editor"></div>
-            <input type="hidden" name="content">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" class="form-control" name="title" value="{{old('title', isset($article) ? $article->title : null)}}">
+                @include('layouts.error', ['fieldname' => 'title'])
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Content:</label>
+                <div id="editor">
+                    @if(old('content') != null)
+                        {!! old('content') !!}
+                    @elseif(isset($article)) 
+                        {!! $article->content !!} 
+                    @endif
+                </div>
+                <input type="hidden" name="content">
+                @include('layouts.error', ['fieldname' => 'content'])
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>  
@@ -19,9 +32,9 @@
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
 <!-- Include the Quill library -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
 <!-- Initialize Quill editor -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/quill-image-resize-module@3.0.0/image-resize.min.js"></script>
 <script>
 
     var toolbarOptions = [
@@ -37,9 +50,13 @@
 
         ['clean']                                         // remove formatting button
     ];
+
     var quill = new Quill('#editor', {
         modules: {
-        toolbar: toolbarOptions
+            toolbar: toolbarOptions,
+            imageResize: {
+                displaySize: true
+            }
         },
         theme: 'snow'
     });
