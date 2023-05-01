@@ -85,10 +85,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        $screenshots = Game_Image::where('game_id', $game->id)->get();
-        $game_files = Game_File::where('game_id', $game->id)->get();
-
-        return view('game')->with('game', $game)->with('screenshots', $screenshots)->with('game_files', $game_files);
+        return view('game')->with('game', $game)->with('screenshots', $game->screenshotsASC)->with('game_files', $game->files);
     }
 
     /**

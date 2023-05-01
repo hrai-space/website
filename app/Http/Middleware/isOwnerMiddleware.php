@@ -17,8 +17,8 @@ class isOwnerMiddleware
     
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->route()->hasParameter('game')){
-            if($request->route()->parameter('game')->user_id != $request->user()->id){
+        if($request->route()->hasParameter('game') && $request->route()->action['as'] != 'game.show'){
+            if($request->route()->parameter('game')->user_id != $request->user()->id && $request->user()->is_admin != 1){
                 abort(403, 'Unauthorized action.');
             }
         }

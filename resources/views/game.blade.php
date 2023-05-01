@@ -5,6 +5,13 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-4">
+            @admin
+            <form action="{{route('game.destroy', $game->id)}}" method="POST">
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Destroy</button>
+                @csrf
+            </form>
+            @endadmin
             <h1>{{$game->title}}</h1>
             <h2>{{$game->short_description}}</h2>
             <h3>{{$game->description}}</h3>
