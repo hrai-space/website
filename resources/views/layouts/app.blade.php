@@ -15,6 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -41,6 +42,7 @@
                             <li><a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a></li>
                             <li><a class="dropdown-item" href="{{route('profile.edit')}}">Profile</a></li>
                             <li><a class="dropdown-item" href="{{route('game.create')}}">New game</a></li>
+                            <li><a class="dropdown-item" href="{{route('game.followed')}}">Followed</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

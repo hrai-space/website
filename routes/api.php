@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppApiController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('v1/get/tags', [TagController::class, 'getTags'])->name('api.get.tags');
+Route::get('v1/get/game/{game}', [AppApiController::class, 'getGame'])->name('api.get.game');

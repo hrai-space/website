@@ -7,6 +7,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,17 +21,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+//ONLY FOR DEV
+Route::get('clear-cache', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('optimize');
+    Artisan::call('route:cache');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('config:cache');
+    Artisan::call('config:clear');
+    return "All Cache Cleared !!!";
+});
 
 Route::get('/', [MainController::class, 'home'])->name('home');
 Route::get('/search', [MainController::class, 'search'])->name('search');
 Route::get('/getGames', [MainController::class, 'getGames'])->name('getGames');
 Route::get('/profile/{username}', [MainController::class, 'publicProfile'])->name('public.profile');
+Route::get('/game/{game}', [GameController::class, 'show'])->where('game', '[0-9]+')->name('game.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['is_owner'])->group(function () {
-        Route::resource('game', GameController::class);
+        Route::get('/game', [GameController::class, 'index'])->name('game.index');
+        Route::get('/game/create', [GameController::class, 'create'])->name('game.create');
+        Route::post('/game', [GameController::class, 'store'])->name('game.store');
+        Route::get('/game/{game}/edit', [GameController::class, 'edit'])->name('game.edit');
+        Route::put('/game/{game}', [GameController::class, 'update'])->name('game.update');
+        Route::delete('/game/{game}', [GameController::class, 'destroy'])->name('game.destroy');
     });
+    Route::put('/game/follow/{game}', [GameController::class, 'follow'])->name('game.follow');
+    Route::get('/followed', [ProfileController::class, 'followed'])->name('game.followed');
     Route::get('/dashboard', [ProfileController::class, 'dashboard'])->name('dashboard');
     Route::post('/game/temp/image/store', [DoSpacesController::class, 'storeTempFile'])->name('game.temp.file.store');
     Route::post('/game/temp/image/delete', [DoSpacesController::class, 'deleteTempFile'])->name('game.temp.image.delete');

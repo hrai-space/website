@@ -62,4 +62,9 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function followed()
+    {
+        return view('profile.followed')->with('games', Auth::user()->followedGames);
+    }
 }

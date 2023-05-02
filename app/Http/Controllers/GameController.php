@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FollowRequest;
 use App\Http\Requests\GameUploadRequest;
 use App\Models\Game;
 use App\Models\Game_File;
+use App\Models\Game_Follow;
 use App\Models\Game_Image;
 use App\Models\Game_Tag;
 use App\Models\Genre;
 use App\Models\Tag;
 use App\Models\Temp_File;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +22,6 @@ class GameController extends Controller
      */
     public function index()
     {
-        
     }
 
     /**
@@ -48,10 +48,10 @@ class GameController extends Controller
         $game->classification = 0;
         $game->genre = $request->genre;
         $game->visibility = 1;
-        
+
         $game->save();
 
-        for ($i=0; $i < count($request->GameFile); $i++) { 
+        for ($i = 0; $i < count($request->GameFile); $i++) {
             $gameFile = new Game_File();
             $gameFile->game_id = $game->id;
             $gameFile->file = $request->GameFile[$i];
@@ -61,22 +61,22 @@ class GameController extends Controller
             Temp_File::where('file', $request->GameFile[$i])->delete();
         }
 
-        foreach ($request->tags as $tag) { 
+        foreach ($request->tags as $tag) {
             $gameTag = new Game_Tag();
             $gameTag->game_id = $game->id;
             $gameTag->tag_id = $tag;
             $gameTag->save();
         }
 
-        for ($i=0; $i < count($request->screenshots); $i++) { 
+        for ($i = 0; $i < count($request->screenshots); $i++) {
             $screenshot = new Game_Image();
             $screenshot->game_id = $game->id;
-            $screenshot->type = $i+1;
+            $screenshot->type = $i + 1;
             $screenshot->file = $request->screenshots[$i];
             $screenshot->save();
             Temp_File::where('file', $request->screenshots[$i])->delete();
         }
-        
+
         return redirect()->route('home');
     }
 
@@ -85,7 +85,20 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        return view('game')->with('game', $game)->with('screenshots', $game->screenshotsASC)->with('game_files', $game->files);
+        $key = 'key_' . $game->id;
+        if (!session()->has($key)) {
+            $game->views = $game->views + 1;
+            $game->save();
+            session()->put($key, 1);
+            session()->save();
+        }
+        $is_followed = 0;
+        
+        if(Auth::user()){
+            $is_followed = Auth::user()->isFollowed($game->id);
+        }
+        
+        return view('game')->with('game', $game)->with('screenshots', $game->screenshotsASC)->with('game_files', $game->files)->with('is_followed', $is_followed);
     }
 
     /**
@@ -95,17 +108,16 @@ class GameController extends Controller
     {
         $genres = Genre::all();
         $tags = old('tags');
-        if($tags != null){
-            for($i = 0; $i < count($tags); $i++){
+        if ($tags != null) {
+            for ($i = 0; $i < count($tags); $i++) {
                 $tags[$i] = Tag::where('id', $tags[$i])->first();
             }
-        }
-        else{
+        } else {
             $tags = $game->tag;
         }
-        
+
         return view('profile.game')->with('genres', $genres)->with('game', $game)->with('tags', $tags)
-        ->with('screenshots', $game->screenshotsASC)->with('files', $game->files);
+            ->with('screenshots', $game->screenshotsASC)->with('files', $game->files);
     }
 
     /**
@@ -120,8 +132,8 @@ class GameController extends Controller
 
         $game->save();
 
-        for ($i=0; $i < count($request->GameFile); $i++) {
-            if(!Game_File::where('file', $request->GameFile[$i])->where('game_id', $game->id)->exists()){
+        for ($i = 0; $i < count($request->GameFile); $i++) {
+            if (!Game_File::where('file', $request->GameFile[$i])->where('game_id', $game->id)->exists()) {
                 $gameFile = new Game_File();
                 $gameFile->game_id = $game->id;
                 $gameFile->file = $request->GameFile[$i];
@@ -135,7 +147,7 @@ class GameController extends Controller
         $tagArray = [];
 
         foreach ($request->tags as $tag) {
-            if(!Game_Tag::where('tag_id', $tag)->where('game_id', $game->id)->exists()){
+            if (!Game_Tag::where('tag_id', $tag)->where('game_id', $game->id)->exists()) {
                 $gameTag = new Game_Tag();
                 $gameTag->game_id = $game->id;
                 $gameTag->tag_id = $tag;
@@ -148,18 +160,17 @@ class GameController extends Controller
 
 
 
-        for ($i=0; $i < count($request->screenshots); $i++) {
-            if(!Game_Image::where('file', $request->screenshots[$i])->where('game_id', $game->id)->exists()){
+        for ($i = 0; $i < count($request->screenshots); $i++) {
+            if (!Game_Image::where('file', $request->screenshots[$i])->where('game_id', $game->id)->exists()) {
                 $screenshot = new Game_Image();
                 $screenshot->game_id = $game->id;
-                $screenshot->type = $i+1;
+                $screenshot->type = $i + 1;
                 $screenshot->file = $request->screenshots[$i];
                 $screenshot->save();
                 Temp_File::where('file', $request->screenshots[$i])->delete();
-            }
-            else{
+            } else {
                 $screenshot = Game_Image::where('file', $request->screenshots[$i])->where('game_id', $game->id)->first();
-                $screenshot->type = $i+1;
+                $screenshot->type = $i + 1;
                 $screenshot->save();
             }
         }
@@ -174,18 +185,35 @@ class GameController extends Controller
     {
         $screenshots = $game->screenshots;
 
-        foreach($screenshots as $screenshot){
+        foreach ($screenshots as $screenshot) {
             Storage::disk('do')->delete("images/{$screenshot->file}");
         }
 
         $files = $game->files;
 
-        foreach($files as $file){
+        foreach ($files as $file) {
             Storage::disk('do')->delete("files/{$file->file}");
         }
 
         $game->delete();
-        
+
         return redirect()->route('home');
+    }
+
+    public function follow(FollowRequest $request, Game $game)
+    {
+        
+        if($request->follow){
+            $gameFollow = Game_Follow::where('user_id', $request->user()->id)->where('game_id', $game->id)->first();
+            $gameFollow->delete();
+        }
+        else{
+            $gameFollow = new Game_Follow();
+            $gameFollow->user_id = $request->user()->id;
+            $gameFollow->game_id = $game->id;
+
+            $gameFollow->save();
+        }
+        return redirect()->route('game.show', $game);
     }
 }

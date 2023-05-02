@@ -4,8 +4,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-4">
-            <form method="POST" action="@isset($game){{route('game.update', $game)}}@else{{route('game.store')}}@endisset">
+        <div class="col-lg-8">
+            <form method="POST" id="game-form" action="@isset($game){{route('game.update', $game)}}@else{{route('game.store')}}@endisset">
                 @isset($game)@method('PUT')@endisset
                 @csrf
                 <div class="mb-3">
@@ -18,11 +18,33 @@
                     <input type="text" class="form-control" name="short_description" value="{{old('short_description', isset($game) ? $game->short_description : null)}}">
                     @include('layouts.error', ['fieldname' => 'short_description'])
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail" class="form-label">Description</label>
-                    <input type="text" class="form-control" name="description" value="{{old('description', isset($game) ? $game->description : null)}}">
-                    @include('layouts.error', ['fieldname' => 'description'])
+                <label for="exampleInputEmail" class="form-label">Description</label>
+                <div id="toolbar">
+                    <span class="ql-formats">
+                        <select class="ql-header">
+                            <option value="1">Heading 1<option/>
+                            <option value="2">Heading 2<option/>
+                            <option value="3">Heading 3<option/>
+                            <option value="">Normal<option/>
+                        </select>
+                        <button class="ql-bold" data-toggle="tooltip" data-placement="bottom" title="Bold"/>
+                        <button class="ql-italic" data-toggle="tooltip" data-placement="bottom" title="Add italic text <cmd+i>"/>
+                        <button class="ql-underline" />
+                        <button class="ql-align" value=""></button>
+                        <button class="ql-align" value="center"></button>
+                        <button class="ql-align" value="right"></button>
+                        <button class="ql-list" value="ordered" />
+                        <button class="ql-list" value="bullet" />
+                        <button class="ql-indent" value="-1" />
+                        <button class="ql-indent" value="+1" />
+                    </span>
                 </div>
+                <div id="editor" style="height: 300px;">
+                    {!!old('description', isset($game) ? $game->description : null)!!}
+                </div>
+                <input type="hidden" name="description">
+                @include('layouts.error', ['fieldname' => 'description'])
+
                 <label for="exampleInputEmail" class="form-label">Game file</label>
                 <div class="input-group">
                     <label class="btn btn-info" for="files-upload">Upload Game</label>
@@ -117,6 +139,27 @@
         </div>
     </div>
 </div>
+
+<!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script>
+var quill = new Quill('#editor', {
+    theme: 'snow',
+    modules: {
+        toolbar: '#toolbar'
+    }
+});
+
+    var form = document.getElementById("game-form");
+    form.onsubmit = function() {
+
+    var content = document.querySelector('input[name=description]');
+        content.value = quill.root.innerHTML;
+        return true;
+    };
+</script>
 
 <script>
     $(document).ready(function() {

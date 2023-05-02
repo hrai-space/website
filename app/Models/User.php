@@ -18,6 +18,21 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Game::class);
     }
 
+    public function following(){
+        return $this->hasMany(Game_Follow::class);
+    }
+
+    public function isFollowed($game_id){
+        if($this->following()->where('game_id', $game_id)->first() != null){
+            return 1;
+        }
+        return 0;
+    }
+
+    public function followedGames(){
+        return $this->belongsToMany(Game::class, 'game__follows');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
