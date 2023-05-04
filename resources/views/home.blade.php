@@ -23,6 +23,7 @@
             <input type="hidden" id="rowperpage" value="{{ $data['rowperpage'] }}">
             <input type="hidden" id="totalrecords" value="{{ $data['totalrecords'] }}">
             <input type="hidden" id="search" value="{{ $data['search'] }}">
+            <input type="hidden" id="filters" value="{{ $data['filters'] }}">
         </div>
     </div>
 </div>
@@ -44,6 +45,7 @@
         var allcount = Number($('#totalrecords').val());
         var rowperpage = Number($('#rowperpage').val());
         var search = $('#search').val();
+        var filters = $('#filters').val();
         start = start + rowperpage;
 
         if (start <= allcount) {
@@ -53,7 +55,8 @@
                 url: "{{route('getGames')}}",
                 data: {
                     start: start,
-                    search: search
+                    search: search,
+                    filters: filters,
                 },
                 dataType: 'json',
                 success: function(response) {

@@ -4,14 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\Game_File;
-use App\Models\Game_Image;
-use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use PhpOption\None;
-
-use function JmesPath\search;
 
 class MainController extends Controller
 {
@@ -26,19 +21,21 @@ class MainController extends Controller
 
         $data['totalrecords'] = $data['games']->count();
         $data['search'] = null;
+        $data['filters'] = null;
 
         return view('home')->with('data', $data);
     }
 
-    public function search(Request $request)
+    public function search(Request $request, $filters = null)
     {
         $data['rowperpage'] = $this->rowperpage;
 
-        $data['games'] = new Game();
-        $data['games'] = $data['games']->search($request)->take($this->rowperpage)->get();
+        $data['games'] = $this->processFilters($filters);
+        $data['games'] = $this->processSearch($request, $data['games'])->take($this->rowperpage)->get();
 
         $data['totalrecords'] = $data['games']->count();
         $data['search'] = $request->search;
+        $data['filters'] = $filters;
 
         return view('home')->with('data', $data);
     }
@@ -48,9 +45,13 @@ class MainController extends Controller
 
         $start = $request->get("start");
 
-        // Fetch records
         $games = new Game();
-        $games = $games->search($request)->skip($start)->take($this->rowperpage)->get();
+        $filters = $request->get("filters");
+
+        if($filters != null){
+            $games = $this->processFilters($filters);
+        }
+        $games = $this->processSearch($request, $games)->skip($start)->take($this->rowperpage)->get();
 
         $html = "";
         foreach ($games as $game) {
@@ -77,5 +78,52 @@ class MainController extends Controller
         $user = User::where('username', $username)->first();
 
         return view('profile.public-profile')->with('user', $user)->with('games', $user->game);
+    }
+
+    //public function filters($filters){
+    //    dd($this->processFilters($filters)->take($this->rowperpage)->get());
+    //}
+
+    function processFilters($filters){
+        $filters = explode('/', $filters);
+        $filterStartParameters = ['platform-', 'genre-', 'new', 'last-week', 'last-month'];
+        $game = new Game();
+
+        foreach($filters as $filter){
+            if(str_starts_with($filter, $filterStartParameters[0])){
+                $filter = str_replace($filterStartParameters[0], "", $filter);
+                $filter = str_replace('-', " ", $filter);
+                $game = $game->whereHas('files', function ($query) use($filter) {
+                    $query->where('type', $filter);
+                   });
+            }
+            else if(str_starts_with($filter, $filterStartParameters[1])){
+                $filter = str_replace($filterStartParameters[1], "", $filter);
+                $filter = str_replace('-', " ", $filter);
+                $game = $game->where('genre', $filter);
+            }
+            else if(str_starts_with($filter, $filterStartParameters[2])){
+                $game = $game->orderBy('id', 'desc');
+            }
+            else if(str_starts_with($filter, $filterStartParameters[3])){
+                $game = $game->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7));
+            }
+            else if(str_starts_with($filter, $filterStartParameters[4])){
+                $game = $game->where('created_at', '>=', \Carbon\Carbon::today()->subDays(31));
+            }
+        }
+        return $game;
+    }
+
+    function processSearch($request, $game){
+        $tags = explode(" ", $request->search);
+        return $game->where(function ($query) use ($request) {
+            $query->where('title', 'LIKE', "%{$request->search}%")
+            ->orWhere('short_description', 'LIKE', "%{$request->search}%")
+            ->orWhere('description', 'LIKE', "%{$request->search}%")->take($this->rowperpage)->get();
+        })
+        ->orWhereHas('tag', function ($query) use($tags) {
+            $query = $query->whereIn('name', $tags);
+        }, count($tags));
     }
 }

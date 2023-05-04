@@ -34,7 +34,7 @@ Route::get('clear-cache', function() {
 });
 
 Route::get('/', [MainController::class, 'home'])->name('home');
-Route::get('/search', [MainController::class, 'search'])->name('search');
+Route::get('/filters/{filters?}', [MainController::class, 'search'])->name('search')->where('filters', '(.*)');;
 Route::get('/getGames', [MainController::class, 'getGames'])->name('getGames');
 Route::get('/profile/{username}', [MainController::class, 'publicProfile'])->name('public.profile');
 Route::get('/game/{game}', [GameController::class, 'show'])->where('game', '[0-9]+')->name('game.show');
@@ -62,7 +62,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 });
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -36,18 +36,6 @@ class Game extends Model
         return $this->screenshots()->orderBy('type', 'desc')->first()->type;
     }
 
-    public function search($request){
-        $tags = explode(" ", $request->search);
-        return $this::where(function ($query) use ($request) {
-            $query->where('title', 'LIKE', "%{$request->search}%")
-            ->orWhere('short_description', 'LIKE', "%{$request->search}%")
-            ->orWhere('description', 'LIKE', "%{$request->search}%")->take($this->rowperpage)->get();
-        })
-        ->orWhereHas('tag', function ($query) use($tags) {
-            $query = $query->whereIn('name', $tags);
-        }, count($tags));
-    }
-
     public function user(){
         return $this->belongsTo(User::class);
     }
