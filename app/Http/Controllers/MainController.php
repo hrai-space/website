@@ -77,7 +77,10 @@ class MainController extends Controller
     {
         $user = User::where('username', $username)->first();
 
-        return view('profile.public-profile')->with('user', $user)->with('games', $user->game);
+        if($user != null)
+            return view('profile.public-profile')->with('user', $user)->with('games', $user->game);
+        else
+            return abort(404);
     }
 
     //public function filters($filters){
@@ -86,33 +89,39 @@ class MainController extends Controller
 
     function processFilters($filters){
         $filters = explode('/', $filters);
-        $filterStartParameters = ['platform-', 'genre-', 'new', 'last-week', 'last-month'];
-        $game = new Game();
+        $filterStartParameters = ['platform-', 'genre-', 'new', 'last-week', 'last-month', 'popular', 'featured'];
+        $games = new Game();
 
         foreach($filters as $filter){
             if(str_starts_with($filter, $filterStartParameters[0])){
                 $filter = str_replace($filterStartParameters[0], "", $filter);
                 $filter = str_replace('-', " ", $filter);
-                $game = $game->whereHas('files', function ($query) use($filter) {
+                $games = $games->whereHas('files', function ($query) use($filter) {
                     $query->where('type', $filter);
                    });
             }
             else if(str_starts_with($filter, $filterStartParameters[1])){
                 $filter = str_replace($filterStartParameters[1], "", $filter);
                 $filter = str_replace('-', " ", $filter);
-                $game = $game->where('genre', $filter);
+                $games = $games->where('genre', $filter);
             }
             else if(str_starts_with($filter, $filterStartParameters[2])){
-                $game = $game->orderBy('id', 'desc');
+                $games = $games->latest();
             }
             else if(str_starts_with($filter, $filterStartParameters[3])){
-                $game = $game->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7));
+                $games = $games->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7))->latest();
             }
             else if(str_starts_with($filter, $filterStartParameters[4])){
-                $game = $game->where('created_at', '>=', \Carbon\Carbon::today()->subDays(31));
+                $games = $games->where('created_at', '>=', \Carbon\Carbon::today()->subDays(31))->latest();
+            }
+            else if(str_starts_with($filter, $filterStartParameters[5])){
+                $games = $games->orderBy('views', 'desc');
+            }
+            else if(str_starts_with($filter, $filterStartParameters[6])){
+                $games = $games->where('is_featured', '1')->latest();
             }
         }
-        return $game;
+        return $games;
     }
 
     function processSearch($request, $game){

@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('v1/get/tags', [TagController::class, 'getTags'])->name('api.get.tags');
 Route::get('v1/get/game/{game}', [AppApiController::class, 'getGame'])->name('api.get.game');
+Route::get('v1/get/followed/{user}', [AppApiController::class, 'getFollowed'])->name('api.get.followed');

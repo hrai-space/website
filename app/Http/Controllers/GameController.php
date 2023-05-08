@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FollowRequest;
 use App\Http\Requests\GameUploadRequest;
 use App\Models\Game;
+use App\Models\Game_Download;
 use App\Models\Game_File;
 use App\Models\Game_Follow;
 use App\Models\Game_Image;
 use App\Models\Game_Tag;
+use App\Models\Game_View;
 use App\Models\Genre;
 use App\Models\Tag;
 use App\Models\Temp_File;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -89,6 +92,9 @@ class GameController extends Controller
         if (!session()->has($key)) {
             $game->views = $game->views + 1;
             $game->save();
+            $view = new Game_View();
+            $view->game_id = $game->id;
+            $view->save();
             session()->put($key, 1);
             session()->save();
         }
@@ -204,8 +210,7 @@ class GameController extends Controller
     {
         
         if($request->follow){
-            $gameFollow = Game_Follow::where('user_id', $request->user()->id)->where('game_id', $game->id)->first();
-            $gameFollow->delete();
+            $gameFollow = Game_Follow::where('user_id', $request->user()->id)->where('game_id', $game->id)->delete();
         }
         else{
             $gameFollow = new Game_Follow();
@@ -214,6 +219,32 @@ class GameController extends Controller
 
             $gameFollow->save();
         }
+
+        return redirect()->route('game.show', $game);
+    }
+
+    public function download($file_id){
+        $file = Game_File::where('id', $file_id)->first();
+
+        $key = 'download_key_' . $file_id;
+        if (!session()->has($key)) {
+            $fileDownload = new Game_Download();
+            $fileDownload->file_id = $file_id;
+            $fileDownload->game_id = $file->game_id;
+            $fileDownload->save();
+            session()->put($key, 1);
+            session()->save();
+        }
+        
+        return redirect(Storage::url("files/" . $file->file));
+    }
+
+    public function feature(Request $request, Game $game)
+    {
+        $game->is_featured = $request->is_featured;
+
+        $game->save();
+
         return redirect()->route('game.show', $game);
     }
 }

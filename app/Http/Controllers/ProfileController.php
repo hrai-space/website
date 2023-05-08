@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,5 +67,13 @@ class ProfileController extends Controller
     public function followed()
     {
         return view('profile.followed')->with('games', Auth::user()->followedGames);
+    }
+
+    public function admin(Request $request, User $user)
+    {
+        $user->is_admin = $request->is_admin;
+        $user->save();
+
+        return redirect()->route('public.profile', $user->username);
     }
 }

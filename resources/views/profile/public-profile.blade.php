@@ -5,6 +5,20 @@
 <div>
     <div class="container">
         <h1>{{$user->username}}</h1>
+        @auth
+            @admin
+                <form action="{{route('profile.admin', $user)}}" method="POST">
+                    @method('PUT')
+                    @if($user->is_admin)
+                        <button type="submit" name="is_admin" value="0" class="btn btn-warning">Unmade admin</button>
+                    @else
+                        <button type="submit" name="is_admin" value="1" class="btn btn-warning">Make admin</button>
+                    @endif
+                    @csrf
+                </form>
+            @endadmin
+        @endauth
+        <h3>{{$user->description}}</h3>
         <div class="row">
             @foreach($games as $game)
             <div class="col-lg-3">

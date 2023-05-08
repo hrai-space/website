@@ -38,6 +38,7 @@ Route::get('/filters/{filters?}', [MainController::class, 'search'])->name('sear
 Route::get('/getGames', [MainController::class, 'getGames'])->name('getGames');
 Route::get('/profile/{username}', [MainController::class, 'publicProfile'])->name('public.profile');
 Route::get('/game/{game}', [GameController::class, 'show'])->where('game', '[0-9]+')->name('game.show');
+Route::get('/game/download/{file_id}', [GameController::class, 'download'])->name('game.download');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['is_owner'])->group(function () {
@@ -55,6 +56,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/game/temp/image/delete', [DoSpacesController::class, 'deleteTempFile'])->name('game.temp.image.delete');
     Route::post('/game/temp/file/delete', [DoSpacesController::class, 'deleteTempGameFile'])->name('game.temp.file.delete');
     Route::middleware(['is_admin'])->group(function () {
+        Route::put('/game/feature/{game}', [GameController::class, 'feature'])->name('game.feature');
+        Route::put('/profile/admin/{user}', [ProfileController::class, 'admin'])->name('profile.admin');
         Route::prefix('admin')->group(function () {
             Route::resource('tag', TagController::class);
             Route::resource('genre', GenreController::class);

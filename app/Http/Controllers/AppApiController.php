@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class AppApiController extends Controller
@@ -19,5 +20,9 @@ class AppApiController extends Controller
         }
 
         return response()->json(['game' => $game]);
+    }
+
+    public function getFollowed(User $user){
+        return response()->json(['followed' => $user->followedGames->pluck('id')]);
     }
 }

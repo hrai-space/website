@@ -41,6 +41,13 @@
                         <div id="emailHelp" class="form-text">{{$error}}</div>
                         @endforeach
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description:</label>
+                        <textarea class="form-control" name="description">{{old('description', $user->description)}}</textarea>
+                        @foreach($errors->get('description') as $error)
+                        <div class="form-text">{{$error}}</div>
+                        @endforeach
+                    </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>
@@ -86,7 +93,7 @@
                                 @csrf
                                 @method('delete')
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Password</label>
+                                    <label for="exampleInputEmail1" class="form-label">Description</label>
                                     <input type="password" class="form-control" name="password">
                                     @foreach($errors->userDeletion->get('password') as $error)
                                     <div class="form-text">{{$error}}</div>
