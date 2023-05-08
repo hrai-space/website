@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Article_Category;
 use App\Models\Game;
 use App\Models\Game_File;
 use App\Models\Game_Image;
@@ -10,14 +11,11 @@ use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use PhpOption\None;
-
-use function JmesPath\search;
 
 class MainController extends Controller
 {
 
-    public $rowperpage = 5;
+    public $rowperpage = 4;
 
     public function home()
     {
@@ -33,23 +31,16 @@ class MainController extends Controller
 
     public function articles()
     {
+        $categories = Article_Category::all();
         $data['rowperpage'] = $this->rowperpage;
 
         $data['articles'] = Article::select('*')->take($this->rowperpage)->get();
 
         $data['totalrecords'] = $data['articles']->count();
         $data['search'] = null;
-        return view('articles')->with('data', $data);
-    }
-    public function articles_dashboard()
-    {
-        $data['rowperpage'] = $this->rowperpage;
-
-        $data['articles'] = Article::select('*')->take($this->rowperpage)->get();
-
-        $data['totalrecords'] = $data['articles']->count();
-        $data['search'] = null;
-        return view('articles')->with('data', $data);
+        $data['category'] = null;
+        $data['filters'] = null;
+        return view('articles')->with('data', $data)->with('categories', $categories);
     }
 
     public function search(Request $request)
@@ -63,6 +54,43 @@ class MainController extends Controller
         $data['search'] = $request->search;
 
         return view('home')->with('data', $data);
+    }
+
+    public function articlesSearch(Request $request, $filters = null)
+    {
+        $category = null;
+        if(isset($filters)){
+            $filters = explode('/', $filters);
+            $bool = true;
+            for($i=count($filters)-1;$i>=0;$i--){
+                if(str_starts_with($filters[$i], 'category-')){
+                    $category = implode('/', array_slice($filters, 0, $i+1)).'/';
+                    if(count($filters)>$i+1){
+                        $filters = implode('/', array_slice($filters, $i+1));
+                    }else{
+                        $filters = null;
+                    }
+                    $bool = false;
+                    break;
+                }
+            }
+            if ($bool){
+                $filters = implode('/', $filters);
+            }
+        }
+        //dd($category, $filters);
+        $categories = Article_Category::all();
+        $data['rowperpage'] = $this->rowperpage;
+
+        $data['articles'] = $this->processArticlesFilters($category.$filters);
+        $data['articles'] = $this->processArticlesSearch($request, $data['articles'])->take($this->rowperpage)->get();
+
+        $data['totalrecords'] = $data['articles']->count();
+        $data['search'] = $request->search;
+        $data['category'] = $category;
+        $data['filters'] = $filters;
+
+        return view('articles')->with('data', $data)->with('categories', $categories);
     }
 
     public function game($game_id)
@@ -109,15 +137,21 @@ class MainController extends Controller
 
         // Fetch records
         $articles = new Article();
-        $articles = $articles->search($request)->skip($start)->take($this->rowperpage)->get();
+        $filters = $request->get("filters");
+        $category = $request->get("category");
+
+        if($category != null or $filters != null){
+            $articles = $this->processArticlesFilters($category, $filters);
+        }
+        $articles = $this->processArticlesSearch($request, $articles)->skip($start)->take($this->rowperpage)->get();
 
         $html = "";
         foreach ($articles as $article) {
-            $html .= '<div class="col-lg-6">
-                <div class="card" style="width: 18rem;">
+            $html .= '<div class="col-lg-10">
+                <div class="card" style="width: 50rem;">
                     <div class="card-body">
                         <h5 class="card-title">' . $article->title . '</h5>
-                        <a href="' . route("article.show", $article->id) . '" class="btn btn-primary">Article</a>
+                        <a href="' . route("article.show", $article->id) . '" class="btn btn-primary">Show</a>
                     </div>
                 </div>
             </div>';
@@ -133,5 +167,36 @@ class MainController extends Controller
         $user = User::where('username', $username)->first();
 
         return view('profile.public-profile')->with('user', $user)->with('games', $user->game);
+    }
+
+    function processArticlesFilters($filters){
+        $filters = explode('/', $filters);
+        $filterStartParameters = ['category-', 'new', 'last-week', 'last-month'];
+        $article = new Article();
+        
+        foreach($filters as $filter){
+            if(str_starts_with($filter, $filterStartParameters[0])){
+                $filter = str_replace($filterStartParameters[0], "", $filter);
+                $filter = str_replace('-', " ", $filter);
+                $article = $article->where('category_id', $filter);
+            }
+            else if(str_starts_with($filter, $filterStartParameters[1])){
+                $article = $article->orderBy('id', 'desc');
+            }
+            else if(str_starts_with($filter, $filterStartParameters[2])){
+                $article = $article->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7));
+            }
+            else if(str_starts_with($filter, $filterStartParameters[3])){
+                $article = $article->where('created_at', '>=', \Carbon\Carbon::today()->subDays(31));
+            }
+        }
+        return $article;
+    }
+
+    function processArticlesSearch($request, $article){
+        return $article->where(function ($query) use ($request) {
+            $query->where('title', 'LIKE', "%{$request->search}%")
+            ->orWhere('content', 'LIKE', "%{$request->search}%")->take($this->rowperpage)->get();
+        });
     }
 }

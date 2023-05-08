@@ -24,6 +24,7 @@ Route::get('/', [MainController::class, 'home'])->name('home');
 Route::get('/articles', [MainController::class, 'articles'])->name('articles');
 Route::get('/getArticles', [MainController::class, 'getArticles'])->name('getArticles');
 Route::get('/search', [MainController::class, 'search'])->name('search');
+Route::get('/articles/filters/{filters?}', [MainController::class, 'articlesSearch'])->name('articles.search')->where(['filters' => '(.*)']);
 Route::get('/getGames', [MainController::class, 'getGames'])->name('getGames');
 Route::get('/game/{game_id}', [MainController::class, 'game'])->where('game_id', '[0-9]+')->name('game');
 Route::get('/profile/{username}', [MainController::class, 'publicProfile'])->where('game_id', '[0-9]+')->name('public.profile');

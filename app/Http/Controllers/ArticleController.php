@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticleUploadRequest;
 use App\Models\Article;
+use App\Models\Article_Category;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -21,7 +22,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('profile.article');
+        $categories = Article_Category::all();
+        return view('profile.article')->with('categories', $categories);
     }
 
     /**
@@ -33,6 +35,7 @@ class ArticleController extends Controller
         $article->user_id = $request->user()->id;
         $article->title = $request->title;
         $article->content = $request->content;
+        $article->category_id = $request->category;
 
         $article->save();
         return redirect()->route('home');
@@ -52,7 +55,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        return view('profile.article')->with('article', $article);
+        $categories = Article_Category::all();
+        return view('profile.article')->with('article', $article)->with('categories', $categories);
     }
 
     /**
@@ -62,6 +66,7 @@ class ArticleController extends Controller
     {
         $article->title = $request->title;
         $article->content = $request->content;
+        $article->category_id = $request->category;
         $article->save();
         return redirect()->route('dashboardArticles');
     }

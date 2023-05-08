@@ -23,7 +23,8 @@ class ArticleUploadRequest extends FormRequest
     {
         return [
             'title' => 'required|max:64',
-            'content' => 'required|min:50'
+            'content' => 'required|min:50',
+            'category' => 'required'
         ];
     }
 }

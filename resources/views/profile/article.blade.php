@@ -24,6 +24,15 @@
                 <input type="hidden" name="content">
                 @include('layouts.error', ['fieldname' => 'content'])
             </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" name="category">
+                    @foreach($categories as $category)
+                    <option value="{{$category->id}}" @if(old('category') == $category->id)selected @else @isset($article)@if($article->category_id == $category->id)selected @endif @endisset @endif>{{$category->name}}</option>
+                    @endforeach
+                </select>
+                @include('layouts.error', ['fieldname' => 'category'])
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>  
