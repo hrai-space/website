@@ -33,7 +33,7 @@ class GameController extends Controller
     public function create()
     {
         $genres = Genre::all();
-        return view('profile.game')->with('genres', $genres);
+        return view('profile.games.form')->with('genres', $genres);
     }
 
     /**
@@ -80,7 +80,7 @@ class GameController extends Controller
             Temp_File::where('file', $request->screenshots[$i])->delete();
         }
 
-        return redirect()->route('home');
+        return redirect()->route('dashboard.games');
     }
 
     /**
@@ -122,7 +122,7 @@ class GameController extends Controller
             $tags = $game->tag;
         }
 
-        return view('profile.game')->with('genres', $genres)->with('game', $game)->with('tags', $tags)
+        return view('profile.games.form')->with('genres', $genres)->with('game', $game)->with('tags', $tags)
             ->with('screenshots', $game->screenshotsASC)->with('files', $game->files);
     }
 
@@ -181,7 +181,7 @@ class GameController extends Controller
             }
         }
 
-        return redirect()->route('home');
+        return redirect()->route('dashboard.games');
     }
 
     /**
@@ -203,7 +203,7 @@ class GameController extends Controller
 
         $game->delete();
 
-        return redirect()->route('home');
+        return redirect()->route('dashboard.games');
     }
 
     public function follow(FollowRequest $request, Game $game)

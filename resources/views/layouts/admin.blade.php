@@ -84,6 +84,9 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{route('genre.index')}}">Genres</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{route('category.index')}}">Categories</a>
+                    </li>
                 </ul>
             </div>
         </div>

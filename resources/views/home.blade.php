@@ -2,10 +2,31 @@
 
 @section('main_content')
 
+<style>
+    .active{
+        color: red !important;
+    }
+</style>
+
 <div>
     <div class="container">
+        <p>Platform</p>
+        <a href="{{url('filters')}}@if($usedFilters['platform'] != '/platform-0'){{'/platform-0'}}@endif{{$usedFilters['genre'] . $usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['platform'] == '/platform-0') active @endif">Windows</a>
+        <a href="{{url('filters')}}@if($usedFilters['platform'] != '/platform-1'){{'/platform-1'}}@endif{{$usedFilters['genre'] . $usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['platform'] == '/platform-1') active @endif">Linux</a>
+        <a href="{{url('filters')}}@if($usedFilters['platform'] != '/platform-2'){{'/platform-2'}}@endif{{$usedFilters['genre'] . $usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['platform'] == '/platform-2') active @endif">MacOS</a>
+        <a href="{{url('filters')}}@if($usedFilters['platform'] != '/platform-3'){{'/platform-3'}}@endif{{$usedFilters['genre'] . $usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['platform'] == '/platform-3') active @endif">Android</a>
+        <p>Genre</p>
+        @foreach($genres as $genre)
+            <a href="{{url('filters') . $usedFilters['platform']}}@if($usedFilters['genre'] != '/genre-' . $genre->id){{'/genre-' . $genre->id}}@endif{{$usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['genre'] == '/genre-' . $genre->id) active @endif">{{$genre->name}}</a>
+        @endforeach
+        <p>Time</p>
+        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre']}}@if($usedFilters['time'] != '/new'){{'/new'}}@endif{{$usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['time'] == '/new') active @endif">Нові</a>
+        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre']}}@if($usedFilters['time'] != '/last-week'){{'/last-week'}}@endif{{$usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['time'] == '/last-week') active @endif">Тиждень</a>
+        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre']}}@if($usedFilters['time'] != '/last-month'){{'/last-month'}}@endif{{$usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['time'] == '/last-month') active @endif">Місяць</a>
+        <p>Other</p>
+        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre'] . $usedFilters['time']}}@if($usedFilters['other'] != '/popular'){{'/popular'}}@endif?search={{$data['search']}}" class="btn btn-link @if($usedFilters['other'] == '/popular') active @endif">Популярні</a>
+        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre'] . $usedFilters['time']}}@if($usedFilters['other'] != '/featured'){{'/featured'}}@endif?search={{$data['search']}}" class="btn btn-link @if($usedFilters['other'] == '/featured') active @endif">Вибрані</a>
         <div class="row">
-            
             @foreach($data['games'] as $game)
             <div class="col-lg-6">
                 <div class="card" style="width: 18rem;">

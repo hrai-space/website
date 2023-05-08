@@ -33,6 +33,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Game::class, 'game__follows');
     }
 
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

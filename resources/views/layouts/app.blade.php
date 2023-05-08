@@ -33,16 +33,24 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{route('home')}}">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{route('articles')}}">Articles</a>
+                    </li>
                     @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->username }}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="{{route('dashboard.games')}}">My games</a></li>
+                            <li><a class="dropdown-item" href="{{route('dashboard.articles')}}">My articles</a></li>
                             <li><a class="dropdown-item" href="{{route('profile.edit')}}">Profile</a></li>
                             <li><a class="dropdown-item" href="{{route('game.create')}}">New game</a></li>
+                            <li><a class="dropdown-item" href="{{route('article.create')}}">New article</a></li>
                             <li><a class="dropdown-item" href="{{route('game.followed')}}">Followed</a></li>
+                            @admin
+                            <li><a class="dropdown-item" href="{{route('admin.dashboard')}}">Admin</a></li>
+                            @endadmin
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
