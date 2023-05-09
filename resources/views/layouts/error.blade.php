@@ -1,6 +1,5 @@
 @error($fieldname)
-    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 75px;">
+    <div class="alert" role="alert" style="margin: 0; margin-top:-30px">
         {{$message}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @enderror

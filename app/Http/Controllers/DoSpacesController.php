@@ -24,6 +24,9 @@ class DoSpacesController extends Controller
 
     public function store(DigitalOceanStoreRequest $request)
     {
+        $request->validate([
+            'avatar' => ['required', 'dimensions:width=512,height=512'],
+        ]);
         $file = $request->ImageFile;
         $fileName = (string) Str::uuid();
         $folder = "images";

@@ -44,5 +44,22 @@ class Game extends Model
         return $this->user()->first()->username;
     }
 
+    public function genre(){
+        return $this->belongsTo(Genre::class);
+    }
+
+    public function decodeGenre(){
+        return $this->genre()->first()->name;
+    }
+
+    public function getPlatforms(){
+        $files = $this->files()->get();
+        $platforms = [0, 0, 0, 0];
+        foreach($files as $file){
+            $platforms[$file->type] = 1;
+        }
+        return $platforms;
+    }
+
     protected $fillable = ['user_id', 'title', 'short_desctiption', 'description', 'genre', 'kind_of_content', 'classification', 'visibility'];
 }

@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hrai</title>
+
+
+    <!-- Style CSS -->
+
+    <link rel="stylesheet" href="assets/css/list.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/null.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+
+    <!-- Style CSS -->
+
+
+</head>
+<body>
+
+
+
+    <!-- Side Menu -->
+<div class="row">
+
+
+    
+<div class="col-sm-1">
+
+         
+
+
+<div class="side-menu">
+    <div class="side-nav" id="side-nav">
+
+        <span class = "nav-img">
+            <img src="assets/img/logo.svg" alt="logo">
+        </span>
+        <ul class = "side-list">
+            <li class="list-element">
+                <a href="#">
+                    <span class="iconify" data-icon="pepicons-pop:controller"></span>
+                    <span class="side-nav-text">Main</span>
+                </a>
+            </li>
+            <li class = "list-element">
+                <a href="#">
+                    <span class="iconify" data-icon="radix-icons:iconjar-logo"></span>
+                    <span class="side-nav-text">Game Jams</span>
+                </a>
+            </li>
+            <li class = "list-element">
+                <a href="#">
+                    <span class="iconify" data-icon="material-symbols:dashboard-outline-rounded"></span>
+                    <span class="side-nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class = "list-element">
+                <a href="#">
+                    <span class="iconify" data-icon="fluent:people-community-24-regular"></span>
+                    <span class="side-nav-text">Community</span>
+                </a>
+            </li>
+            <li class = "list-element">
+                <a href="#">
+                    <span class="iconify" data-icon="material-symbols:menu-book-outline-rounded"></span>
+                    <span class="side-nav-text">Developer Logs</span>
+                </a>
+            </li>
+            <li class = "list-element">
+                <a href="#">
+                    <span class="iconify" data-icon="grommet-icons:status-unknown"></span>
+                    <span class="side-nav-text">Assets</span>
+                </a>
+            </li>
+            <li class = "list-element">
+                <a href="#" onclick="dropDown()">
+                    <span class="iconify" id="icon" data-icon="solar:sort-from-top-to-bottom-bold"></span>
+                    <span class="side-nav-text" id="text">Filter</span>
+                    <span class="iconify side-nav-filter-icon" id="triangle" data-icon="tabler:triangle-filled"></span>
+                </a>
+                    <ul class="dropdown">
+                        <li class="dropdown-element">
+                            <a href="#" onclick="dropDownSecond()">
+                                <span class="dropdown-text" id="text-second">Platform</span>
+                                <span id="triangle-second" class="iconify dropdown-icon" data-icon="tabler:triangle-filled"></span>
+                            </a>
+
+                            <ul class="dropdown-menu-second ">
+                                <li class="dropdown-element-second">
+                                    <a href="#">
+                                        <span class="dropdown-text-second">Windows</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-second">
+                                    <a href="#">
+                                        <span class="dropdown-text-second">Linux</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-second">
+                                    <a href="#">
+                                        <span class="dropdown-text-second">Android</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-second">
+                                    <a href="#">
+                                        <span class="dropdown-text-second">iOS</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-second">
+                                    <a href="#">
+                                        <span class="dropdown-text-second">Web</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown-element">
+                            <a href="#" onclick="dropDownThird()">
+                                <span class="dropdown-text" id="text-third">When</span>
+                                <span id="triangle-third" class="iconify dropdown-icon" data-icon="tabler:triangle-filled"></span>
+                            </a>
+
+                            <ul class="dropdown-menu-third">
+                                <li class="dropdown-element-third">
+                                    <a href="#">
+                                        <span class="dropdown-text-third">Last Day</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-third">
+                                    <a href="#">
+                                        <span class="dropdown-text-third">Last Week</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-third">
+                                    <a href="#">
+                                        <span class="dropdown-text-third">Last Month</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-element">
+                            <a href="#" onclick="dropDownFourth()">
+                                <span class="dropdown-text" id="text-fourth">Genre</span>
+                                <span id="triangle-fourth" class="iconify dropdown-icon" data-icon="tabler:triangle-filled"></span>
+                            </a>
+
+                            <ul class="dropdown-menu-fourth">
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Action</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Adventure</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Card Game</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Educational</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Fighting</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Platformer</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Horror</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Racing</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Survival</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Sports</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fourth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fourth">Other</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+                        <li class="dropdown-element">
+                            <a href="#" onclick="dropDownFifth()">
+                                <span class="dropdown-text" id="text-fifth">Price</span>
+                                <span id="triangle-fifth" class="iconify dropdown-icon" data-icon="tabler:triangle-filled"></span>
+                            </a>
+
+                            <ul class="dropdown-menu-fifth">
+                                <li class="dropdown-element-fifth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fifth">Free</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fifth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fifth">On Sale</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-fifth">
+                                    <a href="#">
+                                        <span class="dropdown-text-fifth">Paid</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+                        </li>
+                        <li class="dropdown-element">
+                            <a href="#" onclick="dropDownSixth()">
+                                <span class="dropdown-text" id="text-sixth">Multiplayer Features</span>
+                                <span id="triangle-sixth" class="iconify dropdown-icon" data-icon="tabler:triangle-filled"></span>
+                            </a>
+                            </a>
+
+                            <ul class="dropdown-menu-sixth">
+                                <li class="dropdown-element-sixth">
+                                    <a href="#">
+                                        <span class="dropdown-text-sixth">Local Multiplayer</span>
+                                       
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-sixth">
+                                    <a href="#">
+                                        <span class="dropdown-text-sixth">Server-Based</span>
+                                      
+                                    </a>
+                                </li>
+                                <li class="dropdown-element-sixth">
+                                    <a href="#">
+                                        <span class="dropdown-text-sixth">Singleplayer</span>
+
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+            </li>
+            <hr>
+            <li class = "list-element">
+                <a href="#">
+                    <span class="iconify" data-icon="ic:round-mail-outline"></span>
+                    <span class="side-nav-text">Inbox</span>
+                </a>
+            </li>
+            <li class = "list-element">
+                <a href="#">
+                    <span class="iconify" data-icon="carbon:game-wireless"></span>
+                    <span class="side-nav-text">My Library</span>
+                </a>
+            </li>
+            <li class = "list-element">
+                <a href="#">
+                    <span class="iconify" data-icon="tabler:eye"></span>
+                    <span class="side-nav-text">Recommendations</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+    <!-- Side Menu -->
+
+
+
+
+
+
+<div class="col">
+
+    
+
+    
+
+    <div class="header">
+
+    <!-- Burger -->
+
+
+       <nav>
+        <input type="checkbox" id="menu" name="menu" class="m-menu__checkbox">
+        <label class="m-menu__toggle" for="menu">
+          <svg width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="butt" stroke-linejoin="arcs"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </label>
+        <label class="m-menu__overlay" for="menu"></label>
+      
+        <div class="m-menu">
+            
+
+
+          <div class="m-menu__header">
+            <label class="m-menu__toggle" for="menu">
+              <span class="iconify" data-icon="maki:cross" data-width="30" data-height="30" fill="none" ></span>
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </label>
+            <span><a href="#" class="navbar-brand"><img src="assets/img/logo.svg" alt="logo"></a></span>
+          </div>
+
+
+
+          <ul>
+            <li><label>Main</label></li>
+            <hr>
+            <li><label>Gam Jams</label></li>
+            <hr>
+            <li><label>Dashobard</label></li>
+            <hr>
+            <li><label>Community</label></li>
+            <hr>
+            <li><label>Developer Logs</label></li>
+            <hr>
+            <li><label>Assets</label></li>
+            <hr>
+            
+
+            <li>
+              <label class="a-label__chevron" for="item-2">Filter</label>
+              <hr>
+              <input type="checkbox" id="item-2" name="item-2" class="m-menu__checkbox">
+              <div class="m-menu">
+                <div class="m-menu__header">
+                  <label class="m-menu__toggle" for="item-2">
+                      <span class="iconify" data-icon="ph:arrow-left-bold" style="color: white;" data-width="30" data-height="30"></span>
+                      <path d="M19 12H6M12 5l-7 7 7 7"/>
+                    </svg>
+                  </label>
+                  <span>Filter</span>
+                  
+                </div>
+                <ul>
+                    <li>
+                        <label class="a-label__chevron" for="item-2-3">Platform</label>
+                        <input type="checkbox" id="item-2-3" name="item-2" class="m-menu__checkbox">
+                        <div class="m-menu">
+                          <div class="m-menu__header">
+                            <label class="m-menu__toggle" for="item-2-3">
+                                <span class="iconify" data-icon="ph:arrow-left-bold" style="color: white;" data-width="30" data-height="30"></span>
+                                <path d="M19 12H6M12 5l-7 7 7 7"/>
+                              </svg>
+                            </label>
+                            <span>Platform</span>
+                          </div>
+                          <ul>
+                            <li><label>Windows</label></li>
+                            <hr>
+                            <li><label>Linux</label></li>
+                            <hr>
+                            <li><label>Android</label></li>
+                            <hr>
+                            <li><label>iOS</label></li>
+                            <hr>
+                            <li><label>Web</label></li>
+                            <hr>
+                          </ul>                
+                      </li>
+                  <hr>
+                  <li>
+                    <label class="a-label__chevron" for="item-2-4">When</label>
+                    <input type="checkbox" id="item-2-4" name="item-2" class="m-menu__checkbox">
+                    <div class="m-menu">
+                      <div class="m-menu__header">
+                        <label class="m-menu__toggle" for="item-2-4">
+                            <span class="iconify" data-icon="ph:arrow-left-bold" style="color: white;" data-width="30" data-height="30"></span>
+                            <path d="M19 12H6M12 5l-7 7 7 7"/>
+                          </svg>
+                        </label>
+                        <span>When</span>
+                      </div>
+                      <ul>
+                        <li><label>Last Day</label></li>
+                        <hr>
+                        <li><label>Last Week</label></li>
+                        <hr>
+                        <li><label>Last Month</label></li>
+                        <hr>
+                      </ul>                
+                  </li>
+              <hr>
+              <li>
+                <label class="a-label__chevron" for="item-2-5">Genre</label>
+                <input type="checkbox" id="item-2-5" name="item-2" class="m-menu__checkbox">
+                <div class="m-menu">
+                  <div class="m-menu__header">
+                    <label class="m-menu__toggle" for="item-2-5">
+                        <span class="iconify" data-icon="ph:arrow-left-bold" style="color: white;" data-width="30" data-height="30"></span>
+                        <path d="M19 12H6M12 5l-7 7 7 7"/>
+                      </svg>
+                    </label>
+                    <span>Genre</span>
+                  </div>
+                  <ul>
+                    <li><label>Action</label></li>
+                    <hr>
+                    <li><label>Adventure</label></li>
+                    <hr>
+                    <li><label>Card Game</label></li>
+                    <hr>
+                    <li><label>Educational</label></li>
+                    <hr>
+                    <li><label>Fighting</label></li>
+                    <hr>
+                    <li><label>Platformer</label></li>
+                    <hr>
+                    <li><label>Horror</label></li>
+                    <hr>
+                    <li><label>Racing</label></li>
+                    <hr>
+                    <li><label>Survival</label></li>
+                    <hr>
+                    <li><label>Sports</label></li>
+                    <hr>
+                    <li><label>Other</label></li>
+                    <hr>
+                    <li><label></label></li>
+                    <li><label></label></li>
+                    <li><label></label></li>
+                    <li><label></label></li>
+                  </ul>                
+              </li>
+          <hr>
+
+
+          <li>
+            <label class="a-label__chevron" for="item-2-6">Price</label>
+            <input type="checkbox" id="item-2-6" name="item-2" class="m-menu__checkbox">
+            <div class="m-menu">
+              <div class="m-menu__header">
+                <label class="m-menu__toggle" for="item-2-6">
+                    <span class="iconify" data-icon="ph:arrow-left-bold" style="color: white;" data-width="30" data-height="30"></span>
+                    <path d="M19 12H6M12 5l-7 7 7 7"/>
+                  </svg>
+                </label>
+                <span>Price</span>
+              </div>
+              <ul>
+                <li><label>Free</label></li>
+                <hr>
+                <li><label>On Sale</label></li>
+                <hr>
+                <li><label>Paid</label></li>
+                <hr>
+              </ul>                
+          </li>
+      <hr>
+
+
+      <li>
+        <label class="a-label__chevron" for="item-2-7">Multiplayer Features</label>
+        <input type="checkbox" id="item-2-7" name="item-2" class="m-menu__checkbox">
+        <div class="m-menu">
+          <div class="m-menu__header">
+            <label class="m-menu__toggle" for="item-2-7">
+                <span class="iconify" data-icon="ph:arrow-left-bold" style="color: white;" data-width="30" data-height="30"></span>
+                <path d="M19 12H6M12 5l-7 7 7 7"/>
+              </svg>
+            </label>
+            <span>Multiplayer Features</span>
+          </div>
+          <ul>
+            <li><label>Local Multiplayer</label></li>
+            <hr>
+            <li><label>Server-Based</label></li>
+            <hr>
+            <li><label>Singleplayer</label></li>
+            <hr>
+          </ul>                
+      </li>
+  <hr>
+              </div>
+            </li>
+            <li><label>Inbox</label></li>
+            <hr>
+            <li><label>My Library</label></li>
+            <hr>
+            <li><label>Recommendations</label></li>
+            <hr>
+            <li><label></label></li>
+            <li><label></label></li>
+            <li><label></label></li>
+            <li><label></label></li>
+          </ul>  
+        </div>
+      </nav>
+
+
+
+  <!-- Burger -->
+
+
+
+
+
+
+
+  
+
+
+
+
+        <div class="row">
+
+
+            
+        <div class="col">
+
+
+            
+
+            
+
+        <!-- Search Bar -->
+
+        <div class="search-bar">
+            <span class="iconify" data-icon="ant-design:search-outlined"></span>
+            <input type="text" placeholder="Search games" onfocus="this.placeholder=''" onblur="this.placeholder='Search games'" />
+        </div>
+
+    </div>
+        <!-- Search Bar -->
+
+
+
+        <!-- Notification -->
+
+        
+
+    <div class="col-sm">
+
+
+        
+
+        
+        <button class="notification" id="notification-button"><span class="iconify"  data-icon="basil:notification-outline"></span></button>
+        <div class='notification-dot'></div>
+
+        <div class="notification-container" id="notification-container">
+        <div class="notification-text">
+            <h1>Project successfully created</h1>
+            <p>Your new project was created</p>
+            <p>You can view it down below</p>
+        </div>
+            <button class="notification-button">View Project</button>
+        </div>
+
+        <!-- Notification -->
+
+
+
+
+        <!-- Account -->
+
+
+
+        <button class ="account" id="account-button"><img src="assets/img/1.png" alt="account"></button>
+
+
+            <div class="not-registered-container" id="not-registered-container">
+                <button class="pop-trigger sign-in"><span class="iconify" data-icon="ion:log-out-outline"></span> Sign In</button>
+                <button class="popup-trigger sign-up"><span class="iconify" data-icon="mdi:register-outline"></span> Sign Up</button>
+            </div>
+            
+        </div>
+
+    </div>
+
+    </div>
+    </div>
+</div>
+</div>
+
+
+
+
+     <!-- Account -->
+
+
+
+    
+
+
+
+<!--Content -->
+
+<div class="content">
+
+
+
+<div class="section-container">
+    <div class="section-name">
+        <h1>Top Certified</h1>
+    </div>
+
+
+    <div class="section-game-list">
+<div class="row">
+    <div class="col">
+        <div class="game-container">
+            <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+            <div class="row">
+                <div class="col img">
+            <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+        </div>
+        <div class="col text">
+            <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+            <ul class="platform-list">
+                <li class="platform-element">
+                    <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="ic:baseline-apple"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="uil:android"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col">
+            <button class="status-button free"><a href="#">FREE</a></button>
+        </div>
+            <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+        
+        </div>
+
+    </div>
+</div>
+
+
+<div class="col second">
+    <div class="game-container">
+        <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+        <div class="row">
+            <div class="col img">
+        <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+    </div>
+    <div class="col text">
+        <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+        <ul class="platform-list">
+            <li class="platform-element">
+                <span class="iconify" data-icon="mingcute:windows-fill"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="ic:baseline-apple"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="uil:android"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <button class="status-button paid"><a href="#">4.99 $</a></button>
+    </div>
+        <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+    
+    </div>
+
+</div>
+</div>
+
+
+
+<div class="col last">
+    <div class="game-container">
+        <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+        <div class="row">
+            <div class="col img">
+        <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+    </div>
+    <div class="col text">
+        <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+        <ul class="platform-list">
+            <li class="platform-element">
+                <span class="iconify" data-icon="mingcute:windows-fill"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="ic:baseline-apple"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="uil:android"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <button class="status-button free"><a href="#">FREE</a></button>
+    </div>
+        <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+    
+    </div>
+
+</div>
+</div>
+
+
+
+<div class="col">
+    <div class="game-container">
+        <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+        <div class="row">
+            <div class="col img">
+        <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+    </div>
+    <div class="col text">
+        <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+        <ul class="platform-list">
+            <li class="platform-element">
+                <span class="iconify" data-icon="mingcute:windows-fill"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="ic:baseline-apple"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="uil:android"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <button class="status-button free"><a href="#">FREE</a></button>
+    </div>
+        <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+    
+    </div>
+
+</div>
+</div>
+
+
+<div class="col second">
+<div class="game-container">
+    <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+    <div class="row">
+        <div class="col img">
+    <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+</div>
+<div class="col text">
+    <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+    <ul class="platform-list">
+        <li class="platform-element">
+            <span class="iconify" data-icon="mingcute:windows-fill"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="ic:baseline-apple"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="uil:android"></span>
+        </li>
+    </ul>
+</div>
+<div class="col">
+    <button class="status-button paid"><a href="#">4.99 $</a></button>
+</div>
+    <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+
+</div>
+
+</div>
+</div>
+
+
+
+<div class="col last">
+<div class="game-container">
+    <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+    <div class="row">
+        <div class="col img">
+    <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+</div>
+<div class="col text">
+    <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+    <ul class="platform-list">
+        <li class="platform-element">
+            <span class="iconify" data-icon="mingcute:windows-fill"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="ic:baseline-apple"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="uil:android"></span>
+        </li>
+    </ul>
+</div>
+<div class="col">
+    <button class="status-button free"><a href="#">FREE</a></button>
+</div>
+    <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+
+</div>
+
+</div>
+</div>
+
+<div class="col">
+    <div class="game-container">
+        <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+        <div class="row">
+            <div class="col img">
+        <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+    </div>
+    <div class="col text">
+        <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+        <ul class="platform-list">
+            <li class="platform-element">
+                <span class="iconify" data-icon="mingcute:windows-fill"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="ic:baseline-apple"></span>
+            </li>
+            <li class="platform-element">
+                <span class="iconify" data-icon="uil:android"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <button class="status-button free"><a href="#">FREE</a></button>
+    </div>
+        <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+    
+    </div>
+
+</div>
+</div>
+
+
+<div class="col second">
+<div class="game-container">
+    <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+    <div class="row">
+        <div class="col img">
+    <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+</div>
+<div class="col text">
+    <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+    <ul class="platform-list">
+        <li class="platform-element">
+            <span class="iconify" data-icon="mingcute:windows-fill"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="ic:baseline-apple"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="uil:android"></span>
+        </li>
+    </ul>
+</div>
+<div class="col">
+    <button class="status-button paid"><a href="#">4.99 $</a></button>
+</div>
+    <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+
+</div>
+
+</div>
+</div>
+
+
+
+<div class="col last">
+<div class="game-container">
+    <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+    <div class="row">
+        <div class="col img">
+    <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+</div>
+<div class="col text">
+    <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+    <ul class="platform-list">
+        <li class="platform-element">
+            <span class="iconify" data-icon="mingcute:windows-fill"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="ic:baseline-apple"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="uil:android"></span>
+        </li>
+    </ul>
+</div>
+<div class="col">
+    <button class="status-button free"><a href="#">FREE</a></button>
+</div>
+    <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+
+</div>
+
+</div>
+</div>
+
+
+
+<div class="col">
+<div class="game-container">
+    <a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+    <div class="row">
+        <div class="col img">
+    <a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+</div>
+<div class="col text">
+    <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+    <ul class="platform-list">
+        <li class="platform-element">
+            <span class="iconify" data-icon="mingcute:windows-fill"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="ic:baseline-apple"></span>
+        </li>
+        <li class="platform-element">
+            <span class="iconify" data-icon="uil:android"></span>
+        </li>
+    </ul>
+</div>
+<div class="col">
+    <button class="status-button free"><a href="#">FREE</a></button>
+</div>
+    <p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="col second">
+<div class="game-container">
+<a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+<div class="row">
+    <div class="col img">
+<a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+</div>
+<div class="col text">
+<p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+<ul class="platform-list">
+    <li class="platform-element">
+        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+    </li>
+    <li class="platform-element">
+        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+    </li>
+    <li class="platform-element">
+        <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+    </li>
+    <li class="platform-element">
+        <span class="iconify" data-icon="ic:baseline-apple"></span>
+    </li>
+    <li class="platform-element">
+        <span class="iconify" data-icon="uil:android"></span>
+    </li>
+</ul>
+</div>
+<div class="col">
+<button class="status-button paid"><a href="#">4.99 $</a></button>
+</div>
+<p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+
+</div>
+
+</div>
+</div>
+
+
+
+<div class="col last">
+<div class="game-container">
+<a href="#" class="game"><img src="assets/img/1.webp" alt="game"></a>
+<div class="row">
+    <div class="col img">
+<a href="#"><img src="assets/img/1.png" alt="game" class="container-img"></a>
+</div>
+<div class="col text">
+<p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+<ul class="platform-list">
+    <li class="platform-element">
+        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+    </li>
+    <li class="platform-element">
+        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+    </li>
+    <li class="platform-element">
+        <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+    </li>
+    <li class="platform-element">
+        <span class="iconify" data-icon="ic:baseline-apple"></span>
+    </li>
+    <li class="platform-element">
+        <span class="iconify" data-icon="uil:android"></span>
+    </li>
+</ul>
+</div>
+<div class="col">
+<button class="status-button free"><a href="#">FREE</a></button>
+</div>
+<p class="description">DarkStory is a 2D MMORPG where you can have fantastic adventures filled with action, magic, and friendships.</p>
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+    </div>
+</div>
+</div>
+
+
+
+<!--Top Certified -->
+
+
+
+
+
+</div>
+
+<!--Content -->
+
+
+
+<!--Registration Card-->
+
+<div class="popup" role="alert">
+
+    <form id="register-form" class="popup-container">
+        <img src="assets/img/logo.svg" alt="logo">
+        <div class="row">
+            <div class="col left pop-trigger"><a href="#">Sign In</a></div>
+            <div class="col right"><a href="#">Sign Up</a></div>
+        </div>
+        <div id="register-forms" class="register-forms">
+            <input type="text" type="" class="username register-input" id= "username-input register-input" placeholder="Username" onfocus="this.placeholder=''" onblur="this.placeholder='Username'" />
+            <input type="password" name = "input" class="pasword register-input" id= "password-input register-input" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" />
+            <input type="password" name = "input" class="repeat-pasword register-input" id= "repeat-password-input register-input" placeholder="Repeat password" onfocus="this.placeholder=''" onblur="this.placeholder='Repeat password'" />
+            <input type="text" type="" class="email register-input" id= "email-input register-input" placeholder="Email address" onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" />
+            <span>
+                <p><input type="checkbox" name = "input" class="remember" id= "remember-input register-input"> I accept the <span class="terms-of-service"><a href="#">Terms of Service</a></span> </p>
+            </span>
+            <button class="sign-up-btn" id="sign-in-btn">Sign Up</button>
+            <p class="registration-text">Sign Up with</p>
+            <ul class="registration-icon">
+                <li>
+                    <button class="icon-google-btn"><span class="iconify" data-icon="ri:google-fill"></span></button>
+                </li>
+                <li>
+                    <button class="icon-git-btn"><span class="iconify" data-icon="fluent-mdl2:git-hub-logo"></span></button>
+                </li>
+            </ul>
+        </div>
+    
+    </form>
+    
+    </div>
+
+
+
+
+
+
+    <div class="pop" role="alert">
+
+        <form id="enter-form" class="pop-container">
+            <img src="assets/img/logo.svg" alt="logo">
+            <div class="row">
+                <div class="col left"><a href="#">Sign In</a></div>
+                <div class="col right popup-trigger"><a href="#">Sign Up</a></div>
+            </div>
+            <div id="enter-forms" class="enter-forms">
+                <input type="text" type="" class="username enter-input" id= "username-input enter-input" placeholder="Username or email" onfocus="this.placeholder=''" onblur="this.placeholder='Username or email'" />
+                <input type="password" name = "input" class="pasword enter-input" id= "password-input enter-input" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" />
+                <span>
+                    <p><input type="checkbox" name = "input" class="remember" id= "remember-input register-input"> Remember Me </p>
+                </span>
+                <button class="sign-in-btn" id="sign-in-btn">Sign In</button>
+                <p class="enter-text">Sign In with</p>
+                <ul class="enter-icon">
+                    <li>
+                        <button class="icon-google-btn"><span class="iconify" data-icon="ri:google-fill"></span></button>
+                    </li>
+                    <li>
+                        <button class="icon-git-btn"><span class="iconify" data-icon="fluent-mdl2:git-hub-logo"></span></button>
+                    </li>
+                </ul>
+            </div>
+        
+        </form>
+        
+        </div>
+
+    
+<!--Registration Card-->
+
+
+
+<!--Contact Us-->
+
+
+<div class="up" role="alert">
+
+    <form id="contact-form" class="up-container">
+        <img src="assets/img/logo.svg" alt="logo">
+        <p class="head-text">Contact Us</p>
+        <div id="contact-forms" class="contact-forms">
+            <input type="text" type="" class="username contact-input" id= "username-input enter-input" placeholder="Username or email" onfocus="this.placeholder=''" onblur="this.placeholder='Username or email'" />
+            <textarea name="contact-us" id="contact-input" class="contact-form" cols="30" rows="10" placeholder="Tell us about your problem" onfocus="this.placeholder=''" onblur="this.placeholder='Tell us about your problem'" /></textarea>
+            <button class="send-btn" id="send-btn">Send</button>
+        </div>
+    
+    </form>
+    
+    </div>
+
+
+<!--Contact Us-->
+
+
+
+
+
+
+     
+     <!-- Footer -->
+
+
+     <div class="footer">
+        <span class="logo-footer"><img src="assets/img/logo.svg" alt="logo"></span>
+        <div class="row">
+            <div class="col socials"> 
+                <span class="iconify" data-icon="mdi:instagram"></span>
+                <span class="iconify" data-icon="ph:twitter-logo-bold"></span>
+                <span class="iconify" data-icon="ph:telegram-logo-bold"></span>
+                <span class="iconify " data-icon="tabler:brand-tiktok"></span>
+            </div>
+            <div class="col footer-menu"> 
+                <li class = "footer-list-element">
+                    <a href="#">
+                        <span class="footer-text">About</span>
+                    </a>
+                </li>
+                <li class = "footer-list-element">
+                    <a href="#">
+                        <span class="footer-text">FAQ</span>
+                    </a>
+                </li>
+                <li class = "footer-list-element">
+                    <a href="#">
+                        <span class="footer-text">Blog</span>
+                    </a>
+                </li>
+                <li class = "footer-list-element">
+                    <a href="#">
+                        <span class="footer-text right up-trigger">Contact Us</span>
+                    </a>
+                </li>
+            </div>
+            <div class="col reserved" id = "rights"> 
+                <script>
+                    document.write("&copy; "+ new Date().getFullYear()+ " DarkMoon Studio. All rights reserved.");
+                </script>
+            </div>
+
+        </div>
+     </div>
+    
+    <!-- Footer -->
+
+
+
+
+
+    
+
+        <!-- Script -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+        <script src="assets/js/script.js"></script>
+
+        <!-- Script -->
+
+
+
+
+</body>
+
+ 
+</html>

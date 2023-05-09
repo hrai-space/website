@@ -197,8 +197,14 @@ class MainController extends Controller
     {
         $user = User::where('username', $username)->first();
 
+        $games = $user->game;
+
+        foreach($games as $game){
+            $game->platforms = $game->getPlatforms();
+        }
+
         if ($user != null)
-            return view('profile.public-profile')->with('user', $user)->with('games', $user->game);
+            return view('profile.public-profile')->with('user', $user)->with('games', $games);
         else
             return abort(404);
     }

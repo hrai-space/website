@@ -1,0 +1,473 @@
+.profile{
+    background: #161A1E;
+    border-radius: 60px;
+    margin-left: 77px;
+    margin-right: 100px;
+    margin-top: 100px;
+    padding-bottom: 100px;
+
+
+
+    .content-profile{
+        width: 100%;
+        padding-left: 200px;
+        padding-right: 200px;
+        padding-top: 50px;
+
+
+        .company{
+            text-decoration: none;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 40px;
+            line-height: 47px;
+            color: #FFFFFF;
+
+    
+            img{
+                margin-right: 30px;
+                width: 80px;
+                height: 80px;
+                border-radius: 100%;
+            }
+        }
+
+
+        .description{
+            margin-top: 50px;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 29px;
+            color: #676B70;
+        }
+
+
+        .topic-profile{
+            margin-top: 40px;
+            margin-bottom: 0px;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 30px;
+            line-height: 35px;
+            color: #FFFFFF;
+
+        }
+    }
+
+
+
+
+
+
+    .wrapper{
+        margin: 0;
+        margin-top: 50px;
+        padding-right: 200px;
+        padding-left: 200px;
+        width: 100%;
+        max-height: 400px;
+        background-color: #161A1E;
+
+
+        .game-name{
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            color: #598DE0;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            margin-left: 10px;
+
+
+            .iconify{
+                color: #FFDF0D;
+                margin-left: 5px;
+            }
+        }
+
+
+        .platform-list{
+            padding-left: 0px;
+            margin-left: 10px;
+            
+            .platform-element{
+                display: inline-block;
+                margin-right: 5px;
+
+
+                .iconify{
+                    width: 18px;
+                    height: 18px;
+                    color: #676B70;
+                }
+
+
+                .iconify:hover{
+                    color: #fff;
+                }
+            }
+        }
+
+        .status-button{
+            width: 80px;
+            height: 27px;
+            background: #1CC52D;
+            border-radius: 11px;
+            margin-left: 70px;
+
+            a{
+                text-decoration: none;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 15px;
+                color: #FFFFFF;
+
+            }
+        }
+
+
+        .status-button:hover{
+            outline: 1px solid #fff;
+        }
+
+        .paid{
+            background: #FE4133;
+        }
+       
+
+
+
+
+
+        .media-scroller::-webkit-scrollbar {
+            height: 12px;
+
+          }
+          
+          .media-scroller::-webkit-scrollbar-track {
+            background-color: #fff;
+            border-radius: 13px;
+            overflow: hidden;
+
+          }
+          
+          .media-scroller::-webkit-scrollbar-thumb {
+            background-color: #2351F4;
+            border-radius: 13px;
+    
+          }
+          
+    
+          
+          .media-scroller {
+            display: grid;
+            gap: clamp(1.13rem, 1.08rem + 0.24vw, 1.25rem);
+            grid-auto-flow: column;
+            grid-auto-columns: 30%;
+            overflow-x: scroll;
+            overscroll-behavior-inline: contain;
+            padding-block-end: clamp(1.69rem, 1.61rem + 0.37vw, 3rem);
+          }
+          
+          .media-element {
+            overflow: hidden;
+            width: 300px;
+            height: 350px;
+            border-radius: 30px;
+            grid-template-rows: min-content;
+            background-color: none;
+            margin-right: 50px;
+            border: 2px solid #2351F4;
+    
+    
+            img {
+              inline-size: 100%;
+              height: 70%;
+              object-fit: cover;
+              border-radius: 5px;
+            }
+          }
+          
+ 
+          
+
+          
+          
+          @media (max-width: 1550px) {
+
+
+            .media-scroller {
+              grid-auto-columns: 40%;
+            }
+          }
+
+          @media (max-width: 1300px) {
+            .media-scroller {
+              grid-auto-columns: 50%;
+            }
+          }
+
+          @media (max-width: 1150px) {
+            .media-scroller {
+              grid-auto-columns: 70%;
+            }
+          }
+
+          @media (max-width: 1000px) {
+            .media-scroller {
+              grid-auto-columns: 90%;
+            }
+          }
+    }
+
+
+
+}
+
+
+
+@media (max-width: 1550px) {
+    .profile{
+        margin-right: 40px;
+
+    }
+
+  }
+
+
+
+
+
+@media (max-width: 980px) {
+    .profile{
+        margin-right: 20px;
+
+
+        .content-profile{
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        .wrapper{
+            padding-right: 50px;
+            padding-left: 50px;
+            width: 100%;
+
+
+
+
+            .media-scroller {
+                grid-auto-columns: 60%;
+              }
+        }
+
+
+    }
+
+  }
+
+
+
+
+
+
+
+  @media (max-width: 800px) {
+    .profile{
+        width: 100%;
+        margin-right: 0px;
+        margin-left: 0px;
+
+        .wrapper{
+            padding-right: 20px;
+            padding-left: 20px;
+
+
+
+            .media-scroller {
+                grid-auto-columns: 80%;
+              }
+        }
+
+
+    }
+
+
+
+}
+
+
+@media (max-width: 550px) {
+    .profile{
+        padding-right: 0px;
+        padding-left: 0px;
+
+
+        .content-profile{
+
+
+
+            .company{
+                font-size: 25px;
+
+    
+        
+                img{
+                    margin-right: 20px;
+                    width: 70px;
+                    height: 70px;
+
+                }
+            }
+    
+    
+            .description{
+                margin-top: 30px;
+                font-size: 18px;
+
+            }
+    
+    
+            .topic-profile{
+                margin-top: 30px;
+                font-size: 25px;
+    
+            }
+
+
+
+        }
+
+
+        .wrapper{
+            padding-right: 20px;
+            padding-left: 20px;
+
+
+
+            .media-scroller {
+                grid-auto-columns: 80%;
+              }
+        }
+
+
+    }
+
+  }
+
+
+
+
+
+
+  @media (max-width: 500px) {
+    .profile{
+
+
+
+        .wrapper{
+            padding-right: 20px;
+            padding-left: 20px;
+
+
+
+            .media-scroller {
+                grid-auto-columns: 80%;
+              }
+        }
+
+
+    }
+
+  }
+
+
+
+  @media (max-width: 400px) {
+    .profile{
+
+
+
+        .content-profile{
+            text-align: center;
+
+
+            .company{
+                font-size: 25px;
+
+
+    
+        
+                img{
+                    display: block;
+                    margin-right: 10px;
+                    width: 70px;
+                    height: 70px;
+                    margin: 0 auto;
+                    margin-bottom: 20px;
+                    
+                }
+            }
+    
+    
+            .description{
+                margin-top: 30px;
+                font-size: 16px;
+
+            }
+    
+    
+            .topic-profile{
+                margin-top: 30px;
+                font-size: 25px;
+    
+            }
+
+
+
+        }
+
+
+
+
+
+
+        .wrapper{
+            padding-right: 20px;
+            padding-left: 20px;
+
+
+
+            .media-scroller {
+                grid-auto-columns: 80%;
+              }
+
+
+              .media-element {
+                overflow: hidden;
+                width: 230px;
+                border-radius: 20px;
+
+
+                .status-button{
+                    margin-left: 10px;
+                }
+
+        
+        
+                img {
+                  inline-size: 100%;
+
+                  border-radius: 20px;
+                }
+              }
+        }
+
+
+    }
+
+  }
+
