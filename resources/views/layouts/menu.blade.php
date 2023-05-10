@@ -113,113 +113,25 @@
 
 
 
-<!-- Search Bar -->
-
-<div class="search-bar">
-    <span class="iconify" data-icon="ant-design:search-outlined"></span>
-    <input type="text" placeholder="Знайти ігри" onfocus="this.placeholder=''" onblur="this.placeholder='Знайти ігри'" />
-</div>
 
 
-<!-- Search Bar -->
+@include('layouts.search')
 
 
+@include('layouts.notification')
 
-<!-- Notification -->
+    <!-- Notification -->
 
 
 
 
-
-
-<button class="notification" id="notification-button"><span class="iconify" data-icon="basil:notification-outline"></span></button>
-<div class='notification-dot'></div>
-
-<div class="notification-container" id="notification-container">
-    <div class="notification-text">
-        <h1>В прогресі</h1>
-        <p>В прогресі</p>
-        <p>В прогресі</p>
-    </div>
-    <button class="notification-button">В прогресі</button>
-</div>
-
-<!-- Notification -->
-
-
+    <!-- Account -->
+@include('layouts.account-menu')
 
 
 <!-- Account -->
 
 
-<button class="account" id="account-button"><img src="@auth{{Storage::disk('do')->url('images/' . Auth::user()->avatar)}}@else{{Storage::disk('do')->url('images/Pigeon3.png')}}@endauth" alt="account"></button>
 
-@auth
-<div class="account-container" id="account-container">
-    <div class="profile-box">
-        <div class="row">
-            <div class="col">
-                <a href="#"><img src="{{Storage::disk('do')->url('images/' . Auth::user()->avatar)}}" alt="account"></a>
-            </div>
-            <div class="col">
-                <h1>{{Auth::user()->username}}</h1>
-                <a id="profile" href="{{route('public.profile', Auth::user()->username)}}">Переглянути профіль</a>
-            </div>
-        </div>
-        <hr>
-    </div>
-    <div class="statisticks">
-        <div class="row">
-            <div class="col">
-                <h1>120</h1>
-                <p>Ігор</p>
-            </div>
-            <div class="col">
-                <h1>125</h1>
-                <p>Статтей</p>
-            </div>
-        </div>
-        <hr>
-    </div>
-    <div class="account-settings">
-        <li>
-            <a href="#">
-                <span class="iconify" data-icon="material-symbols:library-books-outline"></span>
-                <span>Бібліотека</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="iconify" data-icon="ic:outline-games"></span>
-                <span>Мої ігри</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="iconify" data-icon="ooui:articles-ltr"></span>
-                <span>Мої статті</span>
-            </a>
-        </li>
-        <li id="bottom">
-            <a href="#">
-                <span class="iconify" data-icon="material-symbols:settings-outline-rounded"></span>
-                <span>Налаштування</span>
-            </a>
-        </li>
-
-    </div>
-    <div class="button-container">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class="account-button" onclick="event.preventDefault();this.closest('form').submit();"><span class="iconify" data-icon="ion:log-out-outline"></span> Вийти</button>
-        </form>
-    </div>
-</div>
-@else
-<div class="not-registered-container" id="not-registered-container">
-    <button class="pop-trigger sign-in"><span class="iconify" data-icon="ion:log-out-outline"></span> Sign In</button>
-    <button class="popup-trigger sign-up"><span class="iconify" data-icon="mdi:register-outline"></span> Sign Up</button>
-</div>
-@endauth
 
 </div>

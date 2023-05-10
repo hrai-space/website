@@ -16,20 +16,32 @@ use Illuminate\Support\Str;
 class MainController extends Controller
 {
 
-    public $rowperpage = 4;
+    public $rowperpage = 6;
     public $gameFilterParameters = ['platform-', 'genre-', 'new', 'last-week', 'last-month', 'popular', 'featured'];
 
     public function home()
     {
-        $data['rowperpage'] = $this->rowperpage;
+        $featured_games = Game::where('is_featured', 1)->take(3)->latest()->get();
+        $popular_games = Game::orderBy('views', 'desc')->take(3)->latest()->get();
+        $new_games = Game::latest()->get();
 
-        $data['games'] = Game::select('*')->take($this->rowperpage)->get();
-
-        $data['totalrecords'] = $data['games']->count();
         $data['search'] = null;
-        $data['filters'] = null;
 
-        return view('home')->with('data', $data)->with('genres', Genre::all())->with('usedFilters', array('platform' => '', 'genre' => '', 'time' => '', 'other' => ''));
+        foreach($featured_games as $game){
+            $game->platforms = $game->getPlatforms();
+        }
+
+        foreach($popular_games as $game){
+            $game->platforms = $game->getPlatforms();
+        }
+
+        foreach($new_games as $game){
+            $game->platforms = $game->getPlatforms();
+        }
+
+        return view('home')->with('featured_games', $featured_games)->with('genres', Genre::all())->with('popular_games', $popular_games)
+        ->with('new_games', $new_games)->with('usedFilters', array('platform' => '', 'genre' => '', 'time' => '', 'other' => ''))
+        ->with('data', $data);
     }
 
     public function articles()
@@ -48,7 +60,7 @@ class MainController extends Controller
 
     public function search(Request $request, $filters = null)
     {
-        if($filters == null){
+        if($filters == null && $request->search == null){
             return redirect()->route('home');
         }
         
@@ -65,11 +77,14 @@ class MainController extends Controller
 
         $usedFilters = $this->prepareUsedFilters($filters);
 
-        return view('home')->with('data', $data)->with('usedFilters', $usedFilters)->with('genres', Genre::all());
+        foreach($data['games'] as $game){
+            $game->platforms = $game->getPlatforms();
+        }
+
+        return view('games')->with('data', $data)->with('usedFilters', $usedFilters)->with('genres', Genre::all());
     }
 
     public function prepareUsedFilters($filters){
-
         $usedFilters = array('platform' => '', 'genre' => '', 'time' => '', 'other' => '');
         foreach($filters as $filter){
             if (str_starts_with($filter, $this->gameFilterParameters[0])) {
@@ -133,27 +148,64 @@ class MainController extends Controller
 
         $start = $request->get("start");
 
-        $games = new Game();
         $filters = $request->get("filters");
-
+        $filters = explode('/', $filters);
         if ($filters != null) {
             $games = $this->processFilters($filters);
         }
         $games = $this->processSearch($request, $games)->skip($start)->take($this->rowperpage)->get();
 
+        foreach($games as $game){
+            $game->platforms = $game->getPlatforms();
+        }
         $html = "";
         foreach ($games as $game) {
-            $html .= '<div class="col-lg-6">
-                <div class="card" style="width: 18rem;">
-                    <img src="' . Storage::url("images/" . $game->getGameIcon()) . '" class="card-img-top" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title">' . $game->title . '</h5>
-                        <p class="card-text">' . $game->short_description . '</p>
-                        <a href="' . route("game.show", $game->id) . '" class="btn btn-primary">Game</a>
-                        <a href="' . route('public.profile', $game->getDeveloper()) . '" class="btn btn-outline-info">Developer</a>
+            if($game->short_description == ""){
+                $game->short_description = 'No description';
+            }
+
+            $html .= '
+            <div class="col game-element">
+            <div class="game-container">
+                <a href="' . route('game.show', $game->id) . '" class="game"><img src="' . Storage::url("images/" . $game->getGameIcon()) . '" alt="game"></a>
+                <div class="row">
+                    <div class="col img">
+                        <a href="' . route('public.profile', $game->getDeveloper()) . '"><img src="' . Storage::url("images/" . $game->getDeveloperIcon()) . '" alt="game" class="container-img"></a>
                     </div>
+                    <div class="col text">
+                        <p class="name">' . Str::limit($game->title, 16);
+            if($game->is_featured){
+                $html .= '<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>';
+            }
+            $html .= '</p><ul class="platform-list">';
+            
+            if($game->platforms[0] == 1){
+                $html .= '<li class="platform-element">
+                <span class="iconify" data-icon="mingcute:windows-fill"></span>
+            </li>';
+            }
+            if($game->platforms[1] == 1){
+                $html .= '<li class="platform-element">
+                <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+            </li>';
+            }
+            if($game->platforms[2] == 1){
+                $html .= '<li class="platform-element">
+                <span class="iconify" data-icon="ic:baseline-apple"></span>
+            </li>';
+            }
+            if($game->platforms[3] == 1){
+                $html .= '<li class="platform-element">
+                <span class="iconify" data-icon="uil:android"></span>
+            </li>';
+            }
+                    
+            $html .= '</ul>
+                    </div>
+                    <p class="description">' . $game->short_description . '</p>
                 </div>
-            </div>';
+            </div>
+        </div>';
         }
 
         $data['html'] = $html;
@@ -216,7 +268,7 @@ class MainController extends Controller
     function processFilters($filters)
     {
         $games = new Game();
-
+        
         foreach ($filters as $filter) {
             if (str_starts_with($filter, $this->gameFilterParameters[0])) {
                 $filter = str_replace($this->gameFilterParameters[0], "", $filter);
@@ -227,7 +279,7 @@ class MainController extends Controller
             } else if (str_starts_with($filter, $this->gameFilterParameters[1])) {
                 $filter = str_replace($this->gameFilterParameters[1], "", $filter);
                 $filter = str_replace('-', " ", $filter);
-                $games = $games->where('genre', $filter);
+                $games = $games->where('genre_id', $filter);
             } else if (str_starts_with($filter, $this->gameFilterParameters[2])) {
                 $games = $games->latest();
             } else if (str_starts_with($filter, $this->gameFilterParameters[3])) {

@@ -7,12 +7,12 @@
 @section('main_content')
 
 <div class="game">
-    <!--
-    <div class="img">
-        <img src="assets/img/1.webp" alt="game">
-        <button class="start"><a href="#">Start Story</a></button>
+
+    <div class="img" style="position: relative;">
+        <img src="{{Storage::disk('do')->url('images/' . $screenshots[0]->file)}}" alt="game" style="object-fit: cover;">
+        <button class="start"><a href="#description">Start Story</a></button>
     </div>
-    -->
+
     <div class="bg-color-grey-200">
         <div class="wrapper py-2xl">
             <div class="media-scroller with-overscroll snaps-inline snaps--individual">
@@ -57,7 +57,7 @@
         @endif
         @endauth
     </div>
-    <div class="description">
+    <div class="description" id="description">
         {!!$game->description!!}
     </div>
 

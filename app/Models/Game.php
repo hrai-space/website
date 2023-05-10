@@ -44,6 +44,10 @@ class Game extends Model
         return $this->user()->first()->username;
     }
 
+    public function getDeveloperIcon(){
+        return $this->user()->first()->avatar;
+    }
+
     public function genre(){
         return $this->belongsTo(Genre::class);
     }

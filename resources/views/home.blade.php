@@ -1,108 +1,594 @@
-@extends('layouts.app')
+
+@extends('layouts.sidebar-layout')
+@section('title')Головна@endsection
+
+@section('css1')style.css @endsection
 
 @section('main_content')
 
-<style>
-    .active{
-        color: red !important;
-    }
-</style>
+<!--Content -->
 
-<div>
-    <div class="container">
-        <p>Platform</p>
-        <a href="{{url('filters')}}@if($usedFilters['platform'] != '/platform-0'){{'/platform-0'}}@endif{{$usedFilters['genre'] . $usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['platform'] == '/platform-0') active @endif">Windows</a>
-        <a href="{{url('filters')}}@if($usedFilters['platform'] != '/platform-1'){{'/platform-1'}}@endif{{$usedFilters['genre'] . $usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['platform'] == '/platform-1') active @endif">Linux</a>
-        <a href="{{url('filters')}}@if($usedFilters['platform'] != '/platform-2'){{'/platform-2'}}@endif{{$usedFilters['genre'] . $usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['platform'] == '/platform-2') active @endif">MacOS</a>
-        <a href="{{url('filters')}}@if($usedFilters['platform'] != '/platform-3'){{'/platform-3'}}@endif{{$usedFilters['genre'] . $usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['platform'] == '/platform-3') active @endif">Android</a>
-        <p>Genre</p>
-        @foreach($genres as $genre)
-            <a href="{{url('filters') . $usedFilters['platform']}}@if($usedFilters['genre'] != '/genre-' . $genre->id){{'/genre-' . $genre->id}}@endif{{$usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['genre'] == '/genre-' . $genre->id) active @endif">{{$genre->name}}</a>
-        @endforeach
-        <p>Time</p>
-        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre']}}@if($usedFilters['time'] != '/new'){{'/new'}}@endif{{$usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['time'] == '/new') active @endif">Нові</a>
-        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre']}}@if($usedFilters['time'] != '/last-week'){{'/last-week'}}@endif{{$usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['time'] == '/last-week') active @endif">Тиждень</a>
-        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre']}}@if($usedFilters['time'] != '/last-month'){{'/last-month'}}@endif{{$usedFilters['other']}}?search={{$data['search']}}" class="btn btn-link @if($usedFilters['time'] == '/last-month') active @endif">Місяць</a>
-        <p>Other</p>
-        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre'] . $usedFilters['time']}}@if($usedFilters['other'] != '/popular'){{'/popular'}}@endif?search={{$data['search']}}" class="btn btn-link @if($usedFilters['other'] == '/popular') active @endif">Популярні</a>
-        <a href="{{url('filters') . $usedFilters['platform'] . $usedFilters['genre'] . $usedFilters['time']}}@if($usedFilters['other'] != '/featured'){{'/featured'}}@endif?search={{$data['search']}}" class="btn btn-link @if($usedFilters['other'] == '/featured') active @endif">Вибрані</a>
-        <div class="row">
-            @foreach($data['games'] as $game)
-            <div class="col-lg-6">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{Storage::disk('do')->url('images/' . $game->getGameIcon())}}" class="card-img-top" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{$game->title}}</h5>
-                        <p class="card-text">{{$game->short_description}}</p>
-                        <a href="{{route('game.show', $game->id)}}" class="btn btn-primary">Game</a>
-                        <a href="{{route('public.profile', $game->getDeveloper())}}" class="btn btn-outline-info">Developer</a>
-                    </div>
+<div class="content">
+
+
+
+
+    <!--Slider -->
+
+    <div class="blog-slider">
+        <div class="blog-slider__wrp swiper-wrapper">
+            <div class="blog-slider__item swiper-slide">
+                <div class="blog-slider__img">
+
+                    <img src="assets/img/wiFiJh.png" alt="">
+                </div>
+                <div class="blog-slider__content">
+                    <div class="blog-slider__title">Lorem Ipsum Dolor</div>
+                    <div class="blog-slider__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae voluptate repellendus magni illo ea animi? </div>
+                    <a href="#" class="blog-slider__button">Read More</a>
                 </div>
             </div>
-            @endforeach
-            <input type="hidden" id="start" value="0">
-            <input type="hidden" id="rowperpage" value="{{ $data['rowperpage'] }}">
-            <input type="hidden" id="totalrecords" value="{{ $data['totalrecords'] }}">
-            <input type="hidden" id="search" value="{{ $data['search'] }}">
-            <input type="hidden" id="filters" value="{{ $data['filters'] }}">
+            <div class="blog-slider__item swiper-slide">
+                <div class="blog-slider__img">
+                    <img src="assets/img/wiFiJh.png" alt="">
+                </div>
+                <div class="blog-slider__content">
+                    <div class="blog-slider__title">Lorem Ipsum Dolor2</div>
+                    <div class="blog-slider__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae voluptate repellendus magni illo ea animi?</div>
+                    <a href="#" class="blog-slider__button">Read More</a>
+                </div>
+            </div>
+
+            <div class="blog-slider__item swiper-slide">
+                <div class="blog-slider__img">
+                    <img src="assets/img/wiFiJh.png" alt="">
+                </div>
+                <div class="blog-slider__content">
+                    <div class="blog-slider__title">Lorem Ipsum Dolor</div>
+                    <div class="blog-slider__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae voluptate repellendus magni illo ea animi?</div>
+                    <a href="#" class="blog-slider__button">Read More</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="blog-slider__pagination"></div>
+    </div>
+
+
+    <!--Slider -->
+
+
+    <!--Filter -->
+
+    <div class="little-filter">
+        <button class="filter-button"><a href="{{url('filters')}}/featured">Обрані</a></button>
+        <button class="filter-button"><a href="{{url('filters')}}/popular">Популярні</a></button>
+        <button class="filter-button"><a href="{{url('filters')}}/new">Нові</a></button>
+    </div>
+
+    <!--Filter -->
+
+
+    <!--Top Certified -->
+
+    <!--
+<div class="top-certified">
+    <div class="section-name">
+        <h1>Top Certified</h1>
+    </div>
+
+    <div class="row">
+        <div class="col game-1">
+    <div class="game ">
+        <a href="#" class="game-img"><img src="assets/img/1.webp" alt="game"></a>
+        <div class="hover-container">
+            <a href="#" class="logo"><img src="assets/img/1.png" alt="logo"></a>
+            <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+            <ul class="platform-list">
+                <li class="platform-element">
+                    <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="ic:baseline-apple"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="uil:android"></span>
+                </li>
+            </ul>
+
+            <button class="status-button free"><a href="#">FREE</a></button>
         </div>
     </div>
 </div>
 
-<script>
-    checkWindowSize();
 
-    // Check if the page has enough content or not. If not then fetch records
-    function checkWindowSize() {
-        if ($(window).height() >= $(document).height()) {
-            // Fetch records
-            fetchData();
-        }
-    }
+<div class="col game-2">
+    <div class="game ">
+        <a href="#" class="game-img"><img src="assets/img/1.webp" alt="game"></a>
+        <div class="hover-container">
+            <a href="#" class="logo"><img src="assets/img/1.png" alt="logo"></a>
+            <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+            <ul class="platform-list">
+                <li class="platform-element">
+                    <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="ic:baseline-apple"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="uil:android"></span>
+                </li>
+            </ul>
 
-    // Fetch records
-    function fetchData() {
-        var start = Number($('#start').val());
-        var allcount = Number($('#totalrecords').val());
-        var rowperpage = Number($('#rowperpage').val());
-        var search = $('#search').val();
-        var filters = $('#filters').val();
-        start = start + rowperpage;
+            <button class="status-button free"><a href="#">FREE</a></button>
+        </div>
+    </div>
+</div>
 
-        if (start <= allcount) {
-            $('#start').val(start);
+<div class="col last game-3">
+    <div class="game ">
+        <a href="#" class="game-img"><img src="assets/img/1.webp" alt="game"></a>
+        <div class="hover-container">
+            <a href="#" class="logo"><img src="assets/img/1.png" alt="logo"></a>
+            <p class="name">Dark Story <span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span></p>
+            <ul class="platform-list">
+                <li class="platform-element">
+                    <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="icon-park-solid:html-five"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="ic:baseline-apple"></span>
+                </li>
+                <li class="platform-element">
+                    <span class="iconify" data-icon="uil:android"></span>
+                </li>
+            </ul>
 
-            $.ajax({
-                url: "{{route('getGames')}}",
-                data: {
-                    start: start,
-                    search: search,
-                    filters: filters,
-                },
-                dataType: 'json',
-                success: function(response) {
+            <button class="status-button free"><a href="#">FREE</a></button>
+        </div>
+    </div>
 
-                    // Add
-                    $(".col-lg-6:last").after(response.html).show().fadeIn("slow");
+</div>
+</div>
+</div>
+-->
 
-                    // Check if the page has enough content or not. If not then fetch records
-                    checkWindowSize();
-                }
-            });
-        }
-    }
 
-    $(document).on('touchmove', onScroll); // for mobile
+    <div class="section-container">
+        <div class="section-name">
+            <h1>Обрані</h1>
+            <button class="view-button"><a href="{{url('filters')}}/featured">Більше <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></button>
+        </div>
 
-    function onScroll() {
-        if ($(window).scrollTop() > $(document).height() - $(window).height() - 100) {
-            fetchData();
-        }
-    }
 
-    $(window).scroll(function() {
-        onScroll();
-    });
-</script>
+        <div class="section-game-list">
+            <div class="row">
+                <div class="col">
+                    <div class="game-container">
+                        <a href="{{route('game.show', $featured_games[0]->id)}}" class="game"><img src="{{Storage::disk('do')->url('images/' . $featured_games[0]->getGameIcon())}}" alt="game"></a>
+                        <div class="row">
+                            <div class="col img">
+                                <a href="{{route('public.profile', $featured_games[0]->getDeveloper())}}"><img src="{{Storage::disk('do')->url('images/' . $featured_games[0]->getDeveloperIcon())}}" alt="game" class="container-img"></a>
+                            </div>
+                            <div class="col text">
+                                <p class="name">{{Str::limit($featured_games[0]->title, 16)}} @if($featured_games[0]->is_featured)<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>@endif</p>
+                                <ul class="platform-list">
+                                    @if($featured_games[0]->platforms[0] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                                    </li>
+                                    @endif
+                                    @if($featured_games[0]->platforms[1] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                                    </li>
+                                    @endif
+                                    @if($featured_games[0]->platforms[2] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="ic:baseline-apple"></span>
+                                    </li>
+                                    @endif
+                                    @if($featured_games[0]->platforms[3] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="uil:android"></span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <p class="description">@if($featured_games[0]->short_description != ""){{$featured_games[0]->short_description}}@else{{"No description"}}@endif</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col second">
+                    <div class="game-container">
+                        <a href="{{route('game.show', $featured_games[1]->id)}}" class="game"><img src="{{Storage::disk('do')->url('images/' . $featured_games[1]->getGameIcon())}}" alt="game"></a>
+                        <div class="row">
+                            <div class="col img">
+                                <a href="{{route('public.profile', $featured_games[1]->getDeveloper())}}"><img src="{{Storage::disk('do')->url('images/' . $featured_games[1]->getDeveloperIcon())}}" alt="game" class="container-img"></a>
+                            </div>
+                            <div class="col text">
+                                <p class="name">{{Str::limit($featured_games[1]->title, 16)}} @if($featured_games[1]->is_featured)<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>@endif</p>
+                                <ul class="platform-list">
+                                    @if($featured_games[1]->platforms[0] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                                    </li>
+                                    @endif
+                                    @if($featured_games[1]->platforms[1] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                                    </li>
+                                    @endif
+                                    @if($featured_games[1]->platforms[2] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="ic:baseline-apple"></span>
+                                    </li>
+                                    @endif
+                                    @if($featured_games[1]->platforms[3] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="uil:android"></span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <p class="description">@if($featured_games[1]->short_description != ""){{$featured_games[1]->short_description}}@else{{"No description"}}@endif</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col last">
+                    <div class="game-container">
+                        <a href="{{route('game.show', $featured_games[2]->id)}}" class="game"><img src="{{Storage::disk('do')->url('images/' . $featured_games[2]->getGameIcon())}}" alt="game"></a>
+                        <div class="row">
+                            <div class="col img">
+                                <a href="{{route('public.profile', $featured_games[2]->getDeveloper())}}"><img src="{{Storage::disk('do')->url('images/' . $featured_games[2]->getDeveloperIcon())}}" alt="game" class="container-img"></a>
+                            </div>
+                            <div class="col text">
+                                <p class="name">{{Str::limit($featured_games[2]->title, 16)}} @if($featured_games[2]->is_featured)<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>@endif</p>
+                                <ul class="platform-list">
+                                    @if($featured_games[2]->platforms[0] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                                    </li>
+                                    @endif
+                                    @if($featured_games[2]->platforms[1] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                                    </li>
+                                    @endif
+                                    @if($featured_games[2]->platforms[2] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="ic:baseline-apple"></span>
+                                    </li>
+                                    @endif
+                                    @if($featured_games[2]->platforms[3] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="uil:android"></span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <p class="description">@if($featured_games[2]->short_description != ""){{$featured_games[2]->short_description}}@else{{"No description"}}@endif</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Top Certified -->
+
+
+
+    <!--Section -->
+
+
+
+    <div class="section-container">
+        <div class="section-name">
+            <h1>Популярні</h1>
+            <button class="view-button"><a href="{{url('filters')}}/popular">Більше <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></button>
+        </div>
+
+
+        <div class="section-game-list">
+            <div class="row">
+                <div class="col">
+                    <div class="game-container">
+                        <a href="{{route('game.show', $popular_games[0]->id)}}" class="game"><img src="{{Storage::disk('do')->url('images/' . $popular_games[0]->getGameIcon())}}" alt="game"></a>
+                        <div class="row">
+                            <div class="col img">
+                                <a href="{{route('public.profile', $popular_games[0]->getDeveloper())}}"><img src="{{Storage::disk('do')->url('images/' . $popular_games[0]->getDeveloperIcon())}}" alt="game" class="container-img"></a>
+                            </div>
+                            <div class="col text">
+                                <p class="name">{{Str::limit($popular_games[0]->title, 16)}} @if($popular_games[0]->is_featured)<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>@endif</p>
+                                <ul class="platform-list">
+                                    @if($popular_games[0]->platforms[0] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                                    </li>
+                                    @endif
+                                    @if($popular_games[0]->platforms[1] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                                    </li>
+                                    @endif
+                                    @if($popular_games[0]->platforms[2] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="ic:baseline-apple"></span>
+                                    </li>
+                                    @endif
+                                    @if($popular_games[0]->platforms[3] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="uil:android"></span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <p class="description">@if($popular_games[0]->short_description != ""){{$popular_games[0]->short_description}}@else{{"No description"}}@endif</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col second">
+                    <div class="game-container">
+                        <a href="{{route('game.show', $popular_games[1]->id)}}" class="game"><img src="{{Storage::disk('do')->url('images/' . $popular_games[1]->getGameIcon())}}" alt="game"></a>
+                        <div class="row">
+                            <div class="col img">
+                                <a href="{{route('public.profile', $popular_games[1]->getDeveloper())}}"><img src="{{Storage::disk('do')->url('images/' . $popular_games[1]->getDeveloperIcon())}}" alt="game" class="container-img"></a>
+                            </div>
+                            <div class="col text">
+                                <p class="name">{{Str::limit($popular_games[1]->title, 16)}} @if($popular_games[1]->is_featured)<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>@endif</p>
+                                <ul class="platform-list">
+                                    @if($popular_games[1]->platforms[0] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                                    </li>
+                                    @endif
+                                    @if($popular_games[1]->platforms[1] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                                    </li>
+                                    @endif
+                                    @if($popular_games[1]->platforms[2] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="ic:baseline-apple"></span>
+                                    </li>
+                                    @endif
+                                    @if($popular_games[1]->platforms[3] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="uil:android"></span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <p class="description">@if($popular_games[1]->short_description != ""){{$popular_games[1]->short_description}}@else{{"No description"}}@endif</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col last">
+                    <div class="game-container">
+                        <a href="{{route('game.show', $popular_games[2]->id)}}" class="game"><img src="{{Storage::disk('do')->url('images/' . $popular_games[2]->getGameIcon())}}" alt="game"></a>
+                        <div class="row">
+                            <div class="col img">
+                                <a href="{{route('public.profile', $popular_games[2]->getDeveloper())}}"><img src="{{Storage::disk('do')->url('images/' . $popular_games[2]->getDeveloperIcon())}}" alt="game" class="container-img"></a>
+                            </div>
+                            <div class="col text">
+                                <p class="name">{{Str::limit($popular_games[2]->title, 16)}} @if($popular_games[2]->is_featured)<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>@endif</p>
+                                <ul class="platform-list">
+                                    @if($popular_games[2]->platforms[0] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                                    </li>
+                                    @endif
+                                    @if($popular_games[2]->platforms[1] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                                    </li>
+                                    @endif
+                                    @if($popular_games[2]->platforms[2] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="ic:baseline-apple"></span>
+                                    </li>
+                                    @endif
+                                    @if($popular_games[2]->platforms[3] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="uil:android"></span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <p class="description">@if($popular_games[2]->short_description != ""){{$popular_games[2]->short_description}}@else{{"No description"}}@endif</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <!--Section -->
+
+
+
+    <!--Section -->
+
+
+
+    <div class="section-container">
+        <div class="section-name">
+            <h1>Нові</h1>
+            <button class="view-button"><a href="{{url('filters')}}/new">Більше <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></button>
+        </div>
+
+
+        <div class="section-game-list">
+            <div class="row">
+                <div class="col">
+                    <div class="game-container">
+                        <a href="{{route('game.show', $new_games[0]->id)}}" class="game"><img src="{{Storage::disk('do')->url('images/' . $new_games[0]->getGameIcon())}}" alt="game"></a>
+                        <div class="row">
+                            <div class="col img">
+                                <a href="{{route('public.profile', $new_games[0]->getDeveloper())}}"><img src="{{Storage::disk('do')->url('images/' . $new_games[0]->getDeveloperIcon())}}" alt="game" class="container-img"></a>
+                            </div>
+                            <div class="col text">
+                                <p class="name">{{Str::limit($new_games[0]->title, 16)}} @if($new_games[0]->is_featured)<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>@endif</p>
+                                <ul class="platform-list">
+                                    @if($new_games[0]->platforms[0] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                                    </li>
+                                    @endif
+                                    @if($new_games[0]->platforms[1] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                                    </li>
+                                    @endif
+                                    @if($new_games[0]->platforms[2] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="ic:baseline-apple"></span>
+                                    </li>
+                                    @endif
+                                    @if($new_games[0]->platforms[3] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="uil:android"></span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <p class="description">@if($new_games[0]->short_description != ""){{$new_games[0]->short_description}}@else{{"No description"}}@endif</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col second">
+                    <div class="game-container">
+                        <a href="{{route('game.show', $new_games[1]->id)}}" class="game"><img src="{{Storage::disk('do')->url('images/' . $new_games[1]->getGameIcon())}}" alt="game"></a>
+                        <div class="row">
+                            <div class="col img">
+                                <a href="{{route('public.profile', $new_games[1]->getDeveloper())}}"><img src="{{Storage::disk('do')->url('images/' . $new_games[1]->getDeveloperIcon())}}" alt="game" class="container-img"></a>
+                            </div>
+                            <div class="col text">
+                                <p class="name">{{Str::limit($new_games[1]->title, 16)}} @if($new_games[1]->is_featured)<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>@endif</p>
+                                <ul class="platform-list">
+                                    @if($new_games[1]->platforms[0] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                                    </li>
+                                    @endif
+                                    @if($new_games[1]->platforms[1] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                                    </li>
+                                    @endif
+                                    @if($new_games[1]->platforms[2] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="ic:baseline-apple"></span>
+                                    </li>
+                                    @endif
+                                    @if($new_games[1]->platforms[3] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="uil:android"></span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <p class="description">@if($new_games[1]->short_description != ""){{$new_games[1]->short_description}}@else{{"No description"}}@endif</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col last">
+                    <div class="game-container">
+                        <a href="{{route('game.show', $new_games[2]->id)}}" class="game"><img src="{{Storage::disk('do')->url('images/' . $new_games[2]->getGameIcon())}}" alt="game"></a>
+                        <div class="row">
+                            <div class="col img">
+                                <a href="{{route('public.profile', $new_games[2]->getDeveloper())}}"><img src="{{Storage::disk('do')->url('images/' . $new_games[2]->getDeveloperIcon())}}" alt="game" class="container-img"></a>
+                            </div>
+                            <div class="col text">
+                                <p class="name">{{Str::limit($new_games[2]->title, 16)}} @if($new_games[2]->is_featured)<span class="iconify" data-icon="material-symbols:verified-outline-rounded"></span>@endif</p>
+                                <ul class="platform-list">
+                                    @if($new_games[2]->platforms[0] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="mingcute:windows-fill"></span>
+                                    </li>
+                                    @endif
+                                    @if($new_games[2]->platforms[1] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="teenyicons:linux-alt-solid"></span>
+                                    </li>
+                                    @endif
+                                    @if($new_games[2]->platforms[2] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="ic:baseline-apple"></span>
+                                    </li>
+                                    @endif
+                                    @if($new_games[2]->platforms[3] == 1)
+                                    <li class="platform-element">
+                                        <span class="iconify" data-icon="uil:android"></span>
+                                    </li>
+                                    @endif
+                                </ul>
+                            </div>
+                            <p class="description">@if($new_games[2]->short_description != ""){{$new_games[2]->short_description}}@else{{"No description"}}@endif</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Section -->
+
+</div>
+
+<!--Content -->
 
 @endsection
