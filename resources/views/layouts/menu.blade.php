@@ -26,9 +26,9 @@
             <span><a href="{{route('home')}}" class="navbar-brand"><img src="{{URL::asset('assets/img/logo.svg')}}" alt="logo"></a></span>
         </div>
         <ul>
-            <li><label><a href="#">Ігри</a></label></li>
+            <li><label><a href="{{route('search')}}/new">Ігри</a></label></li>
             <hr>
-            <li><label><a href="#">Статті</a></label></li>
+            <li><label><a href="{{route('forum')}}">Статті</a></label></li>
             <hr>
             <li><label><a href="#">Лаунчер</a></label></li>
             <hr>
@@ -72,13 +72,13 @@
         </li>
         -->
         <li class="nav-item">
-            <a href="#">
+            <a href="{{route('search')}}/new">
                 <span class="unchosed">Ігри</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#">
-                <span class="unchosed">Статті</span>
+            <a href="{{route('forum')}}">
+                <span class="unchosed">Форум</span>
             </a>
         </li>
         <li class="nav-item">

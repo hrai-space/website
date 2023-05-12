@@ -13,7 +13,7 @@
             <input type="password" name="password" class="pasword enter-input" id= "password-input enter-input" placeholder="Пароль" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" autocomplete="current-password"/>
             @include('layouts.error', ['fieldname' => 'password'])
             <span>
-                <p><input type="checkbox" name = "input" class="remember" id= "remember-input register-input" name="remember"> Запам'ятати мене</p>
+                <p><input type="checkbox" name="remember" class="remember" id= "remember-input register-input" name="remember"> Запам'ятати мене</p>
             </span>
             <button class="sign-in-btn" id="sign-in-btn" type="submit">Увійти</button>
             <p class="enter-text">Увійти з</p>

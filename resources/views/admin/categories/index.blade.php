@@ -11,6 +11,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Name_ua</th>
+                    <th scope="col">Type</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -19,6 +21,8 @@
                 <tr>
                     <th scope="row">{{$category->id}}</th>
                     <td>{{$category->name}}</td>
+                    <td>{{$category->name_ua}}</td>
+                    <td>{{$category->type}}</td>
                     <td>
                         <div class="form-inline">
                             <a href="{{route('category.edit', $category)}}" class="btn btn-primary">Edit</a>

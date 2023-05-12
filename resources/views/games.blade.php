@@ -53,7 +53,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($game->short_description != ""){{$game->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($game->short_description != ""){{$game->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
     $(document).on('touchmove', onScroll); // for mobile
 
     function onScroll() {
-        if ($(window).scrollTop() > $(document).height() - $(window).height() - 100) {
+        if ($(window).scrollTop() > $(document).height() - $(window).height() - 500) {
             fetchData();
         }
     }

@@ -17,12 +17,12 @@
     <div class="statisticks">
         <div class="row">
             <div class="col">
-                <h1>120</h1>
+                <h1>{{Auth::user()->game()->count()}}</h1>
                 <p>Ігор</p>
             </div>
             <div class="col">
-                <h1>125</h1>
-                <p>Статтей</p>
+                <h1>{{Auth::user()->article()->count()}}</h1>
+                <p>Постів</p>
             </div>
         </div>
         <hr>
@@ -40,14 +40,16 @@
                 <span>Мої ігри</span>
             </a>
         </li>
+        @admin
         <li>
-            <a href="{{route('dashboard.articles')}}">
+            <a href="{{route('admin.dashboard')}}">
                 <span class="iconify" data-icon="ooui:articles-ltr"></span>
-                <span>Мої статті</span>
+                <span>Admin</span>
             </a>
         </li>
+        @endadmin
         <li id="bottom">
-            <a href="#">
+            <a href="{{route('profile.edit')}}">
                 <span class="iconify" data-icon="material-symbols:settings-outline-rounded"></span>
                 <span>Налаштування</span>
             </a>

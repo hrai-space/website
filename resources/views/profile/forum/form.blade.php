@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row">
-        <form method="POST" id ="ContentForm" action="@isset($article){{route('article.update', $article)}}@else{{route('article.store')}}@endisset" >
+        <form method="POST" id ="ContentForm" action="@isset($forum){{route('forum.update', $forum)}}@else{{route('forum.store')}}@endisset" >
             @isset($article)@method('PUT')@endisset
             @csrf
             <div class="mb-3">

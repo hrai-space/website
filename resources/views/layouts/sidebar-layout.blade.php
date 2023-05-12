@@ -59,14 +59,14 @@
                             </a>
                         </li>
                         <li class="list-element">
-                            <a href="{{route('articles')}}">
+                            <a href="{{route('forum')}}">
                                 <span class="iconify" data-icon="ooui:articles-ltr"></span>
-                                <span class="side-nav-text">Статті</span>
+                                <span class="side-nav-text">Форум</span>
                             </a>
                         </li>
                         <li class="list-element">
                             <a href="#">
-                                <span class="iconify" data-icon="fluent:people-community-24-regular"></span>
+                                <span class="iconify" data-icon="grommet-icons:status-unknown"></span>
                                 <span class="side-nav-text">Лаунчер</span>
                             </a>
                         </li>
@@ -78,7 +78,7 @@
                         </li>
                         <li class="list-element">
                             <a href="#">
-                                <span class="iconify" data-icon="grommet-icons:status-unknown"></span>
+                                <span class="iconify" data-icon="fluent:people-community-24-regular"></span>
                                 <span class="side-nav-text">Блог</span>
                             </a>
                         </li>
@@ -244,7 +244,7 @@
                             <hr>
                             <li><a href="{{route('search')}}/new"><label>Ігри</label></a></li>
                             <hr>
-                            <li><a href="{{route('articles')}}"><label>Статті</label></a></li>
+                            <li><a href="{{route('forum')}}"><label>Форум</label></a></li>
                             <hr>
                             <li><a href=""><label>Лаунчер</label></a></li>
                             <hr>

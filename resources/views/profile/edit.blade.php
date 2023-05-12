@@ -1,123 +1,146 @@
-@extends('layouts.app')
+
+@extends('layouts.sidebar-layout')
+@section('title')Головна@endsection
+
+@section('css1')settings.css @endsection
 
 @section('main_content')
 
-<div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-                    @csrf
-                </form>
-                <form method="post" action="{{ route('profile.update') }}">
-                    @csrf
-                    @method('patch')
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" name="email" value="{{old('email', $user->email)}}">
-                        @foreach($errors->get('email') as $error)
-                        <div id="emailHelp" class="form-text">{{$error}}</div>
-                        @endforeach
-                    </div>
-                    @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                    <div class="form-text">
-                        {{ __('Your email address is unverified.') }}
+<!--Content -->
 
-                        <button form="send-verification" class="form-text">
-                            {{ __('Click here to re-send the verification email.') }}
-                        </button>
-                    </div>
+<div class="settings">
 
-                    @if (session('status') === 'verification-link-sent')
-                    <div class="form-text">
-                        {{ __('A new verification link has been sent to your email address.') }}
-                    </div>
-                    @endif
-                    @endif
-                    <div class="mb-3">
-                        <label for="exampleInputusername1" class="form-label">Username</label>
-                        <input type="text" class="form-control" name="username" value="{{old('username', $user->username)}}">
-                        @foreach($errors->get('username') as $error)
-                        <div id="emailHelp" class="form-text">{{$error}}</div>
-                        @endforeach
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description:</label>
-                        <textarea class="form-control" name="description">{{old('description', $user->description)}}</textarea>
-                        @foreach($errors->get('description') as $error)
-                        <div class="form-text">{{$error}}</div>
-                        @endforeach
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </form>
+
+<div class="account-container-settings">
+    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+        @csrf
+    </form>
+    <h1 class="topic">Профіль</h1>
+
+    
+    <p class="description">Нікнейм — Використовується для входу в акаунт і для вашого публічного посилання</p>
+    <p class="account-settings">{{Auth::user()->username}} <button class="change-button ip-trigger"><a href="#">Змінити нікнейм</a></button></p>
+   
+    <p class="description">Публічне посилання на профіль</p>
+    <a href="http://hrai.space/profile/{{Auth::user()->username}}" class="url"><p>http://hrai.space/profile/{{Auth::user()->username}}</p></a>
+
+    <form method="post" action="{{ route('profile.image.store') }}" enctype="multipart/form-data">
+        @csrf
+        <p class="description">Фото профілю — Показується одразу збоку вашого нікнейму</p>
+        <input type="file" id="account-image" name="AvatarFile" accept="image/png, image/jpeg">
+        <br>
+        @include('layouts.error', ['fieldname' => 'AvatarFile'])
+        <button type="submit" class="confirm" style="margin-top: 20px;">Зберегти</button>
+    </form>
+    
+    <p class="description">Мова — Мова інтерфейсу сайту (в розробці)</p>
+    <select name="language" id="language" class="language">
+        <option value="value1">English</option>
+        <option value="value2">Українська</option>
+    </select>
+
+    <p class="description">Тема — Кольорова схема сайту</p>
+    <ul class="checkbox-list">
+        <li class="checkbox-element">
+            <p class="checkbox-text"><input type="checkbox" class="theme" checked> <span class="iconify" data-icon="ph:moon-fill"></span> Використовувати темну тему де можливо (в розробці)</p>
+        </li>
+    </ul>
+    <form method="post" action="{{route('profile.update')}}">
+        @csrf
+        @method('patch')
+        <p class="description">Профіль — Текст, який буде видно у вашому профілі</p>
+        <textarea name="description" id="describe-input" class="describe-input" cols="30" rows="10" placeholder="Придумайте опис" onfocus="this.placeholder=''" onblur="this.placeholder='Придумайте опис'" />{{old('description', $user->description)}}</textarea>
+        @include('layouts.error', ['fieldname' => 'description'])
+        <br>
+        <button type="submit" class="confirm">Зберегти</button>
+    </form>
+</div>
+
+
+
+
+<div class="password-container">
+    <form method="post" action="{{ route('password.update') }}">
+        @csrf
+        @method('put')
+        <h1 class="topic">Змінити пароль</h1>
+        <p class="description">Оновлення пароля призведе до виходу з усіх інших сесій. Будь-які підключення OAuth і ключі API залишаться активними.</p>
+        <input type="password" name="current_password" class="password" id= "current-password" placeholder="Старий пароль" onfocus="this.placeholder=''" onblur="this.placeholder='Старий пароль'" />
+        @foreach($errors->updatePassword->get('current_password') as $error)
+            <div class="alert" role="alert" style="margin: 0; margin-top:-30px">
+                {{$error}}
             </div>
-            <div class="col-lg-4">
-                <form method="post" action="{{ route('password.update') }}">
-                    @csrf
-                    @method('put')
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Current password</label>
-                        <input type="password" class="form-control" name="current_password">
-                        @foreach($errors->updatePassword->get('current_password') as $error)
-                        <div class="form-text">{{$error}}</div>
-                        @endforeach
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputusername1" class="form-label">New password</label>
-                        <input type="password" class="form-control" name="password">
-                        @foreach($errors->updatePassword->get('password') as $error)
-                        <div class="form-text">{{$error}}</div>
-                        @endforeach
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputusername1" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" name="password_confirmation">
-                        @foreach($errors->get('username') as $error)
-                        <div class="form-text">{{$error}}</div>
-                        @endforeach
-                    </div>
-                    <button type="submit" class="btn btn-primary">Change password</button>
-                </form>
+        @endforeach
+        <input type="password" name="password" class="password" id= "new-password" placeholder="Новий пароль" onfocus="this.placeholder=''" onblur="this.placeholder='Новий пароль'" />
+        @foreach($errors->updatePassword->get('password') as $error)
+            <div class="alert" role="alert" style="margin: 0; margin-top:-30px">
+                {{$error}}
             </div>
-            <div class="col-lg-4">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Delete account
+        @endforeach
+        <input type="password" name="password_confirmation" class="password" id= "repeat-new-password" placeholder="Повторно новий пароль" onfocus="this.placeholder=''" onblur="this.placeholder='Повторно новий пароль'" />
+        @foreach($errors->updatePassword->get('password_confirmation') as $error)
+            <div class="alert" role="alert" style="margin: 0; margin-top:-30px">
+                {{$error}}
+            </div>
+        @endforeach
+        <button type="submit" class="confirm">Зберегти</button>
+    </form>
+</div>
+
+
+
+
+<div class="email-container">
+    <form method="post" action="{{route('profile.update')}}">
+        @csrf
+        @method('patch')
+        <h1 class="topic">Електронна адреса</h1>
+        <p class="description">Коли ви змінюєте адресу електронної пошти, її потрібно підтвердити, щоб отримати доступ до своїх ігор. Інструкції щодо підтвердження буде надіслано вам електронною поштою.</p>
+        <p class="description">Ваша пошта:  <span> {{Auth::user()->email}}</span></p>
+        <input type="text" class="email" name="email" id= "email" placeholder="Нова адреса" onfocus="this.placeholder=''" onblur="this.placeholder='Нова адреса'" />
+        <button type="submit" class="confirm">Зберегти</button>
+        @include('layouts.error', ['fieldname' => 'email'])
+        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+                <p class="description">Ваша електронна адреса не підтверджена</p>
+
+                <button form="send-verification" class="confirm">
+                    Перевідправити посилання для верифікації
                 </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form method="post" action="{{ route('profile.destroy') }}">
-                                @csrf
-                                @method('delete')
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Description</label>
-                                    <input type="password" class="form-control" name="password">
-                                    @foreach($errors->userDeletion->get('password') as $error)
-                                    <div class="form-text">{{$error}}</div>
-                                    @endforeach
-                                </div>
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="col-lg-4">
-                <img src="{{Storage::disk('do')->url('images/' . Auth::user()->avatar)}}" alt="">
 
-                <form method="post" action="{{ route('profile.image.store') }}" enctype="multipart/form-data">
-                    @csrf
-                    <input id="ImageFile" type="file" class="form-control" name="ImageFile" required autocomplete="avatar">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('Upload Profile') }}
-                    </button>
-                    <x-input-error class="mt-2" :messages="$errors->get('ImageFile')" />
-                </form>
-            </div>
+            @if (session('status') === 'verification-link-sent')
+                <p class="description">Нове посилання для верифікації було відправлено</p>
+            @endif
+        @endif
+    </form>
+</div>
+
+</div>
+
+
+<!--Content -->
+
+
+
+<!--Change Name-->
+
+
+<div class="ip" role="alert">
+
+    <form id="change-form" class="change-container" method="post" action="{{route('profile.update')}}">
+        @csrf
+        @method('patch')
+        <img src="assets/img/logo.svg" alt="logo">
+        <p class="head-text">Змінити Нікнейм</p>
+        <div id="change-forms" class="change-forms">
+            <input type="text" name="username" class="change change-input" value="{{old('username')}}" id= "change-input change-input" placeholder="Новий нікнейм" onfocus="this.placeholder=''" onblur="this.placeholder='Новий нікнейм'" />
+            @include('layouts.error', ['fieldname' => 'username'])
+            <button class="change-btn" type="submit" id="change-btn">Змінити Нікнейм</button>
         </div>
-    </div>
+    </form>    
+</div>
 
-    @endsection
+
+<!--Change Name-->
+
+@endsection

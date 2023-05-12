@@ -36,14 +36,14 @@ Route::get('clear-cache', function() {
 });
 
 Route::get('/', [MainController::class, 'home'])->name('home');
-Route::get('/articles', [MainController::class, 'articles'])->name('articles');
-Route::get('/getArticles', [MainController::class, 'getArticles'])->name('getArticles');
-Route::get('/articles/filters/{filters?}', [MainController::class, 'articlesSearch'])->name('articles.search')->where(['filters' => '(.*)']);
+Route::get('/forum/categories', [MainController::class, 'forum'])->name('forum');
+Route::get('/getArticles', [MainController::class, 'getForumPosts'])->name('getForumPosts');
+Route::get('/forum/category/{category}', [MainController::class, 'forumSearch'])->name('forum.search')->where('category', '[0-9]+');
 Route::get('/filters/{filters?}', [MainController::class, 'search'])->name('search')->where('filters', '(.*)');
 Route::get('/getGames', [MainController::class, 'getGames'])->name('getGames');
 Route::get('/profile/{username}', [MainController::class, 'publicProfile'])->name('public.profile');
 Route::get('/game/{game}', [GameController::class, 'show'])->where('game', '[0-9]+')->name('game.show');
-Route::get('/article/{article}', [ArticleController::class, 'show'])->where('article', '[0-9]+')->name('article.show');
+Route::get('/forum/{forum}', [ArticleController::class, 'show'])->where('forum', '[0-9]+')->name('forum.show');
 Route::get('/game/download/{file_id}', [GameController::class, 'download'])->name('game.download');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -54,17 +54,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/game/{game}/edit', [GameController::class, 'edit'])->name('game.edit');
         Route::put('/game/{game}', [GameController::class, 'update'])->name('game.update');
         Route::delete('/game/{game}', [GameController::class, 'destroy'])->name('game.destroy');
-        Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
-        Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
-        Route::post('/article', [ArticleController::class, 'store'])->name('article.store');
-        Route::get('/article/{article}/edit', [ArticleController::class, 'edit'])->name('article.edit');
-        Route::put('/article/{article}', [ArticleController::class, 'update'])->name('article.update');
-        Route::delete('/article/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
+        Route::get('/forum', [ArticleController::class, 'index'])->name('forum.index');
+        Route::get('/forum/create', [ArticleController::class, 'create'])->name('forum.create');
+        Route::post('/forum', [ArticleController::class, 'store'])->name('forum.store');
+        Route::get('/forum/{forum}/edit', [ArticleController::class, 'edit'])->name('forum.edit');
+        Route::put('/forum/{forum}', [ArticleController::class, 'update'])->name('forum.update');
+        Route::delete('/forum/{forum}', [ArticleController::class, 'destroy'])->name('forum.destroy');
     });
     Route::put('/game/follow/{game}', [GameController::class, 'follow'])->name('game.follow');
     Route::get('/followed', [ProfileController::class, 'followed'])->name('game.followed');
     Route::get('/dashboard/games', [ProfileController::class, 'dashboardGames'])->name('dashboard.games');
-    Route::get('/dashboard/articles', [ProfileController::class, 'dashboardArticles'])->name('dashboard.articles');
+    Route::get('/dashboard/forums', [ProfileController::class, 'dashboardArticles'])->name('dashboard.forums');
     Route::post('/game/temp/image/store', [DoSpacesController::class, 'storeTempFile'])->name('game.temp.file.store');
     Route::post('/game/temp/image/delete', [DoSpacesController::class, 'deleteTempFile'])->name('game.temp.image.delete');
     Route::post('/game/temp/file/delete', [DoSpacesController::class, 'deleteTempGameFile'])->name('game.temp.file.delete');

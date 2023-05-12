@@ -31,6 +31,9 @@ class CategoryController extends Controller
     {
         $category = new Article_Category();
         $category->name = $request->name;
+        $category->name_ua = $request->name_ua;
+        $category->description = $request->description;
+        $category->type = $request->type;
         $category->save();
 
         return redirect(route('category.index'));
@@ -58,6 +61,9 @@ class CategoryController extends Controller
     public function update(Request $request, Article_Category $category)
     {
         $category->name = $request->name;
+        $category->name_ua = $request->name_ua;
+        $category->description = $request->description;
+        $category->type = $request->type;
         $category->save();
 
         return redirect(route('category.index'));

@@ -24,21 +24,20 @@ class DoSpacesController extends Controller
 
     public function store(DigitalOceanStoreRequest $request)
     {
-        $request->validate([
-            'avatar' => ['required', 'dimensions:width=512,height=512'],
-        ]);
-        $file = $request->ImageFile;
-        $fileName = (string) Str::uuid();
-        $folder = "images";
-        Storage::disk('do')->put(
-            "{$folder}/{$fileName}",
-            file_get_contents($file),
-            ['ACL' => 'public-read'],
-        );
-
-        $user = $request->user();
-        $user->avatar = $fileName;
-        $user->save();
+        $file = $request->AvatarFile;
+        if($file != null){
+            $fileName = (string) Str::uuid();
+            $folder = "images";
+            Storage::disk('do')->put(
+                "{$folder}/{$fileName}",
+                file_get_contents($file),
+                ['ACL' => 'public-read'],
+            );
+    
+            $user = $request->user();
+            $user->avatar = $fileName;
+            $user->save();
+        }
 
         return Redirect::route('profile.edit');
     }

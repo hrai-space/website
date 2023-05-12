@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class ProfileController extends Controller
     {
         return view('profile.edit', [
             'user' => $request->user(),
-        ]);
+        ])->with('usedFilters', array('platform' => '', 'genre' => '', 'time' => '', 'other' => ''))->with('data', ['search' => null])->with('genres', Genre::all());
     }
 
     /**
@@ -71,7 +72,7 @@ class ProfileController extends Controller
 
     public function followed()
     {
-        return view('profile.followed')->with('games', Auth::user()->followedGames);
+        return view('profile.followed')->with('games', Auth::user()->followedGames)->with('usedFilters', array('platform' => '', 'genre' => '', 'time' => '', 'other' => ''))->with('data', ['search' => null])->with('genres', Genre::all());;
     }
 
     public function admin(Request $request, User $user)

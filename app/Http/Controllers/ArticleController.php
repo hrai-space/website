@@ -24,7 +24,7 @@ class ArticleController extends Controller
     public function create()
     {
         $categories = Article_Category::all();
-        return view('profile.articles.form')->with('categories', $categories);
+        return view('profile.forum.form')->with('categories', $categories);
     }
 
     /**
@@ -32,62 +32,62 @@ class ArticleController extends Controller
      */
     public function store(ArticleUploadRequest $request)
     {
-        $article = new Article();
-        $article->user_id = $request->user()->id;
-        $article->title = $request->title;
-        $article->content = $request->content;
-        $article->category_id = $request->category;
+        $forum = new Article();
+        $forum->user_id = $request->user()->id;
+        $forum->title = $request->title;
+        $forum->content = $request->content;
+        $forum->category_id = $request->category;
 
-        $article->save();
+        $forum->save();
         return redirect()->route('dashboard.articles');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function show(Article $forum)
     {
-        $key = 'articleKey_' . $article->id;
+        $key = 'articleKey_' . $forum->id;
         if (!session()->has($key)) {
-            $article->views = $article->views + 1;
-            $article->save();
+            $forum->views = $forum->views + 1;
+            $forum->save();
             $view = new Article_View();
-            $view->article_id = $article->id;
+            $view->article_id = $forum->id;
             $view->save();
             session()->put($key, 1);
             session()->save();
         }
 
-        return view('article')->with('article', $article);
+        return view('forum.article')->with('article', $forum);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function edit(Article $forum)
     {
         $categories = Article_Category::all();
-        return view('profile.articles.form')->with('article', $article)->with('categories', $categories);
+        return view('profile.articles.form')->with('article', $forum)->with('categories', $categories);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ArticleUploadRequest $request, Article $article)
+    public function update(ArticleUploadRequest $request, Article $forum)
     {
-        $article->title = $request->title;
-        $article->content = $request->content;
-        $article->category_id = $request->category;
-        $article->save();
+        $forum->title = $request->title;
+        $forum->content = $request->content;
+        $forum->category_id = $request->category;
+        $forum->save();
         return redirect()->route('dashboard.articles');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $article)
+    public function destroy(Article $forum)
     {
-        $article->delete();
+        $forum->delete();
         return redirect()->route('dashboard.articles');
     }
 }

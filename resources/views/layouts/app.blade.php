@@ -34,7 +34,7 @@
                         <a class="nav-link" aria-current="page" href="{{route('home')}}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{route('articles')}}">Articles</a>
+                        <a class="nav-link" aria-current="page" href="{{route('forum')}}">Articles</a>
                     </li>
                     @auth
                     <li class="nav-item dropdown">
@@ -43,10 +43,10 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{route('dashboard.games')}}">My games</a></li>
-                            <li><a class="dropdown-item" href="{{route('dashboard.articles')}}">My articles</a></li>
+                            <li><a class="dropdown-item" href="{{route('dashboard.forums')}}">My articles</a></li>
                             <li><a class="dropdown-item" href="{{route('profile.edit')}}">Profile</a></li>
                             <li><a class="dropdown-item" href="{{route('game.create')}}">New game</a></li>
-                            <li><a class="dropdown-item" href="{{route('article.create')}}">New article</a></li>
+                            <li><a class="dropdown-item" href="{{route('forum.create')}}">New article</a></li>
                             <li><a class="dropdown-item" href="{{route('game.followed')}}">Followed</a></li>
                             @admin
                             <li><a class="dropdown-item" href="{{route('admin.dashboard')}}">Admin</a></li>

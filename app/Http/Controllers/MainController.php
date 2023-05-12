@@ -44,18 +44,30 @@ class MainController extends Controller
         ->with('data', $data);
     }
 
-    public function articles()
+    public function forum()
     {
-        $categories = Article_Category::all();
-        $data['rowperpage'] = $this->rowperpage;
+        $categoriesGeneral = $this->addClassToForumCategories(Article_Category::where('type', 0)->get());
+        $categoriesHrai = $this->addClassToForumCategories(Article_Category::where('type', 1)->get());
+        $categoriesGame = $this->addClassToForumCategories(Article_Category::where('type', 2)->get());
+        $categoriesArt = $this->addClassToForumCategories(Article_Category::where('type', 3)->get());
 
-        $data['articles'] = Article::select('*')->take($this->rowperpage)->get();
+        return view('forum.categories')->with('categoriesGeneral', $categoriesGeneral)->with('categoriesHrai', $categoriesHrai)
+        ->with('categoriesGame', $categoriesGame)->with('categoriesArt', $categoriesArt);
+    }
 
-        $data['totalrecords'] = $data['articles']->count();
-        $data['search'] = null;
-        $data['category'] = null;
-        $data['filters'] = null;
-        return view('articles')->with('data', $data)->with('categories', $categories);
+    function addClassToForumCategories($categories){
+        $categoryElements = ['first-element', 'second-element', 'third-element'];
+
+        $i = 0;
+        foreach($categories as $category){
+            $category->class = $categoryElements[$i];
+            $i++;
+            if($i == 3){
+                $i = 0;
+            }
+        }
+
+        return $categories;
     }
 
     public function search(Request $request, $filters = null)
@@ -106,41 +118,19 @@ class MainController extends Controller
         return $usedFilters;
     }
 
-    public function articlesSearch(Request $request, $filters = null)
+    public function forumSearch(Request $request, Article_Category $category)
     {
-        $category = null;
-        if (isset($filters)) {
-            $filters = explode('/', $filters);
-            $bool = true;
-            for ($i = count($filters) - 1; $i >= 0; $i--) {
-                if (str_starts_with($filters[$i], 'category-')) {
-                    $category = implode('/', array_slice($filters, 0, $i + 1)) . '/';
-                    if (count($filters) > $i + 1) {
-                        $filters = implode('/', array_slice($filters, $i + 1));
-                    } else {
-                        $filters = null;
-                    }
-                    $bool = false;
-                    break;
-                }
-            }
-            if ($bool) {
-                $filters = implode('/', $filters);
-            }
-        }
-        //dd($category, $filters);
-        $categories = Article_Category::all();
+        $posts = Article::where('category_id', $category->id);
+
         $data['rowperpage'] = $this->rowperpage;
 
-        $data['articles'] = $this->processArticlesFilters($category . $filters);
-        $data['articles'] = $this->processArticlesSearch($request, $data['articles'])->take($this->rowperpage)->get();
+        $data['posts'] = $this->processPostsSearch($request, $posts)->take($this->rowperpage)->get();
 
-        $data['totalrecords'] = $data['articles']->count();
+        $data['totalrecords'] = $data['posts']->count();
         $data['search'] = $request->search;
-        $data['category'] = $category;
-        $data['filters'] = $filters;
+        $data['category'] = $category->id;
 
-        return view('articles')->with('data', $data)->with('categories', $categories);
+        return view('forum.category')->with('data', $data)->with('category', $category);
     }
 
     public function getGames(Request $request)
@@ -213,31 +203,31 @@ class MainController extends Controller
         return response()->json($data);
     }
 
-    public function getArticles(Request $request)
+    public function getForumPosts(Request $request)
     {
 
         $start = $request->get("start");
 
         // Fetch records
-        $articles = new Article();
-        $filters = $request->get("filters");
         $category = $request->get("category");
+        $posts = Article::where('category_id', $category);
 
-        if ($category != null or $filters != null) {
-            $articles = $this->processArticlesFilters($category, $filters);
-        }
-        $articles = $this->processArticlesSearch($request, $articles)->skip($start)->take($this->rowperpage)->get();
+        $posts = $this->processPostsSearch($request, $posts)->skip($start)->take($this->rowperpage)->get();
 
         $html = "";
-        foreach ($articles as $article) {
-            $html .= '<div class="col-lg-10">
-                <div class="card" style="width: 50rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">' . $article->title . '</h5>
-                        <a href="' . route("article.show", $article->id) . '" class="btn btn-primary">Show</a>
+        foreach ($posts as $post) {
+            $html .= '<div class="topic-box">
+                    <div class="row">
+                        <div class="col-1">
+                            <a href="' . route('public.profile', $post->getAuthor()) . '"><img src="' . Storage::url("images/" . $post->getAuthorIcon()) . '" alt="logo"></a>
+                        </div>
+                        <div class="col">
+                            <p class="topic-name">' . $post->title . '</p>
+                            <p class="topic-text">' . Str::limit(strip_tags($post->content), 256) . '</p>
+                            <p class="topic-info"><a href="' . route('public.profile', $post->getAuthor()) . '" class="creator">' . $post->getAuthor() . ',</a> <span>' . \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') . '</span> <a href="' . route('forum.show', $post->id) . '" class="last-page">Читати далі <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></p>
+                        </div>
                     </div>
-                </div>
-            </div>';
+                </div>';
         }
 
         $data['html'] = $html;
@@ -295,30 +285,6 @@ class MainController extends Controller
         return $games;
     }
 
-    function processArticlesFilters($filters)
-    {
-        $filters = explode('/', $filters);
-        $filterStartParameters = ['category-', 'new', 'last-week', 'last-month', 'popular'];
-        $article = new Article();
-
-        foreach ($filters as $filter) {
-            if (str_starts_with($filter, $filterStartParameters[0])) {
-                $filter = str_replace($filterStartParameters[0], "", $filter);
-                $filter = str_replace('-', " ", $filter);
-                $article = $article->where('category_id', $filter);
-            } else if (str_starts_with($filter, $filterStartParameters[1])) {
-                $article = $article->latest();
-            } else if (str_starts_with($filter, $filterStartParameters[2])) {
-                $article = $article->where('created_at', '>=', \Carbon\Carbon::today()->subDays(7));
-            } else if (str_starts_with($filter, $filterStartParameters[3])) {
-                $article = $article->where('created_at', '>=', \Carbon\Carbon::today()->subDays(31));
-            } else if (str_starts_with($filter, $filterStartParameters[4])) {
-                $article = $article->orderBy('views', 'desc');
-            }
-        }
-        return $article;
-    }
-
     function processSearch($request, $game)
     {
         $tags = explode(" ", $request->search);
@@ -332,7 +298,7 @@ class MainController extends Controller
             }, count($tags));
     }
 
-    function processArticlesSearch($request, $article)
+    function processPostsSearch($request, $article)
     {
         return $article->where(function ($query) use ($request) {
             $query->where('title', 'LIKE', "%{$request->search}%")
