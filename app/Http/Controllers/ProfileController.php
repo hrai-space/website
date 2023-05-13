@@ -72,7 +72,13 @@ class ProfileController extends Controller
 
     public function followed()
     {
-        return view('profile.followed')->with('games', Auth::user()->followedGames)->with('usedFilters', array('platform' => '', 'genre' => '', 'time' => '', 'other' => ''))->with('data', ['search' => null])->with('genres', Genre::all());;
+        $games = Auth::user()->followedGames;
+
+        foreach($games as $game){
+            $game->platforms = $game->getPlatforms();
+        }
+
+        return view('profile.followed')->with('games', $games)->with('usedFilters', array('platform' => '', 'genre' => '', 'time' => '', 'other' => ''))->with('data', ['search' => null])->with('genres', Genre::all());;
     }
 
     public function admin(Request $request, User $user)

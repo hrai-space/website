@@ -28,7 +28,7 @@
                 <p class="main-info"> Автор: <a href="{{route('public.profile', $post->getAuthor())}}" class="white creator">{{$post->getAuthor()}},</a> <span>{{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y')}}</span> </p>
             </li>
             <li class="main-list-item">
-                <p class="main-info"> Перглядів: <span>{{$post->views}}</span> </p>
+                <p class="main-info"> Перeглядів: <span>{{$post->views}}</span> </p>
             </li>
             <li class="main-list-item">
                 <p class="main-info"> Відповідей: <span>{{$post->commentCount()}}</span> </p>
