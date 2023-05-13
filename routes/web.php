@@ -38,13 +38,14 @@ Route::get('clear-cache', function() {
 Route::get('/', [MainController::class, 'home'])->name('home');
 Route::get('/forum/categories', [MainController::class, 'forum'])->name('forum');
 Route::get('/getArticles', [MainController::class, 'getForumPosts'])->name('getForumPosts');
-Route::get('/forum/category/{category}', [MainController::class, 'forumSearch'])->name('forum.search')->where('category', '[0-9]+');
+Route::get('/forum/category/{category}', [MainController::class, 'forumSearch'])->where('category', '[0-9]+')->name('forum.search');
 Route::get('/filters/{filters?}', [MainController::class, 'search'])->name('search')->where('filters', '(.*)');
 Route::get('/getGames', [MainController::class, 'getGames'])->name('getGames');
 Route::get('/profile/{username}', [MainController::class, 'publicProfile'])->name('public.profile');
 Route::get('/game/{game}', [GameController::class, 'show'])->where('game', '[0-9]+')->name('game.show');
-Route::get('/forum/{forum}', [ArticleController::class, 'show'])->where('forum', '[0-9]+')->name('forum.show');
+Route::get('/forum/{post}', [ArticleController::class, 'show'])->where('post', '[0-9]+')->name('forum.show');
 Route::get('/game/download/{file_id}', [GameController::class, 'download'])->name('game.download');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['is_owner'])->group(function () {
@@ -55,12 +56,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/game/{game}', [GameController::class, 'update'])->name('game.update');
         Route::delete('/game/{game}', [GameController::class, 'destroy'])->name('game.destroy');
         Route::get('/forum', [ArticleController::class, 'index'])->name('forum.index');
-        Route::get('/forum/create', [ArticleController::class, 'create'])->name('forum.create');
+        Route::get('/forum/create/{category}', [ArticleController::class, 'create'])->where('category', '[0-9]+')->name('forum.create');
         Route::post('/forum', [ArticleController::class, 'store'])->name('forum.store');
-        Route::get('/forum/{forum}/edit', [ArticleController::class, 'edit'])->name('forum.edit');
-        Route::put('/forum/{forum}', [ArticleController::class, 'update'])->name('forum.update');
-        Route::delete('/forum/{forum}', [ArticleController::class, 'destroy'])->name('forum.destroy');
+        Route::get('/forum/{post}/edit', [ArticleController::class, 'edit'])->name('forum.edit');
+        Route::put('/forum/{post}', [ArticleController::class, 'update'])->name('forum.update');
+        Route::delete('/forum/{post}', [ArticleController::class, 'destroy'])->name('forum.destroy');
     });
+    Route::post('/forum/comments/like', [ArticleController::class, 'like'])->name('comments.like');
+    Route::post('comments', [ArticleController::class, 'storeComment'])->name('comments.store');
     Route::put('/game/follow/{game}', [GameController::class, 'follow'])->name('game.follow');
     Route::get('/followed', [ProfileController::class, 'followed'])->name('game.followed');
     Route::get('/dashboard/games', [ProfileController::class, 'dashboardGames'])->name('dashboard.games');

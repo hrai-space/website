@@ -26,5 +26,14 @@ class Article extends Model
         return $this->user()->first()->username;
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id')->whereNull('parent_id');
+    }
+
+    public function commentCount(){
+        return $this->hasMany(Comment::class, 'post_id')->count();
+    }
+
     protected $fillable = ['user_id', 'title', 'content', 'category_id'];
 }

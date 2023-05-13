@@ -6,14 +6,16 @@
     <div class="container">
         <h1>You are logged in</h1>
         <div class="row">
-            @foreach(Auth::user()->article as $article)
+            @foreach(Auth::user()->game as $game)
             <div class="col-lg-3">
                 <div class="card" style="width: 18rem;">
+                    <img src="{{Storage::disk('do')->url('images/' . $game->getGameIcon())}}" class="card-img-top" alt="image">
                     <div class="card-body">
-                        <h5 class="card-title">{{$article->title}}</h5>
-                        <a href="{{route('article.show', $article->id)}}" class="btn btn-primary">Show</a>
-                        <a href="{{route('article.edit', $article->id)}}" class="btn btn-primary">Edit</a>
-                        <form action="{{route('article.destroy', $article->id)}}" method="POST">
+                        <h5 class="card-title">{{$game->title}}</h5>
+                        <p class="card-text">{{$game->short_description}}</p>
+                        <a href="{{route('game.show', $game->id)}}" class="btn btn-primary">Game</a>
+                        <a href="{{route('game.edit', $game->id)}}" class="btn btn-primary">Edit</a>
+                        <form action="{{route('game.destroy', $game->id)}}" method="POST">
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Destroy</button>
                             @csrf

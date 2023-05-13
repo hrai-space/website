@@ -90,7 +90,7 @@
                 <label for="exampleInputEmail" class="form-label">Genre</label>
                 <select class="form-select" name="genre">
                     @foreach($genres as $genre)
-                    <option value="{{$genre->id}}" @if(old('genre') == $genre->id)selected @else @isset($game)@if($game->genre == $genre->id)selected @endif @endisset @endif>{{$genre->name}}</option>
+                    <option value="{{$genre->id}}" @if(old('genre') == $genre->id)selected @else @isset($game)@if($game->genre->id == $genre->id)selected @endif @endisset @endif>{{$genre->name}}</option>
                     @endforeach
                 </select>
                 @include('layouts.error', ['fieldname' => 'genre'])

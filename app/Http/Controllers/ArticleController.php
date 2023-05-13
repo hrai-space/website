@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticleUploadRequest;
+use App\Http\Requests\CommentRequest;
 use App\Models\Article;
 use App\Models\Article_Category;
 use App\Models\Article_View;
+use App\Models\Comment;
+use App\Models\Comment_Like;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -21,10 +24,9 @@ class ArticleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Article_Category $category)
     {
-        $categories = Article_Category::all();
-        return view('profile.forum.form')->with('categories', $categories);
+        return view('forum.post')->with('category', $category);
     }
 
     /**
@@ -32,62 +34,93 @@ class ArticleController extends Controller
      */
     public function store(ArticleUploadRequest $request)
     {
-        $forum = new Article();
-        $forum->user_id = $request->user()->id;
-        $forum->title = $request->title;
-        $forum->content = $request->content;
-        $forum->category_id = $request->category;
+        $post = new Article();
+        $post->user_id = $request->user()->id;
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->category_id = $request->category;
 
-        $forum->save();
-        return redirect()->route('dashboard.articles');
+        $post->save();
+        return redirect()->route('forum.show', $post);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Article $forum)
+    public function show(Article $post)
     {
-        $key = 'articleKey_' . $forum->id;
+        $key = 'articleKey_' . $post->id;
         if (!session()->has($key)) {
-            $forum->views = $forum->views + 1;
-            $forum->save();
+            $post->views = $post->views + 1;
+            $post->save();
             $view = new Article_View();
-            $view->article_id = $forum->id;
+            $view->article_id = $post->id;
             $view->save();
             session()->put($key, 1);
             session()->save();
         }
 
-        return view('forum.article')->with('article', $forum);
+        return view('forum.post')->with('post', $post)->with('category', $post->category);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $forum)
+    public function edit(Article $post)
     {
-        $categories = Article_Category::all();
-        return view('profile.articles.form')->with('article', $forum)->with('categories', $categories);
+        return view('forum.post')->with('post', $post)->with('category', $post->category);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ArticleUploadRequest $request, Article $forum)
+    public function update(ArticleUploadRequest $request, Article $post)
     {
-        $forum->title = $request->title;
-        $forum->content = $request->content;
-        $forum->category_id = $request->category;
-        $forum->save();
-        return redirect()->route('dashboard.articles');
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->category_id = $request->category;
+        $post->save();
+        return redirect()->route('forum.show', $post);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $forum)
+    public function destroy(Article $post)
     {
-        $forum->delete();
-        return redirect()->route('dashboard.articles');
+        $post->delete();
+        return redirect()->route('forum');
+    }
+
+    public function storeComment(CommentRequest $request)
+    {
+        $comment = new Comment();
+        $comment->post_id = $request->post_id;
+        $comment->parent_id = $request->parent_id;
+        $comment->user_id = auth()->user()->id;
+        $comment->text = $request->text;
+        $comment->save();
+
+        return back();
+    }
+
+    public function like(Request $request){
+        $comment = Comment::where('id', $request->comment_id)->first();
+
+        if($request->like){
+            Comment_Like::where('comment_id', $request->comment_id)->where('user_id', auth()->user()->id)->delete();
+            $comment->likes = $comment->likes - 1;
+        }
+        else{
+            $comment->likes = $comment->likes + 1;
+            $like = new Comment_Like();
+            $like->comment_id = $request->comment_id;
+            $like->user_id = auth()->user()->id;
+            $like->save();
+        }
+        
+        $comment->save();
+
+        return back();
     }
 }

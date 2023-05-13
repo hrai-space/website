@@ -12,7 +12,7 @@
     <div class="main-block">
         <p class="main-topic">{{$category->name_ua}}</p>
         <p class="main-text">{{$category->description}}</p>
-        <p class="main-numbers"><span>2466</span> постів <button class="add-topic"><a href="#">New Topic</a></button></p>
+        <p class="main-numbers"><span>{{$category->articlesCount()}}</span> постів <button class="add-topic"><a href="{{route('forum.create', $category)}}">Новий пост</a></button></p>
         <ul class="main-list">
             <li class="main-list-item"><a id="texty" onclick="dropyDown()"> Переглянути правила спільноти <span class="iconify" id="triangly" data-icon="tabler:triangle-filled"></span></a>
                 <ul class="main-second-list dropydown-element">
@@ -64,7 +64,7 @@
                 <div class="col">
                     <p class="topic-name">{{$post->title}}</p>
                     <p class="topic-text">{{Str::limit(strip_tags($post->content), 256)}}</p>
-                    <p class="topic-info"><a href="{{route('public.profile', $post->getAuthor())}}" class="creator">{{$post->getAuthor()}},</a> <span>{{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y')}}</span> <a href="{{route('forum.show', $post->id)}}" class="last-page">Читати далі <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></p>
+                    <p class="topic-info">Автор: <a href="{{route('public.profile', $post->getAuthor())}}" class="creator">{{$post->getAuthor()}},</a> <span>{{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y')}}</span> <a href="{{route('forum.show', $post->id)}}" class="last-page">Читати далі <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></p>
                 </div>
             </div>
         </div>

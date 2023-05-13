@@ -20,7 +20,7 @@
                     <div class="media-element {{$category->class}}">
                         <p class="topic-name">{{$category->name_ua}}</p>
                         <p class="topic-text">{{Str::limit($category->description, 128)}}</p>
-                        <p class="topic-number"><span>2466</span> topics</p>
+                        <p class="topic-number"><span>{{$category->articlesCount()}}</span> постів</p>
                     </div>
                 </a>
                 @endforeach
@@ -43,7 +43,7 @@
                         <div class="media-element {{$category->class}}">
                             <p class="topic-name">{{$category->name_ua}}</p>
                             <p class="topic-text">{{Str::limit($category->description, 128)}}</p>
-                            <p class="topic-number"><span>2466</span> topics</p>
+                            <p class="topic-number"><span>{{$category->articlesCount()}}</span> постів</p>
                         </div>
                     </a>
                 @endforeach
@@ -66,7 +66,7 @@
                         <div class="media-element {{$category->class}}">
                             <p class="topic-name">{{$category->name_ua}}</p>
                             <p class="topic-text">{{Str::limit($category->description, 128)}}</p>
-                            <p class="topic-number"><span>2466</span> topics</p>
+                            <p class="topic-number"><span>{{$category->articlesCount()}}</span> постів</p>
                         </div>
                     </a>
                 @endforeach
@@ -89,7 +89,7 @@
                         <div class="media-element {{$category->class}}">
                             <p class="topic-name">{{$category->name_ua}}</p>
                             <p class="topic-text">{{Str::limit($category->description, 128)}}</p>
-                            <p class="topic-number"><span>2466</span> topics</p>
+                            <p class="topic-number"><span>{{$category->articlesCount()}}</span> постів</p>
                         </div>
                     </a>
                 @endforeach

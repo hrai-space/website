@@ -48,7 +48,7 @@
         <form action="{{route('game.follow', $game->id)}}" method="POST">
             @method('PUT')
             @if($is_followed)
-            <button class="follow" name="follow" value="1"><a style="color: white !important;">Unfollow <span class="iconify" data-icon="material-symbols:star-outline-rounded"></span></a></button>
+            <button class="follow" name="follow" value="1"><a style="color: white !important;">Unfollow <span class="iconify" data-icon="material-symbols:star-rate-rounded"></span></a></button>
             @else
             <button class="follow" name="follow" value="0"><a style="color: white !important;">Follow <span class="iconify" data-icon="material-symbols:star-outline-rounded"></span></a></button>
             @endif

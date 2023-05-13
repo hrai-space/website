@@ -26,6 +26,14 @@ class Game extends Model
         return $this->hasMany(Game_File::class);
     }
 
+    public function gameDownloads(){
+        return $this->hasMany(Game_Download::class);
+    }
+
+    public function gameFollows(){
+        return $this->hasMany(Game_Follow::class);
+    }
+
     public function getGameIcon()
     {
         return $this->screenshots()->orderBy('type', 'asc')->first()->file;

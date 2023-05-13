@@ -9,5 +9,13 @@ class Article_Category extends Model
 {
     use HasFactory;
 
+    public function article(){
+        return $this->hasMany(Article::class, 'category_id');
+    }
+
+    public function articlesCount(){
+        return $this->article()->count();
+    }
+
     public $timestamps=false;
 }

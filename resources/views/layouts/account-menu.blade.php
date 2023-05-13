@@ -35,6 +35,12 @@
             </a>
         </li>
         <li>
+            <a href="{{route('game.create')}}">
+                <span class="iconify" data-icon="ri:game-line"></span>
+                <span>Нова гра</span>
+            </a>
+        </li>
+        <li>
             <a href="{{route('dashboard.games')}}">
                 <span class="iconify" data-icon="ic:outline-games"></span>
                 <span>Мої ігри</span>
