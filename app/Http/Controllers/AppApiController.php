@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\Game_View;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -40,5 +42,24 @@ class AppApiController extends Controller
             $user = User::where('username', $username)->first();
             return response()->json(['user' => $user]);
         return response()->json(['error' => 'Щось пішло не так']);
+    }
+
+    public function gameStatistic(Game $game, $interval){
+        $views = array(array(),array());
+        if($interval == "daily"){
+            for($i = 6; $i >= 0; $i--){
+                array_push($views[0], Carbon::today()->subDays($i)->toDateString());
+                array_push($views[1], Game_View::where('game_id', $game->id)->whereDate('created_at',\Carbon\Carbon::today()->subDays($i))->count());
+            }
+        }
+        else if($interval == "weekly"){
+            for($i = 4; $i > 0; $i--){
+                $startDate = Carbon::today()->subDays($i * 7)->toDateString();
+                $endDate = Carbon::today()->subDays(($i - 1) * 7)->toDateString();
+                array_push($views[0], $startDate . " - " . $endDate);
+                array_push($views[1], Game_View::where('game_id', $game->id)->whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->count());
+            }
+        }
+        dd($views);
     }
 }

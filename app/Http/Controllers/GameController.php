@@ -49,7 +49,7 @@ class GameController extends Controller
         $game->description = $request->description;
         $game->kind_of_content = 0;
         $game->classification = 0;
-        $game->genre = $request->genre;
+        $game->genre_id = $request->genre;
         $game->visibility = 1;
 
         $game->save();
@@ -134,12 +134,13 @@ class GameController extends Controller
         $game->title = $request->title;
         $game->short_description = $request->short_description;
         $game->description = $request->description;
-        $game->genre = $request->genre;
+        $game->genre_id = $request->genre;
 
         $game->save();
 
         for ($i = 0; $i < count($request->GameFile); $i++) {
-            if (!Game_File::where('file', $request->GameFile[$i])->where('game_id', $game->id)->exists()) {
+            $gameFile = Game_File::where('file', $request->GameFile[$i])->where('game_id', $game->id);
+            if (!$gameFile->exists()) {
                 $gameFile = new Game_File();
                 $gameFile->game_id = $game->id;
                 $gameFile->file = $request->GameFile[$i];
@@ -147,6 +148,14 @@ class GameController extends Controller
                 $gameFile->type = $request->FileType[$i];
                 $gameFile->save();
                 Temp_File::where('file', $request->GameFile[$i])->delete();
+            }
+            else{
+                $gameFile = $gameFile->first();
+                $gameFile->game_id = $game->id;
+                $gameFile->file = $request->GameFile[$i];
+                $gameFile->name = $request->FileName[$i];
+                $gameFile->type = $request->FileType[$i];
+                $gameFile->save();
             }
         }
 

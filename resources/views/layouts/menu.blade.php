@@ -28,7 +28,7 @@
         <ul>
             <li><label><a href="{{route('search')}}/new">Ігри</a></label></li>
             <hr>
-            <li><label><a href="{{route('forum')}}">Статті</a></label></li>
+            <li><label><a href="{{route('forum')}}">Форум</a></label></li>
             <hr>
             <li><label><a href="#">Лаунчер</a></label></li>
             <hr>

@@ -253,20 +253,20 @@ const ctx = document.getElementById("views");
 new Chart(ctx, {
     type: "bar",
     data: {
-        labels: ["Mar", "Apr", "May"],
+        labels: ["Mar", "Apr", "May", "M2", "May3", "May3", "May3"],
         datasets: [
             {
-                data: [400, 150, 200],
+                data: [400, 150, 200, 200, 200, 200, 200],
                 borderWidth: 2,
                 borderRadius: 20,
                 backgroundColor: "#2351F4",
                 hoverBorderColor: "#fff",
-                minBarWidth: "180px",
-                barThickness: 100,
+                barThickness: 30,
             },
         ],
     },
     options: {
+        maintainAspectRatio: false,
         responsive: !0,
         plugins: {
             legend: { display: !1 },

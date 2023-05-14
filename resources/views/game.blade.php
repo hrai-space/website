@@ -10,7 +10,7 @@
 
     <div class="img" style="position: relative;">
         <img src="{{Storage::disk('do')->url('images/' . $screenshots[0]->file)}}" alt="game" style="object-fit: cover;">
-        <button class="start"><a href="#description">Start Story</a></button>
+        <button class="start"><a href="#description">Грати</a></button>
     </div>
 
     <div class="bg-color-grey-200">
@@ -58,7 +58,11 @@
         @endauth
     </div>
     <div class="description" id="description">
-        {!!$game->description!!}
+        <div class="ql-snow">
+            <div class="ql-editor" style="overflow-wrap: break-word;">
+                {!!$game->description!!}
+            </div>
+        </div>
     </div>
 
     <div class="dev-content">

@@ -24,3 +24,4 @@ Route::get('v1/get/tags', [TagController::class, 'getTags'])->name('api.get.tags
 Route::get('v1/get/game/{game}', [AppApiController::class, 'getGame'])->name('api.get.game');
 Route::get('v1/get/followed/{user}', [AppApiController::class, 'getFollowed'])->name('api.get.followed');
 Route::get('v1/auth/login/{username}/{password}', [AppApiController::class, 'loginUser']);
+Route::get('v1/get/statistic/game/{game}/{interval}', [AppApiController::class, 'gameStatistic'])->name('api.get.statistic.game');

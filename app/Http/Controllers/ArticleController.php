@@ -9,6 +9,9 @@ use App\Models\Article_Category;
 use App\Models\Article_View;
 use App\Models\Comment;
 use App\Models\Comment_Like;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -41,6 +44,17 @@ class ArticleController extends Controller
         $post->category_id = $request->category;
 
         $post->save();
+        $client = new Client();
+        $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/newart';
+        $params['query'] = array('id' => $post->id, 'name' => $post->title, 'contents' => route('forum.show', $post->id));
+        
+        try {
+            $response = $client->post($URI, $params);   
+        }
+        catch (ServerException $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
+        }
         return redirect()->route('forum.show', $post);
     }
 
@@ -80,7 +94,19 @@ class ArticleController extends Controller
         $post->content = $request->content;
         $post->category_id = $request->category;
         $post->save();
+        $client = new Client();
+        $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/newart';
+        $params['query'] = array('id' => $post->id, 'name' => $post->title, 'contents' => route('forum.show', $post->id));
+        
+        try {
+            $response = $client->post($URI, $params);   
+        }
+        catch (ServerException $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
+        }
         return redirect()->route('forum.show', $post);
+        
     }
 
     /**

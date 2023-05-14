@@ -24,7 +24,7 @@ class GameUploadRequest extends FormRequest
         return [
             'title' => 'required|max:64',
             'short_description' => 'max:128',
-            'description' => 'required',
+            'description' => 'required|min:64',
             'genre' => 'required',
             'tags' => 'required|array|max:10|min:1',
             'GameFile' => 'required',

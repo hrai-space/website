@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }} - @yield('title')</title>
 
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Style CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('/assets/css')}}/@yield('css1')">
     <link rel="stylesheet" href="{{asset('/assets/css')}}/@yield('css2')">
     <link rel="stylesheet" href="{{asset('/assets/css/style.css')}}">

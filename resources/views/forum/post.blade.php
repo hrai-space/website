@@ -1,5 +1,5 @@
 @extends('layouts.default-layout')
-@section('title')@if(Route::is('forum.show')){{$post->title}}@else{{'Інше'}}@endif @endsection
+@section('title')@if(Route::is('forum.show')){{$post->title}}@else{{'Пост'}}@endif @endsection
 
 @section('css1')chat.css @endsection
 @section('css2')dashboard.css @endsection
@@ -18,7 +18,7 @@
         @if(Route::is('forum.show'))
             <p class="main-topic">{{$post->title}}</p>
         @else
-            <h3>Загаловок:</h3>
+            <h3>Заголовок:</h3>
             <input type="text" id="title" class="post-input" name="title" value="{{old('title', isset($post) ? $post->title : null)}}" placeholder="Придумайте заголовок" onfocus="this.placeholder=''" onblur="this.placeholder='Придумайте заголовок'">
             @include('layouts.error', ['fieldname' => 'title'])
         @endif
@@ -70,6 +70,7 @@
     @endif
     
     </div>
+
 
 
 @if(!Route::is('forum.show'))
