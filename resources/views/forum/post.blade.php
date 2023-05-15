@@ -149,7 +149,7 @@
     @endif
 
 </div>
-
+@auth
 <script>
     $("[data-comment]").on( "click", function() {
         let comment =  $("[data-comment_id = " + $(this).data("comment") + "]");
@@ -169,7 +169,7 @@
         +"</div>").show().fadeIn("slow")
     });
 </script>
-
+@endauth
 <!-- Content -->
 
 @endsection
