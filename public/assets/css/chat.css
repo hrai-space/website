@@ -136,7 +136,7 @@ select{
 }
 
 .select2-container{
-    width: 100% !important;
+    max-width: 100% !important;
 }
 
 .select2-container--default .select2-selection--multiple{
