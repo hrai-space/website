@@ -42,14 +42,16 @@
                 </div>
             </div>
             <a href="#comments" class="button">Відповісти</a>
-            @if($post->user_id == Auth::user()->id)
+        @auth
+            @if($post->user_id == Auth::user()->id || 1 == Auth::user()->is_admin)
             <a href="{{route('forum.edit', $post->id)}}" class="button edit">Редагувати</a>
             <button type="submit" form="form-delete" class="button delete">Видалити</button>
             <form action="{{route('forum.destroy', $post->id)}}" id="form-delete" method="POST">
                 @method('DELETE')
                 @csrf
             </form>
-        @endif
+            @endif
+        @endauth
         @else
             <h3>Контент:</h3>
                 <div id="editor">

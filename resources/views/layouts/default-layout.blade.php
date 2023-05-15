@@ -8,6 +8,7 @@
     <title>{{ config('app.name') }} - @yield('title')</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{asset('/assets/img/icon.png')}}" type="image/icon type">
     <!-- Style CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('/assets/css')}}/@yield('css1')">
@@ -21,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+    
     
     <!-- Style CSS -->
 

@@ -22,7 +22,11 @@ class isOwnerMiddleware
                 abort(403, 'Unauthorized action.');
             }
         }
-
+        else if($request->route()->hasParameter('post') && $request->route()->action['as'] != 'forum.show'){
+            if($request->route()->parameter('post')->user_id != $request->user()->id && $request->user()->is_admin != 1){
+                abort(403, 'Unauthorized action.');
+            }
+        }
         return $next($request);
     }
 }

@@ -20,30 +20,24 @@
                         <p><span>Правила</span>
                             <br>
                             <br>
-                            Talk about anything that doesn't have already have a specific category for. If you post here without looking at the other boards first we may close or move your topic. You can post in:
+                            Перелік правил, яких кожен користувач повинен дотримуватись:
                         <ul class="description-list">
                             <li class="description-list-item">
-                                <p>Release announcements for sharing game announcements</p>
+                                <p>1. Поводьтеся ввічливо та з повагою до інших учасників форуму. Уникайте образ та переходу на особистості. Будьте толерантними до різних точок зору та культурних різниць.</p>
                             </li>
                             <li class="description-list-item">
-                                <p>Questions & Support ask the community for help related to your itch.io account or projects</p>
+                                <p>2. Уникайте надмірного розміщення повідомлень або повідомлень, які не мають суттєвого внеску в обговорення. Також уникайте розміщення комерційної реклами без дозволу адміністрації.</p>
                             </li>
                             <li class="description-list-item">
-                                <p>Get feedback for asking for feedback for your project or ideas</p>
+                                <p>3. Перед розміщенням повідомлення переконайтеся, що воно відповідає тематиці конкретного розділу форуму. Це сприятиме легшому знаходженню та обговоренню інформації.</p>
                             </li>
                             <li class="description-list-item">
-                                <p>General development for game development questions</p>
+                                <p>4. Перед тим, як поділитися інформацією на форумі, переконайтеся, що вона достовірна та підтверджена відповідними джерелами. Не поширюйте чутки або неперевірену інформацію, що може завдати шкоди іншим учасникам.</p>
                             </li>
                             <li class="description-list-item">
-                                <p>Help wanted if you're looking for game development help from other members of the community</p>
-                            </li>
-                            <li class="description-list-item">
-                                <p>Ideas & feedback if you're having trouble with itch.io, or have an idea </p>
+                                <p>5. Уникайте використання нецензурної лексики, образ та ворожнечі. Пам'ятайте, що на форумі можуть бути учасники різного віку та культурного середовища.</p>
                             </li>
                         </ul>
-                        If your post is just a link to your content with no text then it will be locked.
-                        These boards are for all of itch.io, not a specific game. If you're trying to reach the developer of a game please head to their game page to find their contact information.
-                        This board is not for support with your account or purchases. Please either contact support directly or post in the Questions & Support
                         </p>
                     </li>
                 </ul>

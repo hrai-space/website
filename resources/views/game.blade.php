@@ -31,12 +31,13 @@
         <h1 class="name">{{$game->title}}</h1>
         @auth
         @admin
+        <div class="input-group" style="justify-content: center;">
         <form action="{{route('game.destroy', $game->id)}}" method="POST">
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Destroy</button>
             @csrf
         </form>
-        <form action="{{route('game.feature', $game->id)}}" method="POST">
+        <form action="{{route('game.feature', $game->id)}}" method="POST" style="margin-left: 20px;">
             @method('PUT')
             @if($game->is_featured)
             <button type="submit" name="is_featured" value="0" class="btn btn-warning">Unfeature</button>
@@ -45,6 +46,7 @@
             @endif
             @csrf
         </form>
+        </div>
         @endadmin
         @if(auth()->user()->id != $game->user_id)
         <form action="{{route('game.follow', $game->id)}}" method="POST">

@@ -21,7 +21,7 @@
         <div class="section-game-list">
             <div class="row">
                 @if($games->count() == 0)
-                    <h3>Ваша бібліотека пуста(</h3>
+                    <h3 style="padding: 0;">Ваша бібліотека пуста(</h3>
                 @endif
                 @foreach($games as $game)
                     <div class="col game-element">
