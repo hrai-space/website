@@ -422,8 +422,8 @@
 
     <!-- Account -->
 
-    @include('layouts.sign-in', ['class' => ''])
-    @include('layouts.sign-up', ['class' => ''])
+    @include('layouts.sign-in', ['class' => 'pop'])
+    @include('layouts.sign-up', ['class' => 'popup'])
 
 
     @include('layouts.contact')

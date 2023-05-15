@@ -4,7 +4,7 @@
 @section('css1')gamePage.css @endsection
 @section('css2')dashboard.css @endsection
 
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
 
 @section('main_content')
 
@@ -86,5 +86,7 @@
     </div>
 
 </div>
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
 @endsection

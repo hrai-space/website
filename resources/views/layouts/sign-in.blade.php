@@ -1,4 +1,4 @@
-<div class="pop {{$class}}" role="alert">
+<div class="{{$class}}" role="alert">
 
     <form method="POST" action="{{ route('login') }}" id="enter-form" class="pop-container">
         @csrf

@@ -1,4 +1,4 @@
-<div class="popup {{$class}}" role="alert">
+<div class="{{$class}}" role="alert">
 
     <form method="POST" action="{{ route('register') }}" id="register-form" class="popup-container">
         @csrf
