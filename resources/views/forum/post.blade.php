@@ -37,7 +37,7 @@
         @endif
         @if(Route::is('forum.show'))
             <div class="ql-snow">
-                <div class="ql-editor">
+                <div class="ql-editor" style="overflow-wrap: break-word;">
                     {!! $post->content !!}
                 </div>
             </div>
