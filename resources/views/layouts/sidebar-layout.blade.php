@@ -71,13 +71,13 @@
                             </a>
                         </li>
                         <li class="list-element">
-                            <a href="#">
+                            <a href="{{route('forum.show', 2)}}">
                                 <span class="iconify" data-icon="material-symbols:menu-book-outline-rounded"></span>
                                 <span class="side-nav-text">Про нас</span>
                             </a>
                         </li>
                         <li class="list-element">
-                            <a href="#">
+                            <a href="{{route('forum.search', 5)}}">
                                 <span class="iconify" data-icon="fluent:people-community-24-regular"></span>
                                 <span class="side-nav-text">Блог</span>
                             </a>
@@ -248,9 +248,9 @@
                             <hr>
                             <li><a href=""><label>Лаунчер</label></a></li>
                             <hr>
-                            <li><a href=""><label>Про нас</label></a></li>
+                            <li><a href="{{route('forum.show', 2)}}"><label>Про нас</label></a></li>
                             <hr>
-                            <li><a href=""><label>Блог</label></a></li>
+                            <li><a href="{{route('forum.search', 5)}}"><label>Блог</label></a></li>
                             <hr>
 
 

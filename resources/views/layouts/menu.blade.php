@@ -32,9 +32,9 @@
             <hr>
             <li><label><a href="#">Лаунчер</a></label></li>
             <hr>
-            <li><label><a href="#">Про нас</a></label></li>
+            <li><label><a href="{{route('forum.show', 2)}}">Про нас</a></label></li>
             <hr>
-            <li><label><a href="#">Блог</a></label></li>
+            <li><label><a href="{{route('forum.search', 5)}}">Блог</a></label></li>
             <hr>
         </ul>
     </div>
@@ -87,12 +87,12 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#">
+            <a href="{{route('forum.show', 2)}}">
                 <span class="unchosed">Про нас</span>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#">
+            <a href="{{route('forum.search', 5)}}">
                 <span class="unchosed">Блог</span>
             </a>
         </li>
