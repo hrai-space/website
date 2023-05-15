@@ -118,35 +118,35 @@
 
     @if(Route::is('forum.show'))
     <p class="chat-topic" id="comments">Коментарі</p>
-
+    
     <div class="chat-box">
-        <div class="first-level-comment level-comment">
-            <form method="post" action="{{ route('comments.store') }}">
-                @csrf
-                <div class="row">
-                    <div class="col-2">
-                        <a href="{{route('public.profile', Auth::user()->username)}}"><img src="{{Storage::disk('do')->url('images/' . Auth::user()->avatar)}}" alt="logo"></a>
-                    </div>
-                    <div class="col">
-                        <div class="box-top-info">
-                            <a href="{{route('public.profile', Auth::user()->username)}}" style="text-decoration: none"><p class="first-level-nickname level-nickname">{{Auth::user()->username}}</p></a>
-                            <p class="first-level-date level-date">{{\Carbon\Carbon::parse(Carbon\Carbon::now())->format('d/m/Y')}}</p>
+        @auth
+            <div class="first-level-comment level-comment">
+                <form method="post" action="{{ route('comments.store') }}">
+                    @csrf
+                    <div class="row">
+                        <div class="col-2">
+                            <a href="{{route('public.profile', Auth::user()->username)}}"><img src="{{Storage::disk('do')->url('images/' . Auth::user()->avatar)}}" alt="logo"></a>
                         </div>
-                        <textarea name="text" id="describe-input" class="describe-input" rows="2" placeholder="Напишіть коментар" onfocus="this.placeholder=''" onblur="this.placeholder='Напишіть коментар'" />{{old('text')}}</textarea>
-                        @include('layouts.error', ['fieldname' => 'text'])
-                        <div class="box-info">
-                            <input type="hidden" name="post_id" value="{{ $post->id }}" />
-                            <button type="submit" class="button">Коментувати</button>
+                        <div class="col">
+                            <div class="box-top-info">
+                                <a href="{{route('public.profile', Auth::user()->username)}}" style="text-decoration: none"><p class="first-level-nickname level-nickname">{{Auth::user()->username}}</p></a>
+                                <p class="first-level-date level-date">{{\Carbon\Carbon::parse(Carbon\Carbon::now())->format('d/m/Y')}}</p>
+                            </div>
+                            <textarea name="text" id="describe-input" class="describe-input" rows="2" placeholder="Напишіть коментар" onfocus="this.placeholder=''" onblur="this.placeholder='Напишіть коментар'" />{{old('text')}}</textarea>
+                            @include('layouts.error', ['fieldname' => 'text'])
+                            <div class="box-info">
+                                <input type="hidden" name="post_id" value="{{ $post->id }}" />
+                                <button type="submit" class="button">Коментувати</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-
+                </form>
+            </div>
+        @endauth
         @include('layouts.comments', ['comments' => $post->comments, 'post_id' => $post->id])
     </div>
     @endif
-
 
 </div>
 

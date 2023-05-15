@@ -212,7 +212,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($featured_games[0]->short_description != ""){{$featured_games[0]->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($featured_games[0]->short_description != ""){{$featured_games[0]->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
@@ -250,7 +250,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($featured_games[1]->short_description != ""){{$featured_games[1]->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($featured_games[1]->short_description != ""){{$featured_games[1]->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
@@ -289,7 +289,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($featured_games[2]->short_description != ""){{$featured_games[2]->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($featured_games[2]->short_description != ""){{$featured_games[2]->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
@@ -355,7 +355,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($popular_games[0]->short_description != ""){{$popular_games[0]->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($popular_games[0]->short_description != ""){{$popular_games[0]->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
@@ -393,7 +393,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($popular_games[1]->short_description != ""){{$popular_games[1]->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($popular_games[1]->short_description != ""){{$popular_games[1]->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
@@ -432,7 +432,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($popular_games[2]->short_description != ""){{$popular_games[2]->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($popular_games[2]->short_description != ""){{$popular_games[2]->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
@@ -496,7 +496,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($new_games[0]->short_description != ""){{$new_games[0]->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($new_games[0]->short_description != ""){{$new_games[0]->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
@@ -534,7 +534,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($new_games[1]->short_description != ""){{$new_games[1]->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($new_games[1]->short_description != ""){{$new_games[1]->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
@@ -573,7 +573,7 @@
                                     @endif
                                 </ul>
                             </div>
-                            <p class="description">@if($new_games[2]->short_description != ""){{$new_games[2]->short_description}}@else{{"No description"}}@endif</p>
+                            <p class="description">@if($new_games[2]->short_description != ""){{$new_games[2]->short_description}}@else{{"Нема опису"}}@endif</p>
                         </div>
                     </div>
                 </div>
