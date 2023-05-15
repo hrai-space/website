@@ -38,10 +38,12 @@ class AppApiController extends Controller
     }
 
     public function loginUser($username, $password){
-        if(Auth::attempt(['username' => $username, 'password' => $password]))
+        if(Auth::attempt(['username' => $username, 'password' => $password])){
             $user = User::where('username', $username)->first();
             $user->avatar = Storage::url('images/' . $user->avatar);
             return response()->json(['user' => $user]);
+        }
+
         return response()->json(['error' => 'Щось пішло не так']);
     }
 
