@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }} - @yield('title')</title>
-
+    <link rel="icon" href="{{asset('/assets/img/icon.png')}}" type="image/icon type">
 
     <!-- Style CSS -->
     <link rel="stylesheet" href="{{asset('/assets/css')}}/@yield('css1')">
