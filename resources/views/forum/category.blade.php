@@ -57,7 +57,7 @@
                 </div>
                 <div class="col">
                     <p class="topic-name">{{$post->title}}</p>
-                    <p class="topic-text">{{Str::limit(strip_tags($post->content), 256)}}</p>
+                    <p class="topic-text" style="overflow-wrap: break-word;">{{Str::limit(strip_tags($post->content), 256)}}</p>
                     <p class="topic-info">Автор: <a href="{{route('public.profile', $post->getAuthor())}}" class="creator">{{$post->getAuthor()}},</a> <span>{{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y')}}</span> <a href="{{route('forum.show', $post->id)}}" class="last-page">Читати далі <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></p>
                 </div>
             </div>
