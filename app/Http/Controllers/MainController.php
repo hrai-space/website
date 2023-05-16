@@ -239,14 +239,14 @@ class MainController extends Controller
     {
         $user = User::where('username', $username)->first();
 
-        $games = $user->game;
+        if ($user != null){
+            $games = $user->game;
 
-        foreach($games as $game){
-            $game->platforms = $game->getPlatforms();
-        }
-
-        if ($user != null)
+            foreach($games as $game){
+                $game->platforms = $game->getPlatforms();
+            }
             return view('profile.public-profile')->with('user', $user)->with('games', $games);
+        }
         else
             return abort(404);
     }
