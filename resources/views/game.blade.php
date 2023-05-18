@@ -49,14 +49,10 @@
         </div>
         @endadmin
         @if(auth()->user()->id != $game->user_id)
-        <form action="{{route('game.follow', $game->id)}}" method="POST">
-            @method('PUT')
-            @if($is_followed)
-            <button class="follow" name="follow" value="1"><a style="color: white !important;">Unfollow <span class="iconify" data-icon="material-symbols:star-rate-rounded"></span></a></button>
-            @else
-            <button class="follow" name="follow" value="0"><a style="color: white !important;">Follow <span class="iconify" data-icon="material-symbols:star-outline-rounded"></span></a></button>
-            @endif
-            @csrf
+            <button class="follow" name="follow"><a style="color: white !important;">
+            @if($is_followed) Не слідкувати <span class="iconify" data-icon="material-symbols:star-rate-rounded"></span>
+            @else Слідкувати <span class="iconify" data-icon="material-symbols:star-outline-rounded"></span>@endif
+            </a></button>
         </form>
         @endif
         @endauth
@@ -90,5 +86,32 @@
 </div>
 
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $('button[name="follow"]').on( "click", function() {
+        $.ajax({
+                url: "{{route('game.follow')}}",
+                type:'POST',
+                data: {
+                    game: '{{$game->id}}',
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if(response == 0){
+                        $("button[name='follow'] a").html('Слідкувати <span class="iconify" data-icon="material-symbols:star-outline-rounded"></span>');
+                    }
+                    else if(response == 1){
+                        $("button[name='follow'] a").html('Не слідкувати <span class="iconify" data-icon="material-symbols:star-rate-rounded"></span>');
+                    }
+                    
+                }
+            });
+    });
+</script>
 
 @endsection

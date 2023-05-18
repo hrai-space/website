@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FollowRequest;
+
 use App\Http\Requests\GameUploadRequest;
 use App\Models\Game;
 use App\Models\Game_Download;
@@ -241,21 +241,19 @@ class GameController extends Controller
         return redirect()->route('dashboard.games');
     }
 
-    public function follow(FollowRequest $request, Game $game)
+    public function follow(Request $request)
     {
+        $gameFollow = Game_Follow::where('user_id', $request->user()->id)->where('game_id', $request->game)->first();
+        if($gameFollow != null){
+            $gameFollow = $gameFollow->delete();
+            return 0;
+        }
+        $gameFollow = new Game_Follow();
+        $gameFollow->user_id = $request->user()->id;
+        $gameFollow->game_id = $request->game;
+        $gameFollow->save();
         
-        if($request->follow){
-            $gameFollow = Game_Follow::where('user_id', $request->user()->id)->where('game_id', $game->id)->delete();
-        }
-        else{
-            $gameFollow = new Game_Follow();
-            $gameFollow->user_id = $request->user()->id;
-            $gameFollow->game_id = $game->id;
-
-            $gameFollow->save();
-        }
-
-        return redirect()->route('game.show', $game);
+        return 1;
     }
 
     public function download($file_id){

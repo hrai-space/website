@@ -65,7 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
     Route::post('/forum/comments/like', [ArticleController::class, 'like'])->name('comments.like');
     Route::post('comments', [ArticleController::class, 'storeComment'])->name('comments.store');
-    Route::put('/game/follow/{game}', [GameController::class, 'follow'])->name('game.follow');
+    Route::post('/game/follow', [GameController::class, 'follow'])->name('game.follow');
     Route::get('/followed', [ProfileController::class, 'followed'])->name('game.followed');
     Route::get('/dashboard/games', [ProfileController::class, 'dashboardGames'])->name('dashboard.games');
     Route::get('/dashboard/forums', [ProfileController::class, 'dashboardArticles'])->name('dashboard.forums');
