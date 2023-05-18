@@ -12,17 +12,17 @@
             </div>
             <div class="col footer-menu">
                 <li class="footer-list-element">
-                    <a href="#">
+                    <a href="{{route('search')}}/new">
+                        <span class="footer-text">Ігри</span>
+                    </a>
+                </li>
+                <li class="footer-list-element">
+                    <a href="{{route('forum.show', 2)}}">
                         <span class="footer-text">Про нас</span>
                     </a>
                 </li>
                 <li class="footer-list-element">
-                    <a href="#">
-                        <span class="footer-text">FAQ</span>
-                    </a>
-                </li>
-                <li class="footer-list-element">
-                    <a href="#">
+                    <a href="{{route('forum.search', 5)}}">
                         <span class="footer-text">Блог</span>
                     </a>
                 </li>
