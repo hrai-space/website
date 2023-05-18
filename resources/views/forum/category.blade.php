@@ -12,7 +12,7 @@
     <div class="main-block">
         <p class="main-topic">{{$category->name_ua}}</p>
         <p class="main-text">{{$category->description}}</p>
-        <p class="main-numbers"><span>{{$category->articlesCount()}}</span> постів <button class="add-topic"><a href="{{route('forum.create', $category)}}">Новий пост</a></button></p>
+        <p class="main-numbers"><span>{{$category->articlesCount()}}</span> постів <a href="{{route('forum.create', $category)}}"><button class="add-topic">Новий пост</button></a></p>
         <ul class="main-list">
             <li class="main-list-item"><a id="texty" onclick="dropyDown()"> Переглянути правила спільноти <span class="iconify" id="triangly" data-icon="tabler:triangle-filled"></span></a>
                 <ul class="main-second-list dropydown-element">

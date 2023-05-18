@@ -17,6 +17,8 @@ use App\Models\Temp_File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ServerException;
 
 class GameController extends Controller
 {
@@ -78,6 +80,18 @@ class GameController extends Controller
             $screenshot->file = $request->screenshots[$i];
             $screenshot->save();
             Temp_File::where('file', $request->screenshots[$i])->delete();
+        }
+
+        $client = new Client();
+        $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/newgame';
+        $params['query'] = array('id' => $game->id, 'name' => $game->title, 'url' => route('game.show', $game->id));
+        
+        try {
+            $response = $client->post($URI, $params);   
+        }
+        catch (ServerException $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
         }
 
         return redirect()->route('dashboard.games');
@@ -188,6 +202,18 @@ class GameController extends Controller
                 $screenshot->type = $i + 1;
                 $screenshot->save();
             }
+        }
+
+        $client = new Client();
+        $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/newgame';
+        $params['query'] = array('id' => $game->id, 'name' => $game->title, 'url' => route('game.show', $game->id));
+        
+        try {
+            $response = $client->post($URI, $params);   
+        }
+        catch (ServerException $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
         }
 
         return redirect()->route('dashboard.games');

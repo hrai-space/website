@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DoSpacesController;
 use App\Http\Controllers\GameController;
@@ -78,6 +79,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resource('tag', TagController::class);
             Route::resource('genre', GenreController::class);
             Route::resource('category', CategoryController::class);
+            Route::resource('banner', BannerController::class);
             Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         });
     });

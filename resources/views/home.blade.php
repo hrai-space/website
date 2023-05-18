@@ -17,38 +17,18 @@
 
     <div class="blog-slider">
         <div class="blog-slider__wrp swiper-wrapper">
+            @foreach($banners as $banner)
             <div class="blog-slider__item swiper-slide">
                 <div class="blog-slider__img">
-
-                    <img src="assets/img/wiFiJh.png" alt="">
+                    <img src="{{Storage::disk('do')->url('images/' . $banner->file)}}" alt="">
                 </div>
                 <div class="blog-slider__content">
-                    <div class="blog-slider__title">Lorem Ipsum Dolor</div>
-                    <div class="blog-slider__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae voluptate repellendus magni illo ea animi? </div>
-                    <a href="#" class="blog-slider__button">Read More</a>
+                    <div class="blog-slider__title">{{$banner->title}}</div>
+                    <div class="blog-slider__text">{{$banner->description}}</div>
+                    <a href="{{$banner->link}}" class="blog-slider__button">Перейти</a>
                 </div>
             </div>
-            <div class="blog-slider__item swiper-slide">
-                <div class="blog-slider__img">
-                    <img src="assets/img/wiFiJh.png" alt="">
-                </div>
-                <div class="blog-slider__content">
-                    <div class="blog-slider__title">Lorem Ipsum Dolor2</div>
-                    <div class="blog-slider__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae voluptate repellendus magni illo ea animi?</div>
-                    <a href="#" class="blog-slider__button">Read More</a>
-                </div>
-            </div>
-
-            <div class="blog-slider__item swiper-slide">
-                <div class="blog-slider__img">
-                    <img src="assets/img/wiFiJh.png" alt="">
-                </div>
-                <div class="blog-slider__content">
-                    <div class="blog-slider__title">Lorem Ipsum Dolor</div>
-                    <div class="blog-slider__text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae voluptate repellendus magni illo ea animi?</div>
-                    <a href="#" class="blog-slider__button">Read More</a>
-                </div>
-            </div>
+            @endforeach
 
         </div>
         <div class="blog-slider__pagination"></div>
@@ -61,9 +41,9 @@
     <!--Filter -->
 
     <div class="little-filter">
-        <button class="filter-button"><a href="{{url('filters')}}/featured">Обрані</a></button>
-        <button class="filter-button"><a href="{{url('filters')}}/popular">Популярні</a></button>
-        <button class="filter-button"><a href="{{url('filters')}}/new">Нові</a></button>
+        <a href="{{url('filters')}}/featured"><button class="filter-button">Обрані</button></a>
+        <a href="{{url('filters')}}/popular"><button class="filter-button">Популярні</button></a>
+        <a href="{{url('filters')}}/new"><button class="filter-button">Нові</button></a>
     </div>
 
     <!--Filter -->
@@ -174,7 +154,7 @@
     <div class="section-container">
         <div class="section-name">
             <h1>Обрані</h1>
-            <button class="view-button"><a href="{{url('filters')}}/featured">Більше <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></button>
+            <a href="{{url('filters')}}/featured"><button class="view-button">Більше <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></button></a>
         </div>
 
 
@@ -317,7 +297,7 @@
     <div class="section-container">
         <div class="section-name">
             <h1>Популярні</h1>
-            <button class="view-button"><a href="{{url('filters')}}/popular">Більше <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></button>
+            <a href="{{url('filters')}}/popular"><button class="view-button">Більше <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></button></a>
         </div>
 
 
@@ -458,7 +438,7 @@
     <div class="section-container">
         <div class="section-name">
             <h1>Нові</h1>
-            <button class="view-button"><a href="{{url('filters')}}/new">Більше <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></a></button>
+            <a href="{{url('filters')}}/new"><button class="view-button">Більше <span class="iconify" data-icon="material-symbols:arrow-right-alt-rounded"></span></button></a>
         </div>
 
 

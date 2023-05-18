@@ -12,7 +12,7 @@
 
     <div class="img" style="position: relative;">
         <img src="{{Storage::disk('do')->url('images/' . $screenshots[0]->file)}}" alt="game" style="object-fit: cover;">
-        <button class="start"><a href="#description">Грати</a></button>
+        <a href="#description"><button class="start">Грати</button></a>
     </div>
 
     <div class="bg-color-grey-200">

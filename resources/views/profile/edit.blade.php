@@ -19,7 +19,7 @@
 
     
     <p class="description">Нікнейм — Використовується для входу в акаунт і для вашого публічного посилання</p>
-    <p class="account-settings">{{Auth::user()->username}} <button class="change-button ip-trigger"><a href="#">Змінити нікнейм</a></button></p>
+    <p class="account-settings">{{Auth::user()->username}} <button class="change-button ip-trigger">Змінити нікнейм</button></p>
    
     <p class="description">Публічне посилання на профіль</p>
     <a href="http://hrai.space/profile/{{Auth::user()->username}}" class="url"><p>http://hrai.space/profile/{{Auth::user()->username}}</p></a>

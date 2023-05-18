@@ -121,13 +121,13 @@
             </ul>
             <ul class="analytics-list-bottom">
                 <li class="analytics-list-bottom-item">
-                    <p><span>332</span> views</p>
+                    <p><span>332</span> переглядів</p>
                 </li>
                 <li class="analytics-list-bottom-item">
-                    <p><span>12</span> downloads</p>
+                    <p><span>12</span> завантажень</p>
                 </li>
                 <li class="analytics-list-bottom-item last">
-                    <p><span>2</span> followers</p>
+                    <p><span>2</span> підписників</p>
                 </li>
             </ul>
 

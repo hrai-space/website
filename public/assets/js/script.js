@@ -250,6 +250,9 @@ function dropyDown() {
           (o.style.transform = "rotate(180deg)"));
 }
 const ctx = document.getElementById("views");
+
+
+
 new Chart(ctx, {
     type: "bar",
     data: {

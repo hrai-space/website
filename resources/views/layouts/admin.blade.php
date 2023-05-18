@@ -86,6 +86,9 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{route('category.index')}}">Categories</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{route('banner.index')}}">Banner</a>
+                    </li>
                 </ul>
             </div>
         </div>

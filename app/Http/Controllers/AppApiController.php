@@ -47,22 +47,44 @@ class AppApiController extends Controller
         return response()->json(['error' => 'Щось пішло не так']);
     }
 
-    public function gameStatistic(Game $game, $interval){
+    public function gameStatistic($game, $interval){
         $views = array(array(),array());
-        if($interval == "daily"){
-            for($i = 6; $i >= 0; $i--){
-                array_push($views[0], Carbon::today()->subDays($i)->toDateString());
-                array_push($views[1], Game_View::where('game_id', $game->id)->whereDate('created_at',\Carbon\Carbon::today()->subDays($i))->count());
+
+        if($game != "all"){
+            $game = Game::where('id', $game)->first();
+            if($interval == "daily"){
+                for($i = 6; $i >= 0; $i--){
+                    array_push($views[0], Carbon::today()->subDays($i)->toDateString());
+                    array_push($views[1], Game_View::where('game_id', $game->id)->whereDate('created_at',\Carbon\Carbon::today()->subDays($i))->count());
+                }
+            }
+            else if($interval == "weekly"){
+                for($i = 3; $i >= 0; $i--){
+                    $startDate = Carbon::today()->startOfWeek()->subWeek($i);
+                    $endDate = Carbon::today()->endOfWeek()->subWeek($i);
+                    array_push($views[0], $startDate->toDateString() . " - " . $endDate->toDateString());
+                    array_push($views[1], Game_View::where('game_id', $game->id)->whereBetween('created_at', [$startDate, $endDate])->count());
+                }
             }
         }
-        else if($interval == "weekly"){
-            for($i = 4; $i > 0; $i--){
-                $startDate = Carbon::today()->subDays($i * 7)->toDateString();
-                $endDate = Carbon::today()->subDays(($i - 1) * 7)->toDateString();
-                array_push($views[0], $startDate . " - " . $endDate);
-                array_push($views[1], Game_View::where('game_id', $game->id)->whereBetween('created_at', [Carbon::now()->subWeek()->startOfWeek(), Carbon::now()->subWeek()->endOfWeek()])->count());
+        else{
+            if($interval == "daily"){
+                for($i = 6; $i >= 0; $i--){
+                    array_push($views[0], Carbon::today()->subDays($i)->toDateString());
+                    foreach(Auth::user()->game->get() as $game)
+                    array_push($views[1], Game_View::where('game_id', $game->id)->whereDate('created_at',\Carbon\Carbon::today()->subDays($i))->count());
+                }
+            }
+            else if($interval == "weekly"){
+                for($i = 3; $i >= 0; $i--){
+                    $startDate = Carbon::today()->startOfWeek()->subWeek($i);
+                    $endDate = Carbon::today()->endOfWeek()->subWeek($i);
+                    array_push($views[0], $startDate->toDateString() . " - " . $endDate->toDateString());
+                    array_push($views[1], Game_View::where('game_id', $game->id)->whereBetween('created_at', [$startDate, $endDate])->count());
+                }
             }
         }
-        dd($views);
+
+        return response()->json($views);
     }
 }

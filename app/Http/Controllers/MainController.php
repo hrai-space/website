@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Article_Category;
+use App\Models\Banner;
 use App\Models\Game;
 use App\Models\Game_File;
 use App\Models\Genre;
@@ -41,7 +42,7 @@ class MainController extends Controller
 
         return view('home')->with('featured_games', $featured_games)->with('genres', Genre::all())->with('popular_games', $popular_games)
         ->with('new_games', $new_games)->with('usedFilters', array('platform' => '', 'genre' => '', 'time' => '', 'other' => ''))
-        ->with('data', $data);
+        ->with('data', $data)->with('banners', Banner::all());
     }
 
     public function forum()
