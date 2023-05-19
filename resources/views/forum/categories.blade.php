@@ -19,7 +19,7 @@
                 <a href="{{route('forum.search', $category->id)}}">
                     <div class="media-element {{$category->class}}">
                         <p class="topic-name">{{$category->name_ua}}</p>
-                        <p class="topic-text">{{Str::limit($category->description, 128)}}</p>
+                        <p class="topic-text">{{Str::limit($category->description, 90)}}</p>
                         <p class="topic-number"><span>{{$category->articlesCount()}}</span> постів</p>
                     </div>
                 </a>
@@ -42,7 +42,7 @@
                     <a href="{{route('forum.search', $category->id)}}">
                         <div class="media-element {{$category->class}}">
                             <p class="topic-name">{{$category->name_ua}}</p>
-                            <p class="topic-text">{{Str::limit($category->description, 128)}}</p>
+                            <p class="topic-text">{{Str::limit($category->description, 90)}}</p>
                             <p class="topic-number"><span>{{$category->articlesCount()}}</span> постів</p>
                         </div>
                     </a>
@@ -65,7 +65,7 @@
                     <a href="{{route('forum.search', $category->id)}}">
                         <div class="media-element {{$category->class}}">
                             <p class="topic-name">{{$category->name_ua}}</p>
-                            <p class="topic-text">{{Str::limit($category->description, 128)}}</p>
+                            <p class="topic-text">{{Str::limit($category->description, 90)}}</p>
                             <p class="topic-number"><span>{{$category->articlesCount()}}</span> постів</p>
                         </div>
                     </a>
@@ -88,7 +88,7 @@
                     <a href="{{route('forum.search', $category->id)}}">
                         <div class="media-element {{$category->class}}">
                             <p class="topic-name">{{$category->name_ua}}</p>
-                            <p class="topic-text">{{Str::limit($category->description, 128)}}</p>
+                            <p class="topic-text">{{Str::limit($category->description, 80)}}</p>
                             <p class="topic-number"><span>{{$category->articlesCount()}}</span> постів</p>
                         </div>
                     </a>
