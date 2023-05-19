@@ -36,21 +36,21 @@
                                         <p><span>{{$game->gameFollows->count()}}</span> підписників</p>
                                     </li>
                                 </ul>
+                                <ul class="info-list-bottom">
+                                    <li class="info-list-element-bottom">
+                                        <a href="{{route('game.edit', $game->id)}}">
+                                            <p>Редагувати</p>
+                                        </a>
+                                    </li>
+                                    <li class="info-list-element-bottom">
+                                    <form action="{{route('game.destroy', $game->id)}}" method="POST">
+                                        @method('DELETE')
+                                        <button type="submit">Видалити</button>
+                                        @csrf
+                                    </form>
+                                    </li>
+                                </ul>
                             </div>
-                            <ul class="info-list-bottom">
-                                <li class="info-list-element-bottom">
-                                    <a href="{{route('game.edit', $game->id)}}">
-                                        <p>Редагувати</p>
-                                    </a>
-                                </li>
-                                <li class="info-list-element-bottom">
-                                <form action="{{route('game.destroy', $game->id)}}" method="POST">
-                                    @method('DELETE')
-                                    <button type="submit">Видалити</button>
-                                    @csrf
-                                </form>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
