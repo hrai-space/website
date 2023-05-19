@@ -22,20 +22,21 @@
                         <div class="col img">
                             <a href="{{route('game.show', $game)}}" class="info-img"><img src="{{Storage::disk('do')->url('images/' . $game->getGameIcon())}}" alt="info"></a>
                         </div>
-                        <div class="col info">
-                            <a href="{{route('game.show', $game)}}"><span class="info-name">{{$game->title}}</span></a>
-                            <ul class="info-list">
-                                <li class="info-list-element">
-                                    <p><span>{{$game->views}}</span> переглядів</p>
-                                </li>
-                                <li class="info-list-element">
-                                    <p><span>{{$game->gameDownloads->count()}}</span> завантажень</p>
-                                </li>
-                                <li class="info-list-element">
-                                    <p><span>{{$game->gameFollows->count()}}</span> підписників</p>
-                                </li>
-                            </ul>
-
+                        <div class="col info d-flex align-items-center">
+                            <div>
+                                <a href="{{route('game.show', $game)}}"><span class="info-name">{{$game->title}}</span></a>
+                                <ul class="info-list">
+                                    <li class="info-list-element">
+                                        <p><span>{{$game->views}}</span> переглядів</p>
+                                    </li>
+                                    <li class="info-list-element">
+                                        <p><span>{{$game->gameDownloads->count()}}</span> завантажень</p>
+                                    </li>
+                                    <li class="info-list-element">
+                                        <p><span>{{$game->gameFollows->count()}}</span> підписників</p>
+                                    </li>
+                                </ul>
+                            </div>
                             <ul class="info-list-bottom">
                                 <li class="info-list-element-bottom">
                                     <a href="{{route('game.edit', $game->id)}}">
