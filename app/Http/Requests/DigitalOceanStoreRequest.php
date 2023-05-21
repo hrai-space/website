@@ -25,7 +25,7 @@ class DigitalOceanStoreRequest extends FormRequest
             'GameFile' => 'sometimes',
             'GameFile.*' => 'sometimes|file|mimes:zip|max:1048576', //1gb
             'ImageFile' => 'sometimes',
-            'ImageFile.*' => 'sometimes|image|max:2048',
+            'ImageFile.*' => 'sometimes|image|max:4096',
             'AvatarFile' => 'sometimes|dimensions:min_width=64,min_height=64|dimensions:ratio=1/1',
         ];
     }

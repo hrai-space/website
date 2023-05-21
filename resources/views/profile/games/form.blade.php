@@ -216,7 +216,7 @@
                 },
                 error: function(response) {
                     $.each(response.responseJSON.errors,function(field_name,error){
-                        $('<div class="alert alert-warning alert-dismissible fade show" id="ImageFile-error" role="alert" style="margin-top: 75px;">' + error + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>').appendTo('div.files');
+                        $('<div class="alert alert-light alert-dismissible fade show" id="ImageFile-error" role="alert" style="margin-top: 75px;">' + error + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>').appendTo('div.files');
                     })
                 }
             });
@@ -266,7 +266,7 @@
                 },
                 error: function(response) {
                     $.each(response.responseJSON.errors,function(field_name,error){
-                        $('<div class="alert alert-warning alert-dismissible fade show" id="ImageFile-error" role="alert" style="margin-top: 75px;">' + error + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>').appendTo('div.screenshots');
+                        $('<div class="alert alert-light alert-dismissible fade show" id="ImageFile-error" role="alert" style="margin-top: 75px;">' + error + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>').appendTo('div.screenshots');
                     })
                     
                 }
