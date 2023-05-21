@@ -7,6 +7,7 @@
             <div class="col right"><a href="#">Зареєструватись</a></div>
         </div>
         <div id="register-forms" class="register-forms">
+            <input type="hidden" name="sign-up-visible" value="">
             <input type="text" class="username register-input" name="name" value="{{old('name')}}" id="username-input register-input" placeholder="Ім'я" onfocus="this.placeholder=''" onblur="this.placeholder='Ім\'я'" required autocomplete="name"/>
             @include('layouts.error', ['fieldname' => 'name'])
             <input type="text" class="register-input" name="username" value="{{old('username')}}" id= "register-input" placeholder="Нікнейм" onfocus="this.placeholder=''" onblur="this.placeholder='Нікнейм'" required autocomplete="username"/>

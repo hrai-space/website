@@ -19,12 +19,12 @@ class isOwnerMiddleware
     {
         if($request->route()->hasParameter('game') && $request->route()->action['as'] != 'game.show'){
             if($request->route()->parameter('game')->user_id != $request->user()->id && $request->user()->is_admin != 1){
-                abort(403, 'Unauthorized action.');
+                abort(403, 'Недозволена дія');
             }
         }
         else if($request->route()->hasParameter('post') && $request->route()->action['as'] != 'forum.show'){
             if($request->route()->parameter('post')->user_id != $request->user()->id && $request->user()->is_admin != 1){
-                abort(403, 'Unauthorized action.');
+                abort(403, 'Недозволена дія');
             }
         }
         return $next($request);

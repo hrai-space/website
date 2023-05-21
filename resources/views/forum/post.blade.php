@@ -168,6 +168,32 @@
                         "</div></div></div></form>" 
         +"</div>").show().fadeIn("slow")
     });
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $('button.level-like').on( "click", function() {
+        likes = $(this).find("#likes").text();
+        comment = $(this);
+        $.ajax({
+                url: "{{route('comments.like')}}",
+                type:'POST',
+                data: {
+                    comment: $(this).val(),
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if(response['state'] == 0){
+                        comment.html('<span class="iconify" data-icon="ant-design:like-outlined"></span> Вподобати (<span id="likes">'+ response['likes'] +'</span>)');
+                    }
+                    else if(response['state'] == 1){
+                        comment.html('<span class="iconify" data-icon="ant-design:like-filled"></span> Вподобано (<span id="likes">'+ response['likes'] +'</span>)');
+                    }
+                }
+            });
+    });
 </script>
 @endauth
 <!-- Content -->

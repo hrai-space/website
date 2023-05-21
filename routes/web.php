@@ -48,7 +48,7 @@ Route::get('/forum/{post}', [ArticleController::class, 'show'])->where('post', '
 Route::get('/game/download/{file_id}', [GameController::class, 'download'])->name('game.download');
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'is_banned'])->group(function () {
     Route::middleware(['is_owner'])->group(function () {
         Route::get('/game', [GameController::class, 'index'])->name('game.index');
         Route::get('/game/create', [GameController::class, 'create'])->name('game.create');
@@ -80,6 +80,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resource('genre', GenreController::class);
             Route::resource('category', CategoryController::class);
             Route::resource('banner', BannerController::class);
+            Route::put('/profile/ban/{user}', [ProfileController::class, 'ban'])->name('profile.ban');
             Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         });
     });

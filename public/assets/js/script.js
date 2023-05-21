@@ -155,13 +155,16 @@ notRegistered(),
     jQuery(document).ready(function (e) {
         e(".popup-trigger").on("click", function (t) {
             t.preventDefault(), e(".popup").addClass("is-visible");
+            $("input[name='sign-up-visible']").val('is-visible');
         }),
             e(".popup").on("click", function (t) {
                 (e(t.target).is(".popup-close") || e(t.target).is(".popup")) &&
                     (t.preventDefault(), e(this).removeClass("is-visible"));
+                    $("input[name='sign-up-visible']").val('');
             }),
-            e(document).keyup(function (t) {
+            e(document).keydown(function (t) {
                 "27" == t.which && e(".popup").removeClass("is-visible");
+                $("input[name='sign-up-visible']").val('');
             });
     }),
     jQuery(document).ready(function (e) {
@@ -172,8 +175,9 @@ notRegistered(),
                 (e(t.target).is(".pop-close") || e(t.target).is(".pop")) &&
                     (t.preventDefault(), e(this).removeClass("e-visible"));
             }),
-            e(document).keyup(function (t) {
+            e(document).keydown(function (t) {
                 "27" == t.which && e(".pop").removeClass("e-visible");
+                
             });
     }),
     jQuery(document).ready(function (e) {

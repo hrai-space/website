@@ -83,4 +83,16 @@ class ProfileController extends Controller
 
         return redirect()->route('public.profile', $user->username);
     }
+
+    public function ban(Request $request, User $user){
+        if($user->is_banned){
+            $user->is_banned = 0;
+        }
+        else{
+            $user->is_banned = 1;
+        }
+        $user->save();
+
+        return back();
+    }
 }

@@ -130,22 +130,20 @@ class ArticleController extends Controller
     }
 
     public function like(Request $request){
-        $comment = Comment::where('id', $request->comment_id)->first();
-
-        if($request->like){
-            Comment_Like::where('comment_id', $request->comment_id)->where('user_id', auth()->user()->id)->delete();
+        $comment = Comment::where('id', $request->comment)->first();
+        $like = Comment_Like::where('comment_id', $request->comment)->where('user_id', auth()->user()->id)->first();
+        if($like != null){
+            $like->delete();
             $comment->likes = $comment->likes - 1;
+            $comment->save();
+            return ['state' => '0', 'likes' => $comment->likes];
         }
-        else{
-            $comment->likes = $comment->likes + 1;
-            $like = new Comment_Like();
-            $like->comment_id = $request->comment_id;
-            $like->user_id = auth()->user()->id;
-            $like->save();
-        }
-        
+        $comment->likes = $comment->likes + 1;
+        $like = new Comment_Like();
+        $like->user_id = $request->user()->id;
+        $like->comment_id = $request->comment;
+        $like->save();
         $comment->save();
-
-        return back();
+        return ['state' => '1', 'likes' => $comment->likes];
     }
 }

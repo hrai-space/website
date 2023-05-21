@@ -94,8 +94,7 @@
                                         <span class="dropdown-text" id="text-second">Платформа</span>
                                         <span id="triangle-second" class="iconify dropdown-icon" data-icon="tabler:triangle-filled"></span>
                                     </a>
-
-                                    <ul class="dropdown-menu-second ">
+                                    <ul class="dropdown-menu-second">
                                         <li class="dropdown-element-second">
                                             <a href="{{url('filters')}}@if($usedFilters['platform'] != '/platform-0'){{'/platform-0'}}@endif{{$usedFilters['genre'] . $usedFilters['time'] . $usedFilters['other']}}?search={{$data['search']}}" class="@if($usedFilters['platform'] == '/platform-0') active @endif">
                                                 <span class="dropdown-text-second">Windows</span>
@@ -195,8 +194,6 @@
             </div>
         </div>
         <!-- Side Menu -->
-
-
 
 
 
@@ -437,6 +434,31 @@
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
     <script src="{{asset('/assets/js/script.js')}}"></script>
+    @if($usedFilters['platform'] != "" || $usedFilters['time'] != "" || $usedFilters['genre'] != "" || $usedFilters['other'] != "")
+        <script>
+            dropDown();
+        </script>
+    @endif
+    @if($usedFilters['platform'] != "")
+        <script>
+            dropDownSecond();
+        </script>
+    @endif
+    @if($usedFilters['time'] != "")
+        <script>
+            dropDownThird()
+        </script>
+    @endif
+    @if($usedFilters['genre'] != "")
+        <script>
+            dropDownFourth()
+        </script>
+    @endif
+    @if($usedFilters['other'] != "")
+        <script>
+            dropDownSixth()
+        </script>
+    @endif
 
     <!-- Script -->
 

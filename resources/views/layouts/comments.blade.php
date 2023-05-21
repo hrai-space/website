@@ -11,19 +11,10 @@
                 </div>
                 <p class="level-text">{{$comment->text}}</p>
                 <div class="box-info">
-                    <form action="{{route('comments.like')}}" method="post">
-                        @csrf
-                        <input type="hidden" name="comment_id" value="{{$comment->id}}" />
-                        @auth
-                            @if($comment->isLiked(Auth::user()->id))
-                                <button class="level-like" name="like" value="1" type="submit" style="background-color: transparent;"><span class="iconify" data-icon="ant-design:like-filled"></span> Вподобано ({{$comment->likes}})</button>
-                            @else
-                                <button class="level-like" name="like" value="0" type="submit" style="background-color: transparent;"><span class="iconify" data-icon="ant-design:like-outlined"></span> Вподобати ({{$comment->likes}})</button>
-                            @endif
-                        @else
-                            <button class="level-like" name="like" value="0" type="submit" style="background-color: transparent;"><span class="iconify" data-icon="ant-design:like-outlined"></span> Вподобати ({{$comment->likes}})</button>
-                        @endauth
-                    </form>
+                        <button class="level-like" name="like" value="{{$comment->id}}" type="submit" style="background-color: transparent;">
+                        @if($comment->isLiked(Auth::user()->id))<span class="iconify" data-icon="ant-design:like-filled"></span> Вподобано 
+                        @else <span class="iconify" data-icon="ant-design:like-outlined"></span> Вподобати @endif
+                        (<span id="likes">{{$comment->likes}}</span>)</button>
                     <a class="level-reply" style="cursor: pointer;" data-comment="{{$comment->id}}">Відповісти</a>
                     <!--<a href="#" class="level-report yp-trigger">Report</a>-->
                 </div>
