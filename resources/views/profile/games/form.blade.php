@@ -79,7 +79,7 @@
         @include('layouts.error', ['fieldname' => 'genre'])
         <h3 style="margin-top: 30px;">Теги</h3>
         <select id="tags-select" name="tags[]" multiple="multiple">
-            @isset($game)
+            @isset($tags)
                 @foreach($tags as $tag)
                     <option value="{{$tag->id}}" selected>{{$tag->name}}</option>
                 @endforeach

@@ -35,7 +35,13 @@ class GameController extends Controller
     public function create()
     {
         $genres = Genre::all();
-        return view('profile.games.form')->with('genres', $genres);
+        $tags = old('tags');
+        if ($tags != null) {
+            for ($i = 0; $i < count($tags); $i++) {
+                $tags[$i] = Tag::where('id', $tags[$i])->first();
+            }
+        }
+        return view('profile.games.form')->with('genres', $genres)->with('tags', $tags);
     }
 
     /**
