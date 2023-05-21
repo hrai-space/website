@@ -121,7 +121,7 @@ class MainController extends Controller
 
     public function forumSearch(Request $request, Article_Category $category)
     {
-        $posts = Article::where('category_id', $category->id);
+        $posts = Article::where('category_id', $category->id)->latest();
 
         $data['rowperpage'] = $this->rowperpage;
 
@@ -211,7 +211,7 @@ class MainController extends Controller
 
         // Fetch records
         $category = $request->get("category");
-        $posts = Article::where('category_id', $category);
+        $posts = Article::where('category_id', $category)->latest();
 
         $posts = $this->processPostsSearch($request, $posts)->skip($start)->take($this->rowperpage)->get();
 
@@ -303,7 +303,7 @@ class MainController extends Controller
     {
         return $article->where(function ($query) use ($request) {
             $query->where('title', 'LIKE', "%{$request->search}%")
-                ->orWhere('content', 'LIKE', "%{$request->search}%")->take($this->rowperpage)->get();
+                ->orWhere('content', 'LIKE', "%{$request->search}%")->take($this->rowperpage);
         });
     }
 }
