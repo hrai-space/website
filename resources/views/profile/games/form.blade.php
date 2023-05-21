@@ -99,9 +99,9 @@
                     <div id="{{old('screenshots.' . $i)}}" class="screenshot-box">
                         <img src="{{Storage::disk('do')->url('images/' . old('screenshots.' . $i))}}">
                         <input hidden="" name="screenshots[]{{$i}}" id="screenshot-data" value="{{old('screenshots.' . $i)}}">
-                        <button type="button" id="up" class="button" value="{{$screenshots[$i]->type}}">Вище</button>
-                        <button type="button" id="down" class="button edit" value="{{$screenshots[$i]->type}}">Нижче</button>
-                        <button type="button" id="delete" class="button delete" value="{{$screenshots[$i]->type}}">Видалити</button>
+                        <button type="button" id="up" class="button" value="{{$i}}">Вище</button>
+                        <button type="button" id="down" class="button edit" value="{{$i}}">Нижче</button>
+                        <button type="button" id="delete" class="button delete" value="{{$i}}">Видалити</button>
                     </div>
                 @endfor
             @elseif(isset($game))
