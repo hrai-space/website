@@ -134,7 +134,8 @@
             [{ 'align': [] }],
             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
             [{ 'list': 'ordered'}, { 'list': 'bullet' }],      // superscript/subscript
-            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+            [{ 'indent': '-1'}, { 'indent': '+1' }],   
+            ['link'],       // outdent/indent
             ['clean']                                         // remove formatting button
         ];
         var quill = new Quill('#editor', {
