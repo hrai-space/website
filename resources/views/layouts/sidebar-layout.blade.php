@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }} - @yield('title')</title>
     <link rel="icon" href="{{asset('/assets/img/icon.png')}}" type="image/icon type">
-
+    <meta property="og:title" content="{{config('app.name')}} - @yield('title')">
+    <meta property="og:image" content="{{asset('/assets/img/hrai.jpg')}}">
+    <meta property="og:description" content="Сайт для інді розробників ігор та їх фанатів">
+    <meta property="og:url" content="{{Request::url()}}">
+    <meta name="twitter:card" content="summary_large_image">
     <!-- Style CSS -->
     <link rel="stylesheet" href="{{asset('/assets/css')}}/@yield('css1')">
     <link rel="stylesheet" href="{{asset('/assets/css/style.css')}}">

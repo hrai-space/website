@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
 
 <head>
     <meta charset="UTF-8">
@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }} - @yield('title')</title>
 
-    <meta property="og:title" content="@isset($game){{$game->title}}@endisset">
-    <meta property="og:image" content="@isset($game){{Storage::disk('do')->url('images/' . $screenshots[0]->file)}}@endisset">
-    <meta property="og:description" content="@isset($game){{Str::limit(strip_tags($game->description), 256)}}@endisset">
+    <meta property="og:title" content="@if(isset($game)){{$game->title}}@elseif(isset($post)){{$post->title}}@else{{config('app.name')}} - @yield('title')@endif">
+    <meta property="og:image" content="@isset($game){{Storage::disk('do')->url('images/' . $screenshots[0]->file)}}@else{{asset('/assets/img/hrai.jpg')}}@endisset">
+    <meta property="og:description" content="@if(isset($game)){{Str::limit(strip_tags($game->description), 256)}}@elseif(isset($post)){{Str::limit(strip_tags($post->content), 256)}}@else{{'Сайт для інді розробників ігор та їх фанатів'}}@endif">
     <meta property="og:url" content="{{Request::url()}}">
     <meta name="twitter:card" content="summary_large_image">
 
