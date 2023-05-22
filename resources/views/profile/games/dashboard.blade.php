@@ -55,6 +55,7 @@
                     </div>
                 </div>
             @endforeach
+            <?php unset($game);?>
         </div>
 
 
