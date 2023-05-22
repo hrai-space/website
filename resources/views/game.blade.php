@@ -66,7 +66,7 @@
     </div>
 
     <div class="dev-content">
-        <p class="sect-name">Download</p>
+        <p class="sect-name">Завантажити</p>
         @foreach($game_files as $file)
             <p class="download">
                 <a href="{{Storage::disk('do')->url('files/' . $file->file)}}">{{$file->name}}</a>
