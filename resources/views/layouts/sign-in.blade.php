@@ -7,10 +7,10 @@
             <div class="col left"><a href="#">Увійти</a></div>
         </div>
         <div id="enter-forms" class="enter-forms">
-            <input type="text" value="{{old('input_type')}}" name="input_type" class="username enter-input" id= "username-input enter-input" placeholder="Нікнейм або пошта" onfocus="this.placeholder=''" onblur="this.placeholder='Username or email'" autocomplete="username"/>
+            <input type="text" value="{{old('input_type')}}" name="input_type" class="username enter-input" id= "username-input enter-input" placeholder="Нікнейм або пошта" onfocus="this.placeholder=''" onblur="this.placeholder='Нікнейм або пошта'" autocomplete="username"/>
             @include('layouts.error', ['fieldname' => 'email'])
             @include('layouts.error', ['fieldname' => 'username'])
-            <input type="password" name="password" class="pasword enter-input" id= "password-input enter-input" placeholder="Пароль" onfocus="this.placeholder=''" onblur="this.placeholder='Password'" autocomplete="current-password"/>
+            <input type="password" name="password" class="pasword enter-input" id= "password-input enter-input" placeholder="Пароль" onfocus="this.placeholder=''" onblur="this.placeholder='Пароль'" autocomplete="current-password"/>
             @include('layouts.error', ['fieldname' => 'password'])
             <span>
                 <p><input type="checkbox" name="remember" class="remember" id= "remember-input register-input" name="remember"> Запам'ятати мене</p>
