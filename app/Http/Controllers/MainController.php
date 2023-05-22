@@ -294,7 +294,7 @@ class MainController extends Controller
         return $game->where(function ($query) use ($request) {
             $query->where('title', 'LIKE', "%{$request->search}%")
                 ->orWhere('short_description', 'LIKE', "%{$request->search}%")
-                ->orWhere('description', 'LIKE', "%{$request->search}%")->take($this->rowperpage)->get();
+                ->orWhere('description', 'LIKE', "%{$request->search}%");
         })
             ->orWhereHas('tag', function ($query) use ($tags) {
                 $query = $query->whereIn('name', $tags);
@@ -305,7 +305,7 @@ class MainController extends Controller
     {
         return $article->where(function ($query) use ($request) {
             $query->where('title', 'LIKE', "%{$request->search}%")
-                ->orWhere('content', 'LIKE', "%{$request->search}%")->take($this->rowperpage);
+                ->orWhere('content', 'LIKE', "%{$request->search}%");
         });
     }
 }
