@@ -71,7 +71,7 @@
 
 <script>
     checkWindowSize();
-
+    var isCheckWindowsSize = true;
     // Check if the page has enough content or not. If not then fetch records
     function checkWindowSize() {
         if ($(window).height() >= $(document).height()) {
@@ -82,6 +82,7 @@
 
     // Fetch records
     function fetchData() {
+        isCheckWindowsSize = false;
         var start = Number($('#start').val());
         var allcount = Number($('#totalrecords').val());
         var rowperpage = Number($('#rowperpage').val());
@@ -106,7 +107,9 @@
                     $(".game-element:last").after(response.html).show().fadeIn("slow");
 
                     // Check if the page has enough content or not. If not then fetch records
+                    isCheckWindowsSize = true;
                     checkWindowSize();
+                    
                 }
             });
         }
@@ -116,7 +119,8 @@
 
     function onScroll() {
         if ($(window).scrollTop() > $(document).height() - $(window).height() - 500) {
-            fetchData();
+            if(isCheckWindowsSize)
+                fetchData();
         }
     }
 
