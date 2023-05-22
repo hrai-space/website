@@ -47,13 +47,7 @@ class ArticleController extends Controller
         $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/newart';
         $params['query'] = array('id' => $post->id, 'name' => $post->title, 'url' => route('forum.show', $post->id));
         
-        try {
-            $response = $client->post($URI, $params);   
-        }
-        catch (ServerException $e) {
-            $response = $e->getResponse();
-            $responseBodyAsString = $response->getBody()->getContents();
-        }
+        $response = $client->post($URI, $params);
         return redirect()->route('forum.show', $post);
     }
 
@@ -97,13 +91,7 @@ class ArticleController extends Controller
         $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/redart';
         $params['query'] = array('id' => $post->id, 'name' => $post->title, 'url' => route('forum.show', $post->id));
         
-        try {
-            $response = $client->post($URI, $params);   
-        }
-        catch (ServerException $e) {
-            $response = $e->getResponse();
-            $responseBodyAsString = $response->getBody()->getContents();
-        }
+        $response = $client->post($URI, $params);   
         return redirect()->route('forum.show', $post);
         
     }

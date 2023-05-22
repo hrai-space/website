@@ -92,14 +92,7 @@ class GameController extends Controller
         $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/newgame';
         $params['query'] = array('id' => $game->id, 'name' => $game->title, 'url' => route('game.show', $game->id));
         
-        try {
-            $response = $client->post($URI, $params);   
-        }
-        catch (ServerException $e) {
-            $response = $e->getResponse();
-            $responseBodyAsString = $response->getBody()->getContents();
-        }
-
+        $response = $client->post($URI, $params);   
         return redirect()->route('dashboard.games');
     }
 
@@ -214,14 +207,7 @@ class GameController extends Controller
         $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/redgame';
         $params['query'] = array('id' => $game->id, 'name' => $game->title, 'url' => route('game.show', $game->id));
         
-        try {
-            $response = $client->post($URI, $params);   
-        }
-        catch (ServerException $e) {
-            $response = $e->getResponse();
-            $responseBodyAsString = $response->getBody()->getContents();
-        }
-
+        $response = $client->post($URI, $params);   
         return redirect()->route('dashboard.games');
     }
 
