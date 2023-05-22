@@ -12,8 +12,14 @@
                 <p class="level-text">{{$comment->text}}</p>
                 <div class="box-info">
                         <button class="level-like" name="like" value="{{$comment->id}}" type="submit" style="background-color: transparent;">
-                        @if($comment->isLiked(Auth::user()->id))<span class="iconify" data-icon="ant-design:like-filled"></span> Вподобано 
-                        @else <span class="iconify" data-icon="ant-design:like-outlined"></span> Вподобати @endif
+                        @auth
+                        @if($comment->isLiked(Auth::user()->id))
+                        <span class="iconify" data-icon="ant-design:like-filled"></span> Вподобано 
+                        @else <span class="iconify" data-icon="ant-design:like-outlined"></span> Вподобати 
+                        @endif
+                        @else
+                        <span class="iconify" data-icon="ant-design:like-outlined"></span> Вподобати 
+                        @endauth
                         (<span id="likes">{{$comment->likes}}</span>)</button>
                     <a class="level-reply" style="cursor: pointer;" data-comment="{{$comment->id}}">Відповісти</a>
                     <!--<a href="#" class="level-report yp-trigger">Report</a>-->

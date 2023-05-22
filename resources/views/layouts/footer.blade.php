@@ -5,10 +5,10 @@
         <span class="logo-footer"><img src="{{URL::asset('assets/img/logo.svg')}}" alt="logo"></span>
         <div class="row">
             <div class="col socials">
-                <span class="iconify" data-icon="mdi:instagram"></span>
-                <span class="iconify" data-icon="ph:twitter-logo-bold"></span>
-                <span class="iconify" data-icon="ph:telegram-logo-bold"></span>
-                <span class="iconify last" data-icon="tabler:brand-tiktok"></span>
+                <a href="https://www.instagram.com/hrai.space/"><span class="iconify" data-icon="mdi:instagram"></span></a>
+                <a href="https://twitter.com/HraiSpace"><span class="iconify" data-icon="ph:twitter-logo-bold"></span></a>
+                <a href="https://t.me/Hrai_Space"><span class="iconify" data-icon="ph:telegram-logo-bold"></span></a>
+                <a href="https://www.tiktok.com/@hrai.space"><span class="iconify last" data-icon="tabler:brand-tiktok"></span></a>
             </div>
             <div class="col footer-menu">
                 <li class="footer-list-element">

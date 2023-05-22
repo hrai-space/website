@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name') }} - @yield('title')</title>
 
+    <meta property="og:title" content="@isset($game){{$game->title}}@endisset">
+    <meta property="og:image" content="@isset($game){{Storage::disk('do')->url('images/' . $screenshots[0]->file)}}@endisset">
+    <meta property="og:description" content="@isset($game){{Str::limit(strip_tags($game->description), 256)}}@endisset">
+    <meta property="og:url" content="{{Request::url()}}">
+    <meta name="twitter:card" content="summary_large_image">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('/assets/img/icon.png')}}" type="image/icon type">
     <!-- Style CSS -->

@@ -31,6 +31,9 @@
         @include('layouts.error', ['fieldname' => 'description'])
         <h3 style="margin-top: 30px;">Завантажте файли гри</h3>
         <p>У форматі архіву .zip</p>
+        <div class="progress" style="max-width: 300px; visibility: hidden;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+        </div>
         <label class="button edit" for="files-upload"><span class="iconify" data-icon="material-symbols:drive-folder-upload-outline"></span> Завантажити</label>
         <input type="file" multiple="multiple" class="form-control" id="files-upload" hidden />
         @include('layouts.error', ['fieldname' => 'GameFile'])
@@ -214,8 +217,10 @@
                         fileNumber++;
                         j++;
                     });
+                    $(".progress").css("visibility", "hidden");
                 },
                 error: function(response) {
+                    $(".progress").css("visibility", "hidden");
                     $.each(response.responseJSON.errors,function(field_name,error){
                         $('<div class="alert alert-light alert-dismissible fade show" id="ImageFile-error" role="alert" style="margin-top: 75px;">' + error + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>').appendTo('div.files');
                     })
@@ -341,6 +346,7 @@
         });
 
         $('#files-upload').on('change', function() {
+            $(".progress").css("visibility", "visible");
             filePreview(this, 'div.files');
         });
 
