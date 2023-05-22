@@ -30,7 +30,7 @@
             <hr>
             <li><label><a href="{{route('forum')}}">Форум</a></label></li>
             <hr>
-            <li><label><a href="#">Лаунчер</a></label></li>
+            <li><label><a href="{{Storage::disk('do')->url('files/Hrai-Space-setup.exe')}}">Лаунчер</a></label></li>
             <hr>
             <li><label><a href="{{route('forum.show', 2)}}">Про нас</a></label></li>
             <hr>
@@ -82,7 +82,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#">
+            <a href="{{Storage::disk('do')->url('files/Hrai-Space-setup.exe')}}">
                 <span class="unchosed">Лаунчер</span>
             </a>
         </li>

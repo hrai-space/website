@@ -69,7 +69,7 @@
                             </a>
                         </li>
                         <li class="list-element">
-                            <a href="#">
+                            <a href="{{Storage::disk('do')->url('files/Hrai-Space-setup.exe')}}">
                                 <span class="iconify" data-icon="grommet-icons:status-unknown"></span>
                                 <span class="side-nav-text">Лаунчер</span>
                             </a>
@@ -247,7 +247,7 @@
                             <hr>
                             <li><a href="{{route('forum')}}"><label>Форум</label></a></li>
                             <hr>
-                            <li><a href=""><label>Лаунчер</label></a></li>
+                            <li><a href="{{Storage::disk('do')->url('files/Hrai-Space-setup.exe')}}"><label>Лаунчер</label></a></li>
                             <hr>
                             <li><a href="{{route('forum.show', 2)}}"><label>Про нас</label></a></li>
                             <hr>
