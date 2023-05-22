@@ -95,7 +95,7 @@ class ArticleController extends Controller
         $post->save();
         $client = new Client();
         $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/redart';
-        $params['query'] = array('id' => $post->id, 'name' => $post->title, 'contents' => route('forum.show', $post->id));
+        $params['query'] = array('id' => $post->id, 'name' => $post->title, 'url' => route('forum.show', $post->id));
         
         try {
             $response = $client->post($URI, $params);   
