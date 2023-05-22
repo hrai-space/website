@@ -211,7 +211,7 @@ class GameController extends Controller
         }
 
         $client = new Client();
-        $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/newgame';
+        $URI = 'https://clownfish-app-ke89z.ondigitalocean.app/redgame';
         $params['query'] = array('id' => $game->id, 'name' => $game->title, 'url' => route('game.show', $game->id));
         
         try {
