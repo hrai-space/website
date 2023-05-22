@@ -83,9 +83,10 @@ class MainController extends Controller
 
         $data['rowperpage'] = $this->rowperpage;
         $data['games'] = $this->processSearch($request);
-        $data['games'] = $this->processFilters($filters, $data['games'])->take($this->rowperpage)->get();
 
         $data['totalrecords'] = $data['games']->count();
+
+        $data['games'] = $this->processFilters($filters, $data['games'])->take($this->rowperpage)->get();
         
         $data['search'] = $request->search;
 
