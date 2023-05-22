@@ -83,9 +83,9 @@ class MainController extends Controller
 
         $data['rowperpage'] = $this->rowperpage;
         $data['games'] = $this->processFilters($filters);
-        $data['games'] = $this->processSearch($request, $data['games'])->take($this->rowperpage)->get();
 
         $data['totalrecords'] = $data['games']->count();
+        $data['games'] = $this->processSearch($request, $data['games'])->take($this->rowperpage)->get();
         $data['search'] = $request->search;
 
         $usedFilters = $this->prepareUsedFilters($filters);
@@ -125,9 +125,11 @@ class MainController extends Controller
 
         $data['rowperpage'] = $this->rowperpage;
 
-        $data['posts'] = $this->processPostsSearch($request, $posts)->take($this->rowperpage)->get();
+        $data['posts'] = $this->processPostsSearch($request, $posts);
 
         $data['totalrecords'] = $data['posts']->count();
+        $data['posts'] = $data['posts']->take($this->rowperpage)->get();
+
         $data['search'] = $request->search;
         $data['category'] = $category->id;
 
