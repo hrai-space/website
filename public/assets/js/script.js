@@ -279,7 +279,7 @@ new Chart(ctx, {
             legend: { display: !1 },
             title: {
                 display: !0,
-                text: "Views",
+                text: "Перегляди",
                 color: "#fff",
                 align: "start",
                 font: {
@@ -331,7 +331,7 @@ new Chart(ct, {
             legend: { display: !1 },
             title: {
                 display: !0,
-                text: "Downloads",
+                text: "Завантаження",
                 color: "#fff",
                 align: "start",
                 font: {

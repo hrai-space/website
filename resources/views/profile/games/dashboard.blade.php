@@ -9,10 +9,10 @@
 <!-- Content -->
 
 <div class="topic">
-    <span>Creator Dashboard</span>
+    <span>Мої ігри</span>
 </div>
 <div class="dashboard">
-    <a href="#" class="dashboard-menu active"><span>Projects</span></a>
+    <a href="#" class="dashboard-menu active"><span>Проєкти</span></a>
     <div class="row dashboard-row">
         @if(Auth::user()->game->count() != 0)
         <div class="col info-col">
@@ -60,18 +60,18 @@
 
 
         <div class="col analytics">
-            <h1 class="analytics-header">Analytics</h1>
+            <h1 class="analytics-header">Статистика</h1>
             <ul class="analytics-list">
                 <li class="analytics-list-item">
                     <a onclick="drop()">
-                        <span id="text">Game</span>
+                        <span id="text">Ігри</span>
                         <span class="iconify" id="triangle" data-icon="tabler:triangle-filled"></span>
                     </a>
 
                     <ul class="analytics-list-hidden">
                         <li class="analytics-list-item-hidden chosed">
                             <a href="#">
-                                <span>All</span>
+                                <span>Всі</span>
                             </a>
                         </li>
                         <li class="analytics-list-item-hidden">
@@ -98,24 +98,24 @@
                 </li>
                 <li class="analytics-list-item">
                     <a onclick="dropSecond()">
-                        <span class="side-nav-text" id="text-second">Interval</span>
+                        <span class="side-nav-text" id="text-second">Період</span>
                         <span class="iconify side-nav-filter-icon" id="triangle-second" data-icon="tabler:triangle-filled"></span>
                     </a>
 
                     <ul class="analytics-list-hidden">
                         <li class="analytics-list-item-hidden-second chosed">
                             <a href="#">
-                                <span>Daily</span>
+                                <span>Денний</span>
                             </a>
                         </li>
                         <li class="analytics-list-item-hidden-second">
                             <a href="#">
-                                <span>Weekly</span>
+                                <span>Тижневий</span>
                             </a>
                         </li>
                         <li class="analytics-list-item-hidden-second">
                             <a href="#">
-                                <span>Monthly</span>
+                                <span>Місячний</span>
                             </a>
                         </li>
                     </ul>
