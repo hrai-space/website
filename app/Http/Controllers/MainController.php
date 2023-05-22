@@ -82,10 +82,11 @@ class MainController extends Controller
         $filters = explode('/', $filters);
 
         $data['rowperpage'] = $this->rowperpage;
-        $data['games'] = $this->processFilters($filters);
+        $data['games'] = $this->processSearch($request);
+        $data['games'] = $this->processFilters($filters, $data['games'])->take($this->rowperpage)->get();
 
         $data['totalrecords'] = $data['games']->count();
-        $data['games'] = $this->processSearch($request, $data['games'])->take($this->rowperpage)->get();
+        
         $data['search'] = $request->search;
 
         $usedFilters = $this->prepareUsedFilters($filters);
@@ -143,10 +144,13 @@ class MainController extends Controller
 
         $filters = $request->get("filters");
         $filters = explode('/', $filters);
+        $games = $this->processSearch($request);
+
         if ($filters != null) {
-            $games = $this->processFilters($filters);
+            $games = $this->processFilters($filters, $games);
         }
-        $games = $this->processSearch($request, $games)->skip($start)->take($this->rowperpage)->get();
+
+        $games = $games->skip($start)->take($this->rowperpage)->get();
 
         foreach($games as $game){
             $game->platforms = $game->getPlatforms();
@@ -258,10 +262,8 @@ class MainController extends Controller
     //    dd($this->processFilters($filters)->take($this->rowperpage)->get());
     //}
 
-    function processFilters($filters)
+    function processFilters($filters, $games)
     {
-        $games = new Game();
-        
         foreach ($filters as $filter) {
             if (str_starts_with($filter, $this->gameFilterParameters[0])) {
                 $filter = str_replace($this->gameFilterParameters[0], "", $filter);
@@ -288,8 +290,10 @@ class MainController extends Controller
         return $games;
     }
 
-    function processSearch($request, $game)
+    function processSearch($request)
     {
+        $game = new Game();
+
         $tags = explode(" ", $request->search);
         return $game->where(function ($query) use ($request) {
             $query->where('title', 'LIKE', "%{$request->search}%")
