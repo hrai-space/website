@@ -1,7 +1,7 @@
 <br/>
 <p align="center">
   <a href="https://hrai.space/">
-    <img src="https://hraispacestorage.fra1.digitaloceanspaces.com/images/cdc86678-64a7-473f-9be5-16b8696ab317" alt="Logo" width="80" height="80">
+    <img src="https://hraispacestorage.fra1.digitaloceanspaces.com/images/cdc86678-64a7-473f-9be5-16b8696ab317" alt="Logo" width="160" height="160">
   </a>
 
   <h3 align="center">Hrai.space</h3>
@@ -11,7 +11,6 @@
     <br/>
     <br/>
     <a href="https://hrai.space/">Website</a>
-    .
   </p>
 </p>
 
@@ -37,9 +36,9 @@ Key Features:
 
 At hrai.space, we believe that every creative spark deserves to be recognized and celebrated. We are dedicated to providing a platform that empowers creators, fosters community engagement, and facilitates the discovery of remarkable projects. Join us on hrai.space and embark on an immersive journey of artistic exploration today. Unleash your imagination, connect with others, and let your creativity soar!
 
-![Home page](https://hrai.space/assets/img/home.png)
-![Games page](https://hrai.space/assets/img/filters.png)
-![Forum page](https://hrai.space/assets/img/forum.png)
+![Home page](https://hrai.space/assets/img/home-min.png)
+![Games page](https://hrai.space/assets/img/filters-min.png)
+![Forum page](https://hrai.space/assets/img/forum-min.png)
 
 ## Built With
 
@@ -58,4 +57,4 @@ Distributed under the MIT License. See [LICENSE](https://github.com/Tommy4chan/h
 
 * **Panurin Anton** - *Student of Lviv Polytechnic* - [Panurin Anton](https://github.com/Tommy4chan) - *Backeend Developer, Team Lead*
 * **Khalus Maxim** - *Student of Lviv Polytechnic* - [Khalus Maxim](https://github.com/Aguonoss) - *Backeend Developer*
-* **Olekh Roman** - * student of LNU* - [Olekh Roman]() - *Frontend Developer*
+* **Olekh Roman** - *Student of LNU* - *Frontend Developer*
